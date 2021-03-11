@@ -21,11 +21,11 @@ namespace BlackJackKataConsole
                 handValue += (int) card._rank;
                 if (card._rank == Rank.Ace)
                 {
+                    if (handValue > 21)
+                    {
+                        handValue -= 10; //Take away the 11 ace and make it 1 instead
+                    }
                 }
-            }
-            if (handValue > 21 && theirCards.Any(x => x._rank == Rank.Ace))
-            {
-                handValue -= 10; //Take away the 11 ace and make it 1 instead
             }
             return handValue;
         }
@@ -47,7 +47,7 @@ namespace BlackJackKataConsole
         }
         public void PrintPlayerProgress(Hand playersHand, int playerHandValue)
         {
-            Console.WriteLine($"\nYou are currently at {playerHandValue}");
+            Console.WriteLine($"You are currently at {playerHandValue}");
             Console.Write($"With the hand ");
             foreach (Card card in playersHand.theirCards)
             {
