@@ -27,13 +27,6 @@ namespace BlackJackKataConsole
                 Console.WriteLine("\nYou bet the dealer!");
                 return;
             }
-
-            if (playerHandValue > 21)
-            {
-                
-            }
-            Console.WriteLine($"\nDealer is at {dealerHandValue}");
-            dealersHand.PrintProgress(dealersHand);
             Console.WriteLine("\nThe dealer bet you! Better luck next time!");
         }
     }

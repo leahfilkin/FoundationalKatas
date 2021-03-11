@@ -42,12 +42,7 @@ namespace BlackJackKataConsole
                         var dealerHandValue = dealersHand.CalculateHandValue();
                         var dealerHandMinimum = 17;
                         var dealersFirstHand = true;
-                        if (dealerHandValue > dealerHandMinimum)
-                        {
-                            Console.WriteLine($"\nDealer is at {dealerHandValue}");
-                            dealersHand.PrintProgress(dealersHand);
-                        }
-                        while (dealerHandValue <= dealerHandMinimum || (dealerHandValue < playerHandValue && dealerHandValue > 17))
+                        while (dealerHandValue <= dealerHandMinimum || dealerHandValue <= playerHandValue && dealerHandValue > 17)
                         {
                             if (!dealersFirstHand)
                             {
@@ -62,7 +57,13 @@ namespace BlackJackKataConsole
                             int milliseconds = 3000;
                             Thread.Sleep(milliseconds);
                         }
-                        winChecker.PrintOutcomeMessage(dealerHandValue, playerHandValue, dealersHand); 
+                        if (dealerHandValue > dealerHandMinimum && dealerHandValue < 21)
+                        {
+                            Console.WriteLine($"\nDealer is at {dealerHandValue}");
+                            dealersHand.PrintProgress(dealersHand);
+                        }
+                        winChecker.PrintOutcomeMessage(dealerHandValue, playerHandValue, dealersHand);
+                        return;
                     }
                     // If hit, 
                     if (hitOrStay == "1")
