@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Net.Mime;
 using System.Runtime.CompilerServices;
-using System.Threading;
 
 namespace BlackJackKataConsole
 {
@@ -37,33 +36,6 @@ namespace BlackJackKataConsole
                     // Ask to hit or stay
                     Console.Write("\nHit or stay? (Hit = 1, Stay = 0) ");
                     hitOrStay = Console.ReadLine();
-                    if (hitOrStay == "0")
-                    {
-                        var dealerHandValue = dealersHand.CalculateHandValue();
-                        var dealerHandMinimum = 17;
-                        var dealersFirstHand = true;
-                        if (dealerHandValue > dealerHandMinimum)
-                        {
-                            Console.WriteLine($"\nDealer is at {dealerHandValue}");
-                            dealersHand.PrintProgress(dealersHand);
-                        }
-                        while (dealerHandValue <= dealerHandMinimum || (dealerHandValue < playerHandValue && dealerHandValue > 17))
-                        {
-                            if (!dealersFirstHand)
-                            {
-                                dealersHand.theirCards.Add(deck.GetRandomCard());
-                                //show them what card they got
-                                Console.Write($"\nDealer draws {dealersHand.theirCards.Last()} ");
-                            }
-                            dealersFirstHand = false;
-                            dealerHandValue = dealersHand.CalculateHandValue();
-                            Console.WriteLine($"\nDealer is at {dealerHandValue}");
-                            dealersHand.PrintProgress(dealersHand);
-                            int milliseconds = 3000;
-                            Thread.Sleep(milliseconds);
-                        }
-                        winChecker.PrintOutcomeMessage(dealerHandValue, playerHandValue, dealersHand); 
-                    }
                     // If hit, 
                     if (hitOrStay == "1")
                     {
@@ -72,6 +44,8 @@ namespace BlackJackKataConsole
                         //show them what card they got
                         Console.Write($"You draw {playersHand.theirCards.Last()}");
                         playerHandValue = playersHand.CalculateHandValue();
+                        Console.WriteLine($"\nYou are currently at {playerHandValue}");
+                        playersHand.PrintProgress(playersHand);
                     }
                 }
                 if (youArePlaying)
@@ -93,8 +67,26 @@ namespace BlackJackKataConsole
                 
                 // Dealer draws until they get over 17, then stay unless they get a card low enough to get them closer
                 // to 21
+                youArePlaying = false;
             }
-        }
+            var dealerHandValue = dealersHand.CalculateHandValue();
+            var dealerHandMinimum = 17;
+            var dealersFirstHand = true;
+            while (dealerHandValue <= dealerHandMinimum)
+            {
+                if (!dealersFirstHand)
+                {
+                    dealersHand.theirCards.Add(deck.GetRandomCard());
+                    //show them what card they got
+                    Console.Write($"\nDealer draws {playersHand.theirCards.Last()} ");
+                }
+                dealersFirstHand = false;
+                dealerHandValue = dealersHand.CalculateHandValue();
+                Console.WriteLine($"\nDealer is at {dealerHandValue}");
+                dealersHand.PrintProgress(dealersHand);
+            } 
+            winChecker.PrintOutcomeMessage(dealerHandValue, playerHandValue, dealersHand); 
+            }
         }
     }
 
