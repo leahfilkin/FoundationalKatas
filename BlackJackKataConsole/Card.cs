@@ -12,15 +12,10 @@ namespace BlackJackKataConsole
             Suit = suit;
             Rank = rank;
         }
-
-        public void PrintCard()
-        {
-            Console.Write($"[{Rank} of {Suit}] ");
-        }
-
+        
         public override string ToString()
         {
-            return $"[{Rank} of {Suit}] ";
+            return $"[{Rank} of {Suit}]";
         }
     }
 }
