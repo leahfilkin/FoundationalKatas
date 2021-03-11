@@ -4,8 +4,8 @@ namespace BlackJackKataConsole
 {
     public class Card
     {
-        private Suit _suit;
-        private Rank _rank;
+        public Suit _suit;
+        public Rank _rank;
         
         public Card(Suit suit, Rank rank)
         {
@@ -13,9 +13,9 @@ namespace BlackJackKataConsole
             _rank = rank;
         }
 
-        public void PrintCard(Card card)
+        public void PrintCard()
         {
-            Console.WriteLine($"{_suit}, {_rank}");
+            Console.Write($"[{_rank} of {_suit}] ");
         }
     }
 }

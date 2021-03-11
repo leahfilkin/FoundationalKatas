@@ -2,9 +2,8 @@ namespace BlackJackKataConsole
 
 {
     public enum Rank
-    {
-    Ace = 1,
-    Two,
+    { 
+    Two = 2,
     Three,
     Four,
     Five,
@@ -15,7 +14,7 @@ namespace BlackJackKataConsole
     Ten,
     Jack = 10,
     Queen = 10,
-    King = 10,
-    SecondAce = 11// ?? Dont know how to give an enum two values for same key
+    King = 10, 
+    Ace = 11,
     }
 }

@@ -5,7 +5,6 @@ namespace BlackJackKataConsole
     public class Player
     {
         private List<Card> cards = new List<Card>();
-        
     }
     
 }

@@ -23,7 +23,7 @@ namespace BlackJackKataConsole
         
         public Card GetRandomCard()
         {
-            var random = new Random();
+            Random random = new Random();
             var randomIndex = random.Next(cards.Count);
             var cardToReturn = cards[randomIndex];
             cards.Remove(cards[randomIndex]);
