@@ -43,6 +43,7 @@ namespace BlackJackKataConsole
                         var lastCard = playersHand.theirCards.Last();
                         //show them what card they got
                         Console.Write($"You draw ");
+                        playersHand.CalculateHandValue();
                         lastCard.PrintCard();
                     }
                     if (hitOrStay == "0")
@@ -88,7 +89,7 @@ namespace BlackJackKataConsole
                             return;
                         }
                         dealersHand.PrintDealerProgress(dealersHand, dealerHandValue);
-                        Console.WriteLine("The dealer bet you! Better luck next time!");
+                        Console.WriteLine("\nThe dealer bet you! Better luck next time!");
 
 
                     }
@@ -100,6 +101,7 @@ namespace BlackJackKataConsole
                     playerHandValue = playersHand.CalculateHandValue();
                     if (playerHandValue > 21)
                     {
+                        playersHand.PrintPlayerProgress(playersHand, playerHandValue);
                         Console.WriteLine("\nBUST! Better luck next time!");
                         return;
                     }
