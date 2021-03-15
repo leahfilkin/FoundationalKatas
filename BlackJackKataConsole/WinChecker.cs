@@ -5,29 +5,16 @@ namespace BlackJackKataConsole
 {
     public class WinChecker
     {
-        public void PrintOutcomeMessage(int dealerHandValue, int playerHandValue, Hand dealersHand)
+        public void DetermineWinnerAndPrintMessage(Game game)
         {
-            if (dealerHandValue == playerHandValue)
+            if (game.DealerHandValue == game.PlayerHandValue) Console.WriteLine("\nPUSH! Dealer and player tied!"); 
+            if (game.DealerHandValue == 21) Console.WriteLine("\nBLACKJACK! Dealer wins!"); 
+            if (game.DealerHandValue > 21) Console.WriteLine("\nDealer is bust! You win!");
+            if (game.DealerHandValue < game.PlayerHandValue) Console.WriteLine("\nYou bet the dealer!");
+            if (game.DealerHandValue > game.PlayerHandValue && game.DealerHandValue < 21)
             {
-                Console.WriteLine("\nPUSH! Dealer and player tied!");
-                return;
+                Console.WriteLine("\nThe dealer bet you! Better luck next time!");
             }
-            if (dealerHandValue == 21)
-            {
-                Console.WriteLine("\nBLACKJACK! Dealer wins!");
-                return;
-            }
-            if (dealerHandValue > 21)
-            {
-                Console.WriteLine("\nDealer is bust! You win!");
-                return;
-            }
-            if (dealerHandValue < playerHandValue)
-            {
-                Console.WriteLine("\nYou bet the dealer!");
-                return;
-            }
-            Console.WriteLine("\nThe dealer bet you! Better luck next time!");
         }
     }
 }

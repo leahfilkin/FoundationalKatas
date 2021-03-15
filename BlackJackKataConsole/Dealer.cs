@@ -5,13 +5,12 @@ namespace BlackJackKataConsole
 {
     public class Dealer
     {
-        public Hand AddFirstCardsToHand(Hand hand, Deck deck, int amountOfCards)
+        const int DealerHandMinimum = 17;
+
+        public bool ShouldHit(int DealerHandValue, int PlayerHandValue)
         {
-            for (var i = 0; i < amountOfCards; i++)
-            {
-                hand.theirCards.Add(deck.GetRandomCard());
-            }
-            return hand;
+            return DealerHandValue <= DealerHandMinimum ||
+                    DealerHandValue <= PlayerHandValue;
         }
     }
 }
