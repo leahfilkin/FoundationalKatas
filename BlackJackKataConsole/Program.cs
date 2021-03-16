@@ -11,14 +11,10 @@ namespace BlackJackKataConsole
         public static void Main(string[] args)
         {
             Console.WriteLine("Welcome to BlackJack!");
-            Deck deck = new Deck();
-            Dealer dealer = new Dealer();
-            var gameCreator = new GameCreator();
-            var winChecker = new WinChecker();
-            var game = gameCreator.SetUpGame(deck);
-            game.PlayersTurn(deck);
-            game.DealersTurn(dealer, deck);
-            winChecker.DetermineWinnerAndPrintMessage(game);
+            var game = new Game();
+            game.ExecutePlayersTurn();
+            game.ExecuteDealersTurn();
+            WinChecker.DisplayWinner(game);
         }
     }
 }

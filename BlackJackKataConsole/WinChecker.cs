@@ -5,7 +5,7 @@ namespace BlackJackKataConsole
 {
     public class WinChecker
     {
-        public void DetermineWinnerAndPrintMessage(Game game)
+        public static void DisplayWinner(Game game)
         {
             if (game.DealerHandValue == game.PlayerHandValue) Console.WriteLine("\nPUSH! Dealer and player tied!"); 
             if (game.DealerHandValue == 21) Console.WriteLine("\nBLACKJACK! Dealer wins!"); 

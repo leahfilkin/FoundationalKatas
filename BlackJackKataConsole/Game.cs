@@ -6,19 +6,29 @@ namespace BlackJackKataConsole
 {
     public class Game
     {
-        private Hand _playersHand;
-        private Hand _dealersHand;
-        public int PlayerHandValue;
-        public int DealerHandValue;
-        
+        private Hand _playersHand = new Hand();
+        private Hand _dealersHand = new Hand();
+        public int PlayerHandValue = 0;
+        public int DealerHandValue = 0;
+        private Deck _deck = new Deck();
+        private Dealer _dealer = new Dealer();
 
-        public Game(Hand playersHand, Hand dealersHand)
+        public Game()
         {
-            _playersHand = playersHand;
-            _dealersHand = dealersHand;
+            _playersHand = AddFirstCardsToHand(_playersHand, _deck, 2);
+            _dealersHand = AddFirstCardsToHand(_dealersHand, _deck, 2);
+            
         }
 
-        public void PlayersTurn(Deck deck)
+        public Hand AddFirstCardsToHand(Hand hand, Deck deck, int amountOfCards)
+        {
+            for (var i = 0; i < amountOfCards; i++)
+            {
+                hand.theirCards.Add(deck.GetRandomCard());
+            }
+            return hand;
+        }
+        public void ExecutePlayersTurn()
         {
             while (true) 
             {
@@ -36,20 +46,19 @@ namespace BlackJackKataConsole
                 {
                     break;
                 }
-                _playersHand.theirCards.Add(deck.GetRandomCard());
+                _playersHand.theirCards.Add(_deck.GetRandomCard());
                 Console.Write($"You draw {_playersHand.theirCards.Last()}");
             }
         }
 
-        public void DealersTurn(Dealer dealer, Deck deck)
+        public void ExecuteDealersTurn()
         {
             var hasSeenFirstCards = false;
-            DealerHandValue = _dealersHand.CalculateHandValue();
-            while (dealer.ShouldHit(DealerHandValue, PlayerHandValue))
+            do
             {
-                if (hasSeenFirstCards) 
+                if (hasSeenFirstCards)
                 {
-                    _dealersHand.theirCards.Add(deck.GetRandomCard());
+                    _dealersHand.theirCards.Add(_deck.GetRandomCard());
                     Console.Write($"\nDealer draws {_dealersHand.theirCards.Last()} ");
                 }
                 hasSeenFirstCards = true;
@@ -58,7 +67,7 @@ namespace BlackJackKataConsole
                 _dealersHand.PrintProgress(_dealersHand);
                 int milliseconds = 3000;
                 Thread.Sleep(milliseconds);
-            }
+            } while (_dealer.ShouldHit(DealerHandValue, PlayerHandValue));
         }
     }
 }
