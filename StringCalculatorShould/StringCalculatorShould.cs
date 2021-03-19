@@ -85,5 +85,17 @@ namespace StringCalculatorShould
             var exceptionMessage = Assert.Throws<ArgumentException>(() => adder.Add(numberString)).Message;
             Assert.Equal("Negatives not allowed: -1, -3", exceptionMessage);
         }
+
+        [Fact]
+        public void NotThrowExceptionWhenSlashIsLastCharacter()
+        {
+            var adder = new Adder();
+            var numberString = "1,2,//";
+            
+            var output = adder.Add(numberString);
+            
+            Assert.Equal(3, output);
+            
+        } 
     }
 }

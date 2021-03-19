@@ -11,8 +11,11 @@ namespace StringCalculator
             var delimiterList = new List<char>{',', '\n', '/'};
             if (input.Contains("//"))
             {
-                var delimiter = input.Substring(input.LastIndexOf('/')+1,1);
-                delimiterList.Add(Convert.ToChar(delimiter));
+                if (input.LastIndexOf('/') != input.Length - 1)
+                {
+                    var delimiter = input.Substring(input.LastIndexOf('/')+1,1);
+                    delimiterList.Add(Convert.ToChar(delimiter));
+                }
             }
             var numbers = input.Split(delimiterList.ToArray());
             if (input.Contains('-'))
@@ -27,7 +30,7 @@ namespace StringCalculator
                 return 0;
             }
             numbers = numbers.Where(x => !string.IsNullOrEmpty(x)).ToArray();
-            if (input.IndexOfAny(delimiterList) != -1)
+            if (input.IndexOfAny(delimiterList.ToArray()) != -1)
             {
                 var sum = 0;
                 foreach (var number in numbers)
