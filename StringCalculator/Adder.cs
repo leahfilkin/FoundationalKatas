@@ -8,21 +8,28 @@ namespace StringCalculator
     {
         public int Add(string input)
         {
-            var delimiterList = new[] {',', '\n', '/'};
+            var delimiterList = new List<char>{',', '\n', '/'};
+            if (input.Contains("//"))
+            {
+                var delimiter = input.Substring(input.LastIndexOf('/')+1,1);
+                delimiterList.Add(Convert.ToChar(delimiter));
+            }
+            var numbers = input.Split(delimiterList.ToArray());
+            if (input.Contains('-'))
+            {
+                var negativeNumbers = numbers.Where(x => x.First() == '-')
+                    .Where(x => !string.IsNullOrEmpty(x));
+                throw new ArgumentException
+                    ($"Negatives not allowed: {string.Join(", ",negativeNumbers)}");
+            }
             if (input == "")
             {
                 return 0;
             }
-            if (input.Contains("//"))
-            {
-                var delimiter = ";";
-                delimiterList = new[] {',', '\n', '/', Convert.ToChar(delimiter)};
-            }
+            numbers = numbers.Where(x => !string.IsNullOrEmpty(x)).ToArray();
             if (input.IndexOfAny(delimiterList) != -1)
             {
                 var sum = 0;
-                string[] numbers = input.Split(delimiterList);
-                numbers = numbers.Where(x => !string.IsNullOrEmpty(x)).ToArray();
                 foreach (var number in numbers)
                 {
                     sum += Convert.ToInt32(number);

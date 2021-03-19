@@ -72,5 +72,18 @@ namespace StringCalculatorShould
             
             Assert.Equal(3, output);
         }
+
+        [Fact]
+        public void ThrowErrorIfAddFunctionIsGivenNegativeNumber()
+        {
+            //arrange
+            var adder = new Adder();
+            var numberString = "-1,2,-3";
+
+            //act
+            //assert
+            var exceptionMessage = Assert.Throws<ArgumentException>(() => adder.Add(numberString)).Message;
+            Assert.Equal("Negatives not allowed: -1, -3", exceptionMessage);
+        }
     }
 }
