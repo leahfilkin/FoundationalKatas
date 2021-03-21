@@ -95,7 +95,19 @@ namespace StringCalculatorShould
             var output = adder.Add(numberString);
             
             Assert.Equal(3, output);
+        }
+
+        [Fact]
+        public void IgnoreNumbersOver1000()
+        {
+            var adder = new Adder();
+            var numberString = "1000,1001,2";
             
-        } 
+            var output = adder.Add(numberString);
+            
+            Assert.Equal(2, output);
+
+
+        }
     }
 }

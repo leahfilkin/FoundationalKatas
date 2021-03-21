@@ -35,6 +35,10 @@ namespace StringCalculator
                 var sum = 0;
                 foreach (var number in numbers)
                 {
+                    if (Convert.ToInt32(number) >= 1000)
+                    {
+                        continue;
+                    }
                     sum += Convert.ToInt32(number);
                 }
                 return sum;
