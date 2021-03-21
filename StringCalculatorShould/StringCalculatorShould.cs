@@ -106,8 +106,17 @@ namespace StringCalculatorShould
             var output = adder.Add(numberString);
             
             Assert.Equal(2, output);
+        }
 
-
+        [Fact]
+        public void AcceptAnyLengthDelimiter()
+        {
+            var adder = new Adder();
+            var numberString = "//[***]\n1***2***3";
+            
+            var output = adder.Add(numberString);   
+            
+            Assert.Equal(6, output);
         }
     }
 }

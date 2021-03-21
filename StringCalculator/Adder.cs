@@ -8,16 +8,24 @@ namespace StringCalculator
     {
         public int Add(string input)
         {
-            var delimiterList = new List<char>{',', '\n', '/'};
-            if (input.Contains("//"))
+            var delimiterList = new List<string>{",", "\n", "/", "[", "]"};
+           if (input.Contains("//"))
             {
-                if (input.LastIndexOf('/') != input.Length - 1)
+                if (input.Contains("["))
+                {
+                    var delimiterLength = input.IndexOf("]") - input.IndexOf("[") -1;
+                    var multiCharacterDelimiter = input.Substring(input.IndexOf("[")+1, delimiterLength);
+                    delimiterList.Add(multiCharacterDelimiter);
+                }
+                else if (input.LastIndexOf('/') != input.Length - 1)
                 {
                     var delimiter = input.Substring(input.LastIndexOf('/')+1,1);
-                    delimiterList.Add(Convert.ToChar(delimiter));
+                    delimiterList.Add(delimiter);
                 }
             }
-            var numbers = input.Split(delimiterList.ToArray());
+
+            var delimiterArray = delimiterList.ToArray();
+            var numbers = input.Split(delimiterArray, StringSplitOptions.None);
             if (input.Contains('-'))
             {
                 var negativeNumbers = numbers.Where(x => x.First() == '-')
@@ -30,7 +38,7 @@ namespace StringCalculator
                 return 0;
             }
             numbers = numbers.Where(x => !string.IsNullOrEmpty(x)).ToArray();
-            if (input.IndexOfAny(delimiterList.ToArray()) != -1)
+            if (delimiterList.Any(s=> input.Contains(s)) == true)
             {
                 var sum = 0;
                 foreach (var number in numbers)
@@ -43,10 +51,7 @@ namespace StringCalculator
                 }
                 return sum;
             }
-            else
-            {
-                return Convert.ToInt32(input);
-            }
+            return Convert.ToInt32(input);
         }
     }
 }
