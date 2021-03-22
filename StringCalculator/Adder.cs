@@ -9,6 +9,10 @@ namespace StringCalculator
         public int Add(string input)
         { 
             var delimiterList = new List<string>{",", "\n", "/", "[", "]"};
+            if (input == "")
+            {
+                return 0;
+            }
             if (input == null)
             {
                 throw new ArgumentException("Null numbers not allowed");
@@ -38,23 +42,19 @@ namespace StringCalculator
             }
             var delimiterArray = delimiterList.ToArray();
             var numbers = input.Split(delimiterArray, StringSplitOptions.None);
-            if (input.Contains('-')) 
-            {
-                var negativeNumbers = numbers.Where(x => x.First() == '-')
-                    .Where(x => !string.IsNullOrEmpty(x));
-                throw new ArgumentException
-                    ($"Negatives not allowed: {string.Join(", ",negativeNumbers)}");
-            }
-            if (input == "")
-            {
-                return 0;
-            }
             numbers = numbers.Where(x => !string.IsNullOrEmpty(x)).ToArray();
             if (delimiterList.Any(s=> input.Contains(s)))
             {
                 var sum = 0;
                 foreach (var number in numbers)
                 {
+                    if (number.StartsWith('-')) 
+                    {
+                        var negativeNumbers = numbers.Where(x => x.First() == '-')
+                            .Where(x => !string.IsNullOrEmpty(x));
+                        throw new ArgumentException
+                            ($"Negatives not allowed: {string.Join(", ",negativeNumbers)}");
+                    }
                     if (Convert.ToInt32(number) >= 1000)
                     {
                         continue;
