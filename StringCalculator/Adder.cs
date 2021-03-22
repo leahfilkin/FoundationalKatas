@@ -15,6 +15,13 @@ namespace StringCalculator
                 {
                     var delimiterLength = input.IndexOf("]") - input.IndexOf("[") -1;
                     var multiCharacterDelimiter = input.Substring(input.IndexOf("[")+1, delimiterLength);
+                    int value;
+                    if (Char.IsDigit(multiCharacterDelimiter[0]) || 
+                        Char.IsDigit(multiCharacterDelimiter[^1]))
+                    {
+                        throw new ArgumentException
+                            ($"Edge numbers not allowed: {multiCharacterDelimiter}");
+                    }
                     delimiterList.Add(multiCharacterDelimiter);
                     input = input.Remove(input.IndexOf("["),1);
                     input = input.Remove(input.IndexOf("]"),1);

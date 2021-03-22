@@ -152,7 +152,14 @@ namespace StringCalculatorShould
             
             Assert.Equal(6, output);
         }
-        
-        
+
+        [Fact]
+        public void ThrowErrorWhenNumberOnEndOfDelimiter()
+        {
+            var adder = new Adder();
+            var numberString = "//[DD1][%]\n1*1*2%3";
+            
+            var exceptionMessage = Assert.Throws<ArgumentException>(() => adder.Add(numberString)).Message;
+            Assert.Equal("Edge numbers not allowed: DD1", exceptionMessage);        }
     }
 }
