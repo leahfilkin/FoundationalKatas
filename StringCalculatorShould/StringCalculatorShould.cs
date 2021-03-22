@@ -120,7 +120,7 @@ namespace StringCalculatorShould
         }
 
         [Fact]
-        public void AcceptMultipleDelimitersOfAnyLength()
+        public void AcceptMultipleDelimitersOfSingleLength()
         {
             var adder = new Adder();
             var numberString = "//[*][%]\n1*2%3";
@@ -130,5 +130,18 @@ namespace StringCalculatorShould
             Assert.Equal(6, output);
             
         }
+        [Fact]
+        public void AcceptMultipleDelimitersOfAnyLength()
+        {
+            var adder = new Adder();
+            var numberString = "//[***][#][%]\n1***2#3%4";
+            
+            var output = adder.Add(numberString);   
+            
+            Assert.Equal(10, output);
+            
+        }
+        
+        
     }
 }
