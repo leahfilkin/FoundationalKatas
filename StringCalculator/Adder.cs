@@ -11,13 +11,15 @@ namespace StringCalculator
             var delimiterList = new List<string>{",", "\n", "/", "[", "]"};
            if (input.Contains("//"))
             {
-                if (input.Contains("["))
+                while (input.Contains("["))
                 {
                     var delimiterLength = input.IndexOf("]") - input.IndexOf("[") -1;
                     var multiCharacterDelimiter = input.Substring(input.IndexOf("[")+1, delimiterLength);
                     delimiterList.Add(multiCharacterDelimiter);
+                    input = input.Remove(input.IndexOf("["),1);
+                    input = input.Remove(input.IndexOf("]"),1);
                 }
-                else if (input.LastIndexOf('/') != input.Length - 1)
+                if (input.LastIndexOf('/') != input.Length - 1)
                 {
                     var delimiter = input.Substring(input.LastIndexOf('/')+1,1);
                     delimiterList.Add(delimiter);
