@@ -7,16 +7,16 @@ namespace StringCalculator
     public class Adder
     {
         public int Add(string input)
-        { 
-            var delimiterList = new List<string>{",", "\n", "/", "[", "]"};
-            if (input == "")
-            {
-                return 0;
-            }
+        {
             if (input == null)
             {
                 throw new ArgumentException("Null numbers not allowed");
             }
+            if (input == "")
+            {
+                return 0;
+            }
+            var delimiterList = new List<string>{",", "\n", "/", "[", "]"};
             if (input.StartsWith("//"))
             {
                 while (input.Contains("["))
@@ -41,8 +41,8 @@ namespace StringCalculator
                 }
             }
             var delimiterArray = delimiterList.ToArray();
-            var numbers = input.Split(delimiterArray, StringSplitOptions.None);
-            numbers = numbers.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            var numbers = input.Split(delimiterArray, StringSplitOptions.None)
+                .Where(x => !string.IsNullOrEmpty(x)).ToArray();
             if (delimiterList.Any(s=> input.Contains(s)))
             {
                 var sum = 0;
