@@ -23,8 +23,8 @@ namespace StringCalculator
                 {
                     var closedBracketIndex = input.IndexOf("]", StringComparison.Ordinal);
                     var openBracketIndex = input.IndexOf("[", StringComparison.Ordinal);
-                    var delimiterLength = closedBracketIndex - openBracketIndex -1;
-                    var multiCharacterDelimiter = input.Substring(openBracketIndex+1, delimiterLength);
+                    var delimiterLength = closedBracketIndex - openBracketIndex - 1;
+                    var multiCharacterDelimiter = input.Substring(openBracketIndex + 1, delimiterLength);
                     if (char.IsDigit(multiCharacterDelimiter[0]) || 
                         char.IsDigit(multiCharacterDelimiter[^1]))
                     {
@@ -41,10 +41,10 @@ namespace StringCalculator
                 }
             }
             var delimiterArray = delimiterList.ToArray();
-            var numbers = input.Split(delimiterArray, StringSplitOptions.None)
-                .Where(x => !string.IsNullOrEmpty(x)).ToArray();
-            if (delimiterList.Any(s=> input.Contains(s)))
+            if (delimiterArray.Any(s=> input.Contains(s)))
             {
+                var numbers = input.Split(delimiterArray, StringSplitOptions.None)
+                    .Where(x => !string.IsNullOrEmpty(x));
                 var sum = 0;
                 foreach (var number in numbers)
                 {
