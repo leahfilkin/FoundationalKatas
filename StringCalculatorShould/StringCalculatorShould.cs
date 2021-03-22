@@ -130,6 +130,7 @@ namespace StringCalculatorShould
             Assert.Equal(6, output);
             
         }
+        
         [Fact]
         public void AcceptMultipleDelimitersOfAnyLength()
         {
@@ -139,7 +140,17 @@ namespace StringCalculatorShould
             var output = adder.Add(numberString);   
             
             Assert.Equal(10, output);
+        }
+        
+        [Fact]
+        public void AcceptMultipleDelimitersOfAnyLengthWithNumbersIn()
+        {
+            var adder = new Adder();
+            var numberString = "//[*1*][%]\n1*1*2%3";
             
+            var output = adder.Add(numberString);   
+            
+            Assert.Equal(6, output);
         }
         
         
