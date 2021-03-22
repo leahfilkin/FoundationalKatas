@@ -7,24 +7,28 @@ namespace StringCalculator
     public class Adder
     {
         public int Add(string input)
-        {
+        { 
             var delimiterList = new List<string>{",", "\n", "/", "[", "]"};
-           if (input.Contains("//"))
+            if (input == null)
+            {
+                throw new ArgumentException("Null numbers not allowed");
+            }
+            if (input.StartsWith("//"))
             {
                 while (input.Contains("["))
                 {
-                    var delimiterLength = input.IndexOf("]") - input.IndexOf("[") -1;
-                    var multiCharacterDelimiter = input.Substring(input.IndexOf("[")+1, delimiterLength);
-                    int value;
-                    if (Char.IsDigit(multiCharacterDelimiter[0]) || 
-                        Char.IsDigit(multiCharacterDelimiter[^1]))
+                    var closedBracketIndex = input.IndexOf("]", StringComparison.Ordinal);
+                    var openBracketIndex = input.IndexOf("[", StringComparison.Ordinal);
+                    var delimiterLength = closedBracketIndex - openBracketIndex -1;
+                    var multiCharacterDelimiter = input.Substring(openBracketIndex+1, delimiterLength);
+                    if (char.IsDigit(multiCharacterDelimiter[0]) || 
+                        char.IsDigit(multiCharacterDelimiter[^1]))
                     {
                         throw new ArgumentException
                             ($"Edge numbers not allowed: {multiCharacterDelimiter}");
                     }
                     delimiterList.Add(multiCharacterDelimiter);
-                    input = input.Remove(input.IndexOf("["),1);
-                    input = input.Remove(input.IndexOf("]"),1);
+                    input = input.Remove(openBracketIndex,2 + delimiterLength);
                 }
                 if (input.LastIndexOf('/') != input.Length - 1)
                 {
@@ -32,10 +36,9 @@ namespace StringCalculator
                     delimiterList.Add(delimiter);
                 }
             }
-
             var delimiterArray = delimiterList.ToArray();
             var numbers = input.Split(delimiterArray, StringSplitOptions.None);
-            if (input.Contains('-'))
+            if (input.Contains('-')) 
             {
                 var negativeNumbers = numbers.Where(x => x.First() == '-')
                     .Where(x => !string.IsNullOrEmpty(x));
@@ -47,7 +50,7 @@ namespace StringCalculator
                 return 0;
             }
             numbers = numbers.Where(x => !string.IsNullOrEmpty(x)).ToArray();
-            if (delimiterList.Any(s=> input.Contains(s)) == true)
+            if (delimiterList.Any(s=> input.Contains(s)))
             {
                 var sum = 0;
                 foreach (var number in numbers)

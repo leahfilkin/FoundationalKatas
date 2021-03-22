@@ -160,6 +160,17 @@ namespace StringCalculatorShould
             var numberString = "//[DD1][%]\n1*1*2%3";
             
             var exceptionMessage = Assert.Throws<ArgumentException>(() => adder.Add(numberString)).Message;
-            Assert.Equal("Edge numbers not allowed: DD1", exceptionMessage);        }
+            Assert.Equal("Edge numbers not allowed: DD1", exceptionMessage);        
+        }
+
+        [Fact]
+        public void ThrowErrorIfInputIsNull()
+        {
+            var adder = new Adder();
+            
+            var exceptionMessage = Assert.Throws<ArgumentException>(() => adder.Add(null)).Message;
+            Assert.Equal("Null numbers not allowed", exceptionMessage);             
+        }
     }
+    
 }
