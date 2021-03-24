@@ -138,6 +138,17 @@ namespace Yatzy.Tests
             Assert.Equal(expected, score);
         }
         
+        [Theory]
+        [InlineData(new[] {1, 2, 3, 4, 5}, 15)]
+        [InlineData(new[] {1, 2, 3, 4, 6}, 0)]
+        [InlineData(new[] {2, 3, 4, 5, 6}, 0)]
+        public void SmallStraightShouldReturnSumOfSmallStraight(int[] dice, int expected)
+        {
+            var score = YatzyScorer.CalculateScore(dice, Category.SmallStraight);
+            
+            Assert.Equal(expected, score);
+        }
+        
         
         
     }

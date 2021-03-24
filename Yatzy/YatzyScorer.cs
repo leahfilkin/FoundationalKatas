@@ -33,8 +33,15 @@ namespace Yatzy
                 Category.TwoPairs => ScoreTwoPairs(dice),
                 Category.ThreeOfAKind => ScoreThreeOfAKind(dice),
                 Category.FourOfAKind => ScoreFourOfAKind(dice),
+                Category.SmallStraight => ScoreSmallStraight(dice),
                 _ => throw new ArgumentException()
             };
+        }
+
+        private static int ScoreSmallStraight(IEnumerable<int> dice)
+        {
+            var smallStraight = new [] {1, 2, 3, 4, 5};
+            return dice.SequenceEqual(smallStraight) ? dice.Sum() : 0;
         }
 
         private static int ScoreFourOfAKind(IEnumerable<int> dice)

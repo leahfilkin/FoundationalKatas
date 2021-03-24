@@ -13,6 +13,7 @@ namespace Yatzy
         Pairs,
         TwoPairs,
         ThreeOfAKind,
-        FourOfAKind
+        FourOfAKind,
+        SmallStraight
     }
 }
