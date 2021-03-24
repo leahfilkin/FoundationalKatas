@@ -104,5 +104,16 @@ namespace Yatzy.Tests
             
             Assert.Equal(expected, score);
         }
+        
+        [Theory]
+        [InlineData(new[] {6, 3, 3, 1, 4}, 0)]
+        [InlineData(new[] {6, 3, 3, 6, 4}, 18)]
+        public void TwoPairsShouldReturnSumOfTwoPairs(int[] dice, int expected)
+        {
+            var score = YatzyScorer.CalculateScore(dice, Category.TwoPairs);
+            
+            Assert.Equal(expected, score);
+        }
+        
     }
 }

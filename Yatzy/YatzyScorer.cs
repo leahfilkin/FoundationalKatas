@@ -30,8 +30,21 @@ namespace Yatzy
                 Category.Fives => ScoreMultiples(dice, Category.Fives),
                 Category.Sixes => ScoreMultiples(dice, Category.Sixes),
                 Category.Pairs => ScorePairs(dice),
+                Category.TwoPairs => ScoreTwoPairs(dice),
                 _ => throw new ArgumentException()
             };
+        }
+
+        private static int ScoreTwoPairs(IEnumerable<int> dice)
+        {
+            var duplicate = dice.GroupBy(x => x)
+                .Where(g => g.Count() > 1)
+                .Select(y => y.Key);
+            if (duplicate.Count() < 2)
+            {
+                return 0;
+            }
+            return duplicate.Sum() * 2;
         }
 
         private static int ScorePairs(IEnumerable<int> dice)

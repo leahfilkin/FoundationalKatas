@@ -10,6 +10,7 @@ namespace Yatzy
         Sixes,
         Chance,
         Yatzy,
-        Pairs
+        Pairs,
+        TwoPairs
     }
 }
