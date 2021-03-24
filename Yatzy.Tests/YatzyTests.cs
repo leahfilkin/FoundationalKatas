@@ -54,5 +54,45 @@ namespace Yatzy.Tests
             
             Assert.Equal(expected, score);
         }
+        
+        [Theory]
+        [InlineData(new[] {1, 2, 3, 3, 5}, 6)]
+        [InlineData(new[] {1, 2, 2, 4, 5}, 0)]
+        public void ThreesShouldReturnSumOfThrees(int[] dice, int expected)
+        {
+            var score = YatzyScorer.CalculateScore(dice, Category.Threes);
+            
+            Assert.Equal(expected, score);
+        }
+        
+        [Theory]
+        [InlineData(new[] {1, 2, 3, 4, 4}, 8)]
+        [InlineData(new[] {1, 2, 3, 3, 5}, 0)]
+        public void FoursShouldReturnSumOfFours(int[] dice, int expected)
+        {
+            var score = YatzyScorer.CalculateScore(dice, Category.Fours);
+            
+            Assert.Equal(expected, score);
+        }
+        
+        [Theory]
+        [InlineData(new[] {1, 2, 5, 5, 5}, 15)]
+        [InlineData(new[] {1, 2, 3, 4, 1}, 0)]
+        public void FivesShouldReturnSumOfFives(int[] dice, int expected)
+        {
+            var score = YatzyScorer.CalculateScore(dice, Category.Fives);
+            
+            Assert.Equal(expected, score);
+        }
+        
+        [Theory]
+        [InlineData(new[] {6, 6, 3, 6, 4}, 18)]
+        [InlineData(new[] {1, 2, 3, 4, 1}, 0)]
+        public void SixesShouldReturnSumOfSixes(int[] dice, int expected)
+        {
+            var score = YatzyScorer.CalculateScore(dice, Category.Sixes);
+            
+            Assert.Equal(expected, score);
+        }
     }
 }

@@ -23,10 +23,19 @@ namespace Yatzy
             {
                 Category.Chance => ScoreChance(dice),
                 Category.Yatzy => ScoreYatzy(dice),
-                Category.Ones => ScoreOnes(dice),
-                Category.Twos => ScoreTwos(dice),
+                Category.Ones => ScoreMultiples(dice, Category.Ones),
+                Category.Twos => ScoreMultiples(dice, Category.Twos),
+                Category.Threes => ScoreMultiples(dice, Category.Threes),
+                Category.Fours => ScoreMultiples(dice, Category.Fours),
+                Category.Fives => ScoreMultiples(dice, Category.Fives),
+                Category.Sixes => ScoreMultiples(dice, Category.Sixes),
                 _ => throw new ArgumentException()
             };
+        }
+
+        private static int ScoreMultiples(IEnumerable<int> dice, Category category)
+        {
+            return dice.Where(x => x == (int) category).Sum();
         }
 
         private static int ScoreTwos(IEnumerable<int> dice)
