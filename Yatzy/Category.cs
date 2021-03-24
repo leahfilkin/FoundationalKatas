@@ -12,6 +12,7 @@ namespace Yatzy
         Yatzy,
         Pairs,
         TwoPairs,
-        ThreeOfAKind
+        ThreeOfAKind,
+        FourOfAKind
     }
 }

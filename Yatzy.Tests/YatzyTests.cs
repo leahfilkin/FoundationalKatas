@@ -98,7 +98,7 @@ namespace Yatzy.Tests
         [Theory]
         [InlineData(new[] {6, 3, 3, 1, 4}, 6)]
         [InlineData(new[] {6, 3, 3, 6, 4}, 12)]
-        [InlineData(new[] {6, 3, 1, 6, 4}, 0)]
+        [InlineData(new[] {6, 3, 1, 2, 4}, 0)]
         public void PairsShouldReturnSumOfHighestPair(int[] dice, int expected)
         {
             var score = YatzyScorer.CalculateScore(dice, Category.Pairs);
@@ -119,13 +119,26 @@ namespace Yatzy.Tests
         [Theory]
         [InlineData(new[] {3, 3, 3, 1, 4}, 9)]
         [InlineData(new[] {6, 3, 3, 6, 4}, 0)]
-        // [InlineData(new[] {6, 3, 3, 3, 3}, 9)]
+        [InlineData(new[] {6, 3, 3, 3, 3}, 9)]
         public void ThreeOfAKindShouldReturnSumOfThreeMatching(int[] dice, int expected)
         {
             var score = YatzyScorer.CalculateScore(dice, Category.ThreeOfAKind);
             
             Assert.Equal(expected, score);
         }
+        
+        [Theory]
+        [InlineData(new[] {6, 3, 3, 6, 4}, 0)]
+        [InlineData(new[] {3, 3, 3, 3, 3}, 12)]
+        [InlineData(new[] {6, 3, 3, 3, 3}, 12)]
+        public void FourOfAKindShouldReturnSumOfThreeMatching(int[] dice, int expected)
+        {
+            var score = YatzyScorer.CalculateScore(dice, Category.FourOfAKind);
+            
+            Assert.Equal(expected, score);
+        }
+        
+        
         
     }
 }

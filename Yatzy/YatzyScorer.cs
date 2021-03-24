@@ -32,16 +32,25 @@ namespace Yatzy
                 Category.Pairs => ScorePairs(dice),
                 Category.TwoPairs => ScoreTwoPairs(dice),
                 Category.ThreeOfAKind => ScoreThreeOfAKind(dice),
+                Category.FourOfAKind => ScoreFourOfAKind(dice),
                 _ => throw new ArgumentException()
             };
         }
 
+        private static int ScoreFourOfAKind(IEnumerable<int> dice)
+        {
+            var fourOfAKind = dice.GroupBy(x => x)
+                .Where(g => g.Count() > 3)
+                .Select(y => y.Key);
+            return fourOfAKind.Any() ? fourOfAKind.First() * 4 : 0;
+        }
+
         private static int ScoreThreeOfAKind(IEnumerable<int> dice)
         {
-            var triples = dice.GroupBy(x => x)
+            var threeOfAKind = dice.GroupBy(x => x)
                 .Where(g => g.Count() > 2)
                 .Select(y => y.Key);
-            return triples.Any() ? triples.First() * 3 : 0;
+            return threeOfAKind.Any() ? threeOfAKind.First() * 3 : 0;
         }
 
         private static int ScoreTwoPairs(IEnumerable<int> dice)
