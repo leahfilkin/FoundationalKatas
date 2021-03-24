@@ -24,8 +24,14 @@ namespace Yatzy
                 Category.Chance => ScoreChance(dice),
                 Category.Yatzy => ScoreYatzy(dice),
                 Category.Ones => ScoreOnes(dice),
+                Category.Twos => ScoreTwos(dice),
                 _ => throw new ArgumentException()
             };
+        }
+
+        private static int ScoreTwos(IEnumerable<int> dice)
+        {
+            return dice.Where(x => x == 2).Sum();
         }
 
         private static int ScoreOnes(IEnumerable<int> dice)

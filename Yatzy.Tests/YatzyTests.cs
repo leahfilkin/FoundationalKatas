@@ -36,12 +36,23 @@ namespace Yatzy.Tests
         }
 
         [Theory]
-        [InlineData(new [] {1, 1, 3, 4, 5})]
-        public void OnesShouldReturnSumOfOnes(int[] dice)
+        [InlineData(new [] {1, 1, 3, 4, 5}, 2)]
+        [InlineData(new [] {2, 2, 3, 4, 5}, 0)]
+        public void OnesShouldReturnSumOfOnes(int[] dice, int expected)
         {
             var score = YatzyScorer.CalculateScore(dice, Category.Ones);
 
-            Assert.Equal(2, score);
+            Assert.Equal(expected, score);
+        }
+
+        [Theory]
+        [InlineData(new[] {2, 2, 3, 4, 5}, 4)]
+        [InlineData(new[] {1, 3, 3, 4, 5}, 0)]
+        public void TwosShouldReturnSumOfTwos(int[] dice, int expected)
+        {
+            var score = YatzyScorer.CalculateScore(dice, Category.Twos);
+            
+            Assert.Equal(expected, score);
         }
     }
 }

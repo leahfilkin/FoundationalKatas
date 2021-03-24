@@ -4,6 +4,7 @@ namespace Yatzy
     {
         Chance,
         Yatzy,
-        Ones
+        Ones,
+        Twos
     }
 }
