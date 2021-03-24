@@ -14,6 +14,8 @@ namespace Yatzy
         TwoPairs,
         ThreeOfAKind,
         FourOfAKind,
-        SmallStraight
+        SmallStraight,
+        LargeStraight,
+        FullHouse
     }
 }

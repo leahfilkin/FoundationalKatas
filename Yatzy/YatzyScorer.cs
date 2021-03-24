@@ -34,8 +34,31 @@ namespace Yatzy
                 Category.ThreeOfAKind => ScoreThreeOfAKind(dice),
                 Category.FourOfAKind => ScoreFourOfAKind(dice),
                 Category.SmallStraight => ScoreSmallStraight(dice),
+                Category.LargeStraight => ScoreLargeStraight(dice),
+                Category.FullHouse => ScoreFullHouse(dice),
                 _ => throw new ArgumentException()
             };
+        }
+
+        private static int ScoreFullHouse(IEnumerable<int> dice)
+        {
+            var threeOfAKind = dice.GroupBy(x => x)
+                .Where(g => g.Count() == 3)
+                .Select(y => y.Key);
+            var pairs = dice.GroupBy(x => x)
+                .Where(g => g.Count() == 2)
+                .Select(y => y.Key);
+            if (threeOfAKind.Any() && pairs.Any())
+            {
+                return threeOfAKind.First() * 3 + pairs.First() * 2;
+            }
+            return 0;
+        }
+
+        private static int ScoreLargeStraight(IEnumerable<int> dice)
+        {
+            var largeStraight = new [] {2, 3, 4, 5, 6};
+            return dice.SequenceEqual(largeStraight) ? dice.Sum() : 0;
         }
 
         private static int ScoreSmallStraight(IEnumerable<int> dice)

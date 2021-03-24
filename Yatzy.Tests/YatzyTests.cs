@@ -148,8 +148,26 @@ namespace Yatzy.Tests
             
             Assert.Equal(expected, score);
         }
+        [Theory]
+        [InlineData(new[] {1, 2, 3, 4, 5}, 0)]
+        [InlineData(new[] {1, 2, 3, 4, 6}, 0)]
+        [InlineData(new[] {2, 3, 4, 5, 6}, 20)]
+        public void LargeStraightShouldReturnSumOfLargeStraight(int[] dice, int expected)
+        {
+            var score = YatzyScorer.CalculateScore(dice, Category.LargeStraight);
+            
+            Assert.Equal(expected, score);
+        }
         
-        
-        
+        [Theory]
+        [InlineData(new[] {1, 1, 2, 2, 2}, 8)]
+        [InlineData(new[] {2, 2, 3, 3, 4}, 0)]
+        [InlineData(new[] {4, 4, 4, 4, 4}, 0)]
+        public void FullHouseShouldReturnSumOfFullHouse(int[] dice, int expected)
+        {
+            var score = YatzyScorer.CalculateScore(dice, Category.FullHouse);
+            
+            Assert.Equal(expected, score);
+        }
     }
 }
