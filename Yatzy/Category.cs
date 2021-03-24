@@ -11,6 +11,7 @@ namespace Yatzy
         Chance,
         Yatzy,
         Pairs,
-        TwoPairs
+        TwoPairs,
+        ThreeOfAKind
     }
 }

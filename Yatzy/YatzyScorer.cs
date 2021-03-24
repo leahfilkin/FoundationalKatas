@@ -31,8 +31,17 @@ namespace Yatzy
                 Category.Sixes => ScoreMultiples(dice, Category.Sixes),
                 Category.Pairs => ScorePairs(dice),
                 Category.TwoPairs => ScoreTwoPairs(dice),
+                Category.ThreeOfAKind => ScoreThreeOfAKind(dice),
                 _ => throw new ArgumentException()
             };
+        }
+
+        private static int ScoreThreeOfAKind(IEnumerable<int> dice)
+        {
+            var triples = dice.GroupBy(x => x)
+                .Where(g => g.Count() > 2)
+                .Select(y => y.Key);
+            return triples.Any() ? triples.First() * 3 : 0;
         }
 
         private static int ScoreTwoPairs(IEnumerable<int> dice)
@@ -40,11 +49,7 @@ namespace Yatzy
             var duplicate = dice.GroupBy(x => x)
                 .Where(g => g.Count() > 1)
                 .Select(y => y.Key);
-            if (duplicate.Count() < 2)
-            {
-                return 0;
-            }
-            return duplicate.Sum() * 2;
+            return duplicate.Count() > 1 ? duplicate.Sum() * 2 : 0;
         }
 
         private static int ScorePairs(IEnumerable<int> dice)
@@ -52,7 +57,7 @@ namespace Yatzy
             var duplicate = dice.GroupBy(x => x)
                 .Where(g => g.Count() > 1)
                 .Select(y => y.Key);
-            return duplicate.Max() * 2;
+            return duplicate.Any() ? duplicate.Max() * 2 : 0;
         }
 
         private static int ScoreMultiples(IEnumerable<int> dice, Category category)
