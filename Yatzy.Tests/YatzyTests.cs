@@ -94,5 +94,15 @@ namespace Yatzy.Tests
             
             Assert.Equal(expected, score);
         }
+
+        [Theory]
+        [InlineData(new[] {6, 3, 3, 1, 4}, 6)]
+        [InlineData(new[] {6, 3, 3, 6, 4}, 12)]
+        public void PairsShouldReturnSumOfHighestPair(int[] dice, int expected)
+        {
+            var score = YatzyScorer.CalculateScore(dice, Category.Pairs);
+            
+            Assert.Equal(expected, score);
+        }
     }
 }

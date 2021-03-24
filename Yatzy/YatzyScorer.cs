@@ -29,8 +29,17 @@ namespace Yatzy
                 Category.Fours => ScoreMultiples(dice, Category.Fours),
                 Category.Fives => ScoreMultiples(dice, Category.Fives),
                 Category.Sixes => ScoreMultiples(dice, Category.Sixes),
+                Category.Pairs => ScorePairs(dice),
                 _ => throw new ArgumentException()
             };
+        }
+
+        private static int ScorePairs(IEnumerable<int> dice)
+        {
+            var duplicate = dice.GroupBy(x => x)
+                .Where(g => g.Count() > 1)
+                .Select(y => y.Key);
+            return duplicate.Max() * 2;
         }
 
         private static int ScoreMultiples(IEnumerable<int> dice, Category category)
