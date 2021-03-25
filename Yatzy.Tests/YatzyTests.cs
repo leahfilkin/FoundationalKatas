@@ -150,7 +150,7 @@ namespace Yatzy.Tests
         }
         [Theory]
         [InlineData(new[] {1, 2, 3, 4, 5}, 0)]
-        [InlineData(new[] {1, 2, 3, 4, 6}, 0)]
+        [InlineData(new[] {1, 3, 3, 5, 6}, 0)]
         [InlineData(new[] {2, 3, 4, 5, 6}, 20)]
         public void LargeStraightShouldReturnSumOfLargeStraight(int[] dice, int expected)
         {

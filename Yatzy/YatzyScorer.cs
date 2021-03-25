@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,7 +9,7 @@ namespace Yatzy
     {
         public static int CalculateScore(IEnumerable<int> dice, Category category)
         {
-            if (dice.Any(x => x <= 0 || x > 6))
+            if (dice.Any(x => x < 1 || x > 6))
             {
                 throw new ArgumentException
                     ("Die should only have values from 1 to 6");
@@ -29,16 +30,17 @@ namespace Yatzy
                 Category.Fours => ScoreMultiples(dice, Category.Fours),
                 Category.Fives => ScoreMultiples(dice, Category.Fives),
                 Category.Sixes => ScoreMultiples(dice, Category.Sixes),
-                Category.Pairs => ScorePairs(dice),
+                Category.Pairs => ScoreDuplicates(dice, 2),
                 Category.TwoPairs => ScoreTwoPairs(dice),
-                Category.ThreeOfAKind => ScoreThreeOfAKind(dice),
-                Category.FourOfAKind => ScoreFourOfAKind(dice),
+                Category.ThreeOfAKind => ScoreDuplicates(dice, 3),
+                Category.FourOfAKind => ScoreDuplicates(dice, 4),
                 Category.SmallStraight => ScoreSmallStraight(dice),
                 Category.LargeStraight => ScoreLargeStraight(dice),
                 Category.FullHouse => ScoreFullHouse(dice),
                 _ => throw new ArgumentException()
             };
         }
+        
 
         private static int ScoreFullHouse(IEnumerable<int> dice)
         {
@@ -67,20 +69,12 @@ namespace Yatzy
             return dice.SequenceEqual(smallStraight) ? dice.Sum() : 0;
         }
 
-        private static int ScoreFourOfAKind(IEnumerable<int> dice)
+        private static int ScoreDuplicates(IEnumerable<int> dice, int kind)
         {
-            var fourOfAKind = dice.GroupBy(x => x)
-                .Where(g => g.Count() > 3)
+            var duplicate = dice.GroupBy(x => x)
+                .Where(g => g.Count() >= kind)
                 .Select(y => y.Key);
-            return fourOfAKind.Any() ? fourOfAKind.First() * 4 : 0;
-        }
-
-        private static int ScoreThreeOfAKind(IEnumerable<int> dice)
-        {
-            var threeOfAKind = dice.GroupBy(x => x)
-                .Where(g => g.Count() > 2)
-                .Select(y => y.Key);
-            return threeOfAKind.Any() ? threeOfAKind.First() * 3 : 0;
+            return duplicate.Any() ? duplicate.First() * kind : 0;
         }
 
         private static int ScoreTwoPairs(IEnumerable<int> dice)
@@ -91,27 +85,9 @@ namespace Yatzy
             return duplicate.Count() > 1 ? duplicate.Sum() * 2 : 0;
         }
 
-        private static int ScorePairs(IEnumerable<int> dice)
-        {
-            var duplicate = dice.GroupBy(x => x)
-                .Where(g => g.Count() > 1)
-                .Select(y => y.Key);
-            return duplicate.Any() ? duplicate.Max() * 2 : 0;
-        }
-
         private static int ScoreMultiples(IEnumerable<int> dice, Category category)
         {
             return dice.Where(x => x == (int) category).Sum();
-        }
-
-        private static int ScoreTwos(IEnumerable<int> dice)
-        {
-            return dice.Where(x => x == 2).Sum();
-        }
-
-        private static int ScoreOnes(IEnumerable<int> dice)
-        {
-            return dice.Where(x => x == 1).Sum();
         }
 
         private static int ScoreChance(IEnumerable<int> dice)
