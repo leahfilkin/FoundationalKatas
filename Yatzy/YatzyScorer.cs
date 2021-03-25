@@ -40,19 +40,22 @@ namespace Yatzy
                 _ => throw new ArgumentException()
             };
         }
-        
+
+        private static Dictionary<int, int> GroupDice(IEnumerable<int> dice)
+        {
+            return dice.GroupBy(x => x)
+                .ToDictionary(x => x.Key, x => x.Count());
+        }
 
         private static int ScoreFullHouse(IEnumerable<int> dice)
         {
-            var threeOfAKind = dice.GroupBy(x => x)
-                .Where(g => g.Count() == 3)
-                .Select(y => y.Key);
-            var pairs = dice.GroupBy(x => x)
-                .Where(g => g.Count() == 2)
-                .Select(y => y.Key);
-            if (threeOfAKind.Any() && pairs.Any())
+            var threeOfAKind = GroupDice(dice)
+                .FirstOrDefault(g => g.Value == 3);
+            var pairs = GroupDice(dice)
+                .FirstOrDefault(g => g.Value == 2);
+            if (threeOfAKind.Key != 0 && pairs.Key != 0)
             {
-                return threeOfAKind.First() * 3 + pairs.First() * 2;
+                return threeOfAKind.Key * 3 + pairs.Key * 2;
             }
             return 0;
         }
@@ -71,10 +74,9 @@ namespace Yatzy
 
         private static int ScoreDuplicates(IEnumerable<int> dice, int kind)
         {
-            var duplicate = dice.GroupBy(x => x)
-                .Where(g => g.Count() >= kind)
-                .Select(y => y.Key);
-            return duplicate.Any() ? duplicate.First() * kind : 0;
+            var duplicate = GroupDice(dice)
+                .Where(x => x.Value >= kind);
+            return duplicate.Any() ? duplicate.First().Key * kind : 0;
         }
 
         private static int ScoreTwoPairs(IEnumerable<int> dice)
