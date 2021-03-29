@@ -6,12 +6,21 @@ namespace Yatzy
     public class Turn
     {
 
-        public List<int> Dice { get; private set; } 
+        public List<Die> Dice { get; private set; }
+
+        public Turn()
+        {
+            Dice = new List<Die>();
+        }
         public void MakeFirstRoll()
         {
-            var die = new Die(new Random());
-            die.Roll();
-            Dice.Add(die.Face);
+            Die die;
+            for (var i = 0; i < 5; i++)
+            {
+                die = new Die(new Random());
+                die.Roll();
+                Dice.Add(die);
+            }
         }
     }
 }

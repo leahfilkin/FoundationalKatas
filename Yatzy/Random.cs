@@ -4,7 +4,8 @@ namespace Yatzy
     {
         public int Next(int range)
         {
-            return 6;
+            var random = new System.Random();
+            return random.Next(6);;
         }
     }
 }
