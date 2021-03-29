@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Yatzy.Tests
@@ -12,5 +14,16 @@ namespace Yatzy.Tests
 
             Assert.Equal(0, score);
         }
+
+        [Fact]
+        public void PlayerReturnsScoreOnTurn()
+        {
+            var player = new Player();
+            var score = player.TakeTurn();
+            
+            Assert.Equal(0, score);
+        }
+        
+        
     }
 }
