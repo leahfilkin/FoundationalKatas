@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Yatzy
 {
@@ -26,6 +27,7 @@ namespace Yatzy
         public string GetDieToReroll()
         {
             throw new NotImplementedException();
+
         }
 
         string IUserInput.AskIfPlayerWillReroll()
@@ -34,9 +36,13 @@ namespace Yatzy
         }
 
 
-        public void RerollDie(int dieToReroll)
+        public void RerollDie(string diceToReroll)
         {
-            Dice[dieToReroll-1].Roll();
+            var rerollDiceList = diceToReroll.Split(',').Select(int.Parse).ToList();
+            foreach (var die in rerollDiceList)
+            {
+                Dice[die-1].Roll();
+            }
         }
     }
 }
