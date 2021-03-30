@@ -34,9 +34,9 @@ namespace Yatzy
         }
 
 
-        public void RerollDie(int playerRerolls)
+        public void RerollDie(int dieToReroll)
         {
-            throw new NotImplementedException();
+            Dice[dieToReroll-1].Roll();
         }
     }
 }

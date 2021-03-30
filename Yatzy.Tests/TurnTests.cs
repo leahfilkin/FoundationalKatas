@@ -19,14 +19,15 @@ namespace Yatzy.Tests
         public void GivenIndexRerollDie()
         {
             var turn = new Turn();
-            var indexOfDiePlayerRerolls = 0;
+            var diePlayerRerolls = 1;
             var originalFace = 4;
             var updatedFace = 6;
             var firstDie = new Die(new FakeRandom(new List<int> {originalFace, updatedFace}));
             turn.Dice = new List<Die> {firstDie};
-            turn.RerollDie(indexOfDiePlayerRerolls);
+            turn.Dice[diePlayerRerolls-1].Roll();
+            turn.RerollDie(diePlayerRerolls);
             
-            Assert.Equal(updatedFace, turn.Dice[indexOfDiePlayerRerolls].Face);
+            Assert.Equal(updatedFace, turn.Dice[diePlayerRerolls-1].Face);
 
 
         }
