@@ -7,7 +7,7 @@ namespace Yatzy
             throw new System.NotImplementedException();
         }
 
-        public string AskIfPlayerWillReroll()
+        public char AskIfPlayerWillReroll()
         {
             throw new System.NotImplementedException();
         }

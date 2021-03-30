@@ -4,45 +4,40 @@ using System.Linq;
 
 namespace Yatzy
 {
-    public class Turn : IUserInput
+    public class Turn
     {
 
-        public List<Die> Dice { get; set; }
+        private List<Die> Dice { get; }
 
-        public Turn()
+
+        public Turn(IRandom random)
         {
             Dice = new List<Die>();
-        }
-        public void MakeFirstRoll()
-        {
-            Die die;
             for (var i = 0; i < 5; i++)
             {
-                die = new Die(new Random());
-                die.Roll();
+                Die die = new Die(random);
                 Dice.Add(die);
             }
         }
-
-        public string GetDieToReroll()
+        public void MakeFirstRoll()
         {
-            throw new NotImplementedException();
-
+            foreach (var die in Dice)
+            {
+                die.Roll();
+            }
         }
-
-        string IUserInput.AskIfPlayerWillReroll()
-        {
-            throw new NotImplementedException();
-        }
-
-
         public void RerollDie(string diceToReroll)
         {
             var rerollDiceList = diceToReroll.Split(',').Select(int.Parse).ToList();
             foreach (var die in rerollDiceList)
             {
-                Dice[die-1].Roll();
+                Dice[die - 1].Roll();
             }
         }
+        
+        public int GetFace()
+        {
+            throw new NotImplementedException();
+        }
+        }
     }
-}

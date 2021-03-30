@@ -1,15 +1,31 @@
+using System;
+using System.Collections.Generic;
+
 namespace Yatzy
 {
     public class UserInput : IUserInput
     {
         public string GetDieToReroll()
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine(
+                "Please input which dice you would like to reroll, seperated by commas. E.g. 1,4,5 to reroll the first, fourth and fifth dice");
+            return Console.ReadLine();
+
         }
 
-        public string AskIfPlayerWillReroll()
+        public char AskIfPlayerWillReroll()
         {
-            throw new System.NotImplementedException();
+            var possibleAnswers = new List<char>() {'Y', 'N', 'y', 'n'}; 
+            while (true)
+            {
+                Console.WriteLine("Would you like to reroll any dice? Input Y for yes, N for no");
+                var decision = Convert.ToChar(Console.Read());
+                if (possibleAnswers.Contains(decision))
+                {
+                    return decision;
+                }
+                Console.WriteLine("Incorrect input. Please input a Y or N");
+            }
         }
     }
 }
