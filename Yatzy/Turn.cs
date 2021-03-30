@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace Yatzy
 {
-    public class Turn
+    public class Turn : IUserInput
     {
 
-        public List<Die> Dice { get; private set; }
+        public List<Die> Dice { get; set; }
 
         public Turn()
         {
@@ -21,6 +21,22 @@ namespace Yatzy
                 die.Roll();
                 Dice.Add(die);
             }
+        }
+
+        public string GetDieToReroll()
+        {
+            throw new NotImplementedException();
+        }
+
+        string IUserInput.AskIfPlayerWillReroll()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void RerollDie(int playerRerolls)
+        {
+            throw new NotImplementedException();
         }
     }
 }
