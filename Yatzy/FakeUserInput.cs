@@ -7,7 +7,12 @@ namespace Yatzy
             throw new System.NotImplementedException();
         }
 
-        public char AskIfPlayerWillReroll()
+        public bool AskIfPlayerWillReroll()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public string AskPlayerForCategory(Turn turn)
         {
             throw new System.NotImplementedException();
         }

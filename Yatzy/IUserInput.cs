@@ -4,6 +4,9 @@ namespace Yatzy
     {
         string GetDieToReroll();
 
-        char AskIfPlayerWillReroll();
+        bool AskIfPlayerWillReroll();
+
+        string AskPlayerForCategory(Turn turn);
     }
+    
 }

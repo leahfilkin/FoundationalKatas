@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace Yatzy
 {
@@ -14,6 +15,11 @@ namespace Yatzy
         public void Roll()
         {
             Face = _random.Next(6);
+        }
+        
+        public override string ToString()
+        {
+            return $"[{Face}]";
         }
     }
 }

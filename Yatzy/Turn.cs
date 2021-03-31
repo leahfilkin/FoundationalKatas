@@ -1,18 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Yatzy
 {
     public class Turn
     {
 
-        private List<Die> Dice { get; }
+        public List<Die> Dice { get; }
+        public int _rerollsPerformed;
 
 
         public Turn(IRandom random)
         {
             Dice = new List<Die>();
+            _rerollsPerformed = 0;
             for (var i = 0; i < 5; i++)
             {
                 Die die = new Die(random);
@@ -28,16 +32,27 @@ namespace Yatzy
         }
         public void RerollDie(string diceToReroll)
         {
-            var rerollDiceList = diceToReroll.Split(',').Select(int.Parse).ToList();
+            var rerollDiceList = diceToReroll.Split(',').Select(int.Parse).ToList(); //move to user input
             foreach (var die in rerollDiceList)
             {
                 Dice[die - 1].Roll();
             }
+            _rerollsPerformed += 1;
         }
-        
-        public int GetFace()
+
+        public int GetFaceOfDie(Die die)
         {
-            throw new NotImplementedException();
+            return die.Face;
         }
+
+        public Category GetCategory(string categoryInput)
+        {
+            while (true)
+            {
+                var titleCase = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(categoryInput.ToLower());
+                var withoutSpacesAndTitleCase = Regex.Replace(titleCase, @"\s+", "");
+                return (Category) Enum.Parse(typeof(Category), withoutSpacesAndTitleCase);
+            }
         }
     }
+}
