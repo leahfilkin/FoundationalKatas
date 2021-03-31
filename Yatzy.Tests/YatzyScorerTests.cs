@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Yatzy.Tests
 {
-    public class YatzyTests
+    public class YatzyScorerTests
     {
         [Fact]
         public void ChanceShouldReturnSumOfDice()
@@ -169,5 +170,6 @@ namespace Yatzy.Tests
             
             Assert.Equal(expected, score);
         }
+        
     }
 }

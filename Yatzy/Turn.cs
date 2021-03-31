@@ -40,6 +40,23 @@ namespace Yatzy
             _rerollsPerformed += 1;
         }
 
+        public void ExecuteRerolls(Turn turn)
+        {
+            var printer = new Printer();
+            var userInput = new UserInput();
+            while (turn._rerollsPerformed < 3) //turn
+            {
+                var rerollAnswer = userInput.AskIfPlayerWillReroll();
+                if (!rerollAnswer)
+                {
+                    break;
+                }
+                var dieToReroll = userInput.GetDieToReroll();
+                turn.RerollDie(dieToReroll);
+                printer.PrintDice(turn);
+            }
+        }
+
         public int GetFaceOfDie(Die die)
         {
             return die.Face;

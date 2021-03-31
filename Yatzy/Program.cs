@@ -13,20 +13,9 @@ namespace Yatzy
             Console.WriteLine("Welcome to Yatzy!");
             turn.MakeFirstRoll();
             printer.PrintDice(turn);
-            while (turn._rerollsPerformed < 3) //turn
-            {
-                var rerollAnswer = userInput.AskIfPlayerWillReroll();
-                if (!rerollAnswer)
-                {
-                    break;
-                }
-                var dieToReroll = userInput.GetDieToReroll();
-                turn.RerollDie(dieToReroll);
-                printer.PrintDice(turn);
-            }
+            turn.ExecuteRerolls(turn);
             var category = userInput.AskPlayerForCategory(turn);
             var categoryEnum = turn.GetCategory(category);
-            
             Console.WriteLine(categoryEnum);
 
         }

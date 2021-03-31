@@ -7,6 +7,15 @@ namespace Yatzy
 {
     public class YatzyScorer
     {
+        public IEnumerable<int> CountFaceValues(List<Die> dice)
+        {
+            var diceValues = new List<int>();
+            foreach (var die in dice)
+            {
+                diceValues.Add(die.Face);
+            }
+            return diceValues;
+        }
         public static int CalculateScore(IEnumerable<int> dice, Category category)
         {
             if (dice.Any(x => x < 1 || x > 6))

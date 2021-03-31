@@ -36,8 +36,19 @@ namespace Yatzy.Tests
             var categoryInput = "three of a kind";
             var random = new FakeRandom(new List<int> {3, 3, 3, 3, 4});
             var turn = new Turn(random);
-            var userInput = new UserInput();
             Assert.Equal(Category.ThreeOfAKind, turn.GetCategory(categoryInput));
         }
+        
+        [Fact]
+        public void ShouldConvertDiceListToEnumerable()
+        {
+            var random = new FakeRandom(new List<int> {3, 3, 3, 3, 4});
+            var turn = new Turn(random);
+            turn.MakeFirstRoll();
+            var yatzyScorer = new YatzyScorer();
+            var diceFaces = yatzyScorer.CountFaceValues(turn.Dice);
+            Assert.Equal(16, diceFaces.Sum());
+        }
+        
     }
 }
