@@ -10,10 +10,10 @@ namespace Yatzy
     {
 
         public List<Die> Dice { get; }
-        public int _rerollsPerformed;
+        private int _rerollsPerformed;
 
 
-        public Turn(IRandom random)
+        public Turn(IRandom random, Player player)
         {
             Dice = new List<Die>();
             _rerollsPerformed = 0;
@@ -23,6 +23,7 @@ namespace Yatzy
                 Dice.Add(die);
             }
         }
+        
         public void MakeFirstRoll()
         {
             foreach (var die in Dice)
@@ -40,21 +41,31 @@ namespace Yatzy
             _rerollsPerformed += 1;
         }
 
-        public void ExecuteRerolls(Turn turn)
+        public void ExecuteRerolls()
         {
             var printer = new Printer();
             var userInput = new UserInput();
-            while (turn._rerollsPerformed < 3) //turn
+            while (CanReroll())
+            {
+                var dieToReroll = userInput.GetDieToReroll();
+                RerollDie(dieToReroll);
+                printer.PrintDice(this);
+            }
+        }
+
+        public bool CanReroll()
+        {
+            var userInput = new UserInput();
+            while (_rerollsPerformed < 3)
             {
                 var rerollAnswer = userInput.AskIfPlayerWillReroll();
                 if (!rerollAnswer)
                 {
-                    break;
+                    return false;
                 }
-                var dieToReroll = userInput.GetDieToReroll();
-                turn.RerollDie(dieToReroll);
-                printer.PrintDice(turn);
+                return true;
             }
+            return false;
         }
 
         public int GetFaceOfDie(Die die)
@@ -62,14 +73,22 @@ namespace Yatzy
             return die.Face;
         }
 
-        public Category GetCategory(string categoryInput)
+        public Category GetCategory(string categoryInput, List<Category> categoriesLeft)
         {
+            var userInput = new UserInput();
+            var withoutSpacesAndTitleCase = "";
             while (true)
             {
                 var titleCase = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(categoryInput.ToLower());
-                var withoutSpacesAndTitleCase = Regex.Replace(titleCase, @"\s+", "");
-                return (Category) Enum.Parse(typeof(Category), withoutSpacesAndTitleCase);
+                withoutSpacesAndTitleCase = Regex.Replace(titleCase, @"\s+", "");
+                if (categoriesLeft.Contains((Category) Enum.Parse(typeof(Category), withoutSpacesAndTitleCase)))
+                {
+                    break;
+                }
+                Console.WriteLine("You have already used this category. Please choose another");
+                categoryInput = userInput.AskPlayerForCategory(this, categoriesLeft);
             }
+            return (Category) Enum.Parse(typeof(Category), withoutSpacesAndTitleCase);
         }
     }
 }

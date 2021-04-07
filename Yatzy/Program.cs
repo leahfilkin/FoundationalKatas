@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace Yatzy
 {
@@ -6,18 +7,28 @@ namespace Yatzy
     {
         static public void Main(String[] args)
         {
-            var random = new Random();
-            var turn = new Turn(random);
-            var userInput = new UserInput();
-            var printer = new Printer();
             Console.WriteLine("Welcome to Yatzy!");
-            turn.MakeFirstRoll();
-            printer.PrintDice(turn);
-            turn.ExecuteRerolls(turn);
-            var category = userInput.AskPlayerForCategory(turn);
-            var categoryEnum = turn.GetCategory(category);
-            Console.WriteLine(categoryEnum);
-
+            var random = new Random();
+            var printer = new Printer();
+            var userInput = new UserInput();
+            var player = new Player();
+            var yatzyScorer = new YatzyScorer();
+            var score = 0;
+            while (player.CategoriesLeft.Any())
+            {
+                Console.WriteLine("New turn!");
+                var turn = new Turn(random, player);
+                turn.MakeFirstRoll();
+                printer.PrintDice(turn);
+                turn.ExecuteRerolls();
+                printer.PrintCategoriesLeft(player);
+                var category = userInput.AskPlayerForCategory(turn, player.CategoriesLeft);
+                var categoryEnum = turn.GetCategory(category, player.CategoriesLeft);
+                var faceValues = yatzyScorer.CountFaceValues(turn.Dice);
+                score += YatzyScorer.CalculateScore(faceValues, categoryEnum);
+                Console.WriteLine($"Your current score is {score}");
+            }
+            Console.WriteLine($"Your final score is {score}");
         }
     }
 }

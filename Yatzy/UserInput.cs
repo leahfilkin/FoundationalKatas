@@ -27,16 +27,16 @@ namespace Yatzy
             {
                 Console.WriteLine("Would you like to reroll any dice? Input Y for yes, N for no");
                 var keyPressed = Console.ReadKey(true).Key;
-                while (!(Console.KeyAvailable && keyPressed == ConsoleKey.Y || 
-                         keyPressed == ConsoleKey.N))
+                while (keyPressed == ConsoleKey.Y || 
+                         keyPressed == ConsoleKey.N)
                 {
-                    return keyPressed == ConsoleKey.Y;
+                    return (keyPressed == ConsoleKey.Y);
                 }
                 Console.WriteLine("Incorrect input. Please input a Y or N");
             }
         }
 
-        public string AskPlayerForCategory(Turn turn)
+        public string AskPlayerForCategory(Turn turn, List<Category> categoriesLeft)
         {
             while (true)
             {
@@ -44,10 +44,10 @@ namespace Yatzy
                 var category = Console.ReadLine();
                 try
                 {
-                    turn.GetCategory(category);
+                    turn.GetCategory(category, categoriesLeft);
                     return category;
                 }
-                catch (ArgumentException e)
+                catch (ArgumentException)
                 {
                     Console.WriteLine("You have input an incorrect category. Make sure you type it with spaces and you have no typos.");
                 }

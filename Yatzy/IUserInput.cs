@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Yatzy
 {
     public interface IUserInput
@@ -6,7 +8,7 @@ namespace Yatzy
 
         bool AskIfPlayerWillReroll();
 
-        string AskPlayerForCategory(Turn turn);
+        string AskPlayerForCategory(Turn turn, List<Category> categoriesLeft);
     }
     
 }
