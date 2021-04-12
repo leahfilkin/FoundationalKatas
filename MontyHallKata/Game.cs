@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace MontyHallKata
@@ -5,16 +6,16 @@ namespace MontyHallKata
     public class Game
     {
         private bool _didWin;
-        private List<Door> _doors;
 
-        public Game(List<Door> doors)
-        {
-            _doors = doors;
-        }
-        
         public void PlayGame()
         {
-            _didWin = true;
+            var chosenDoor = 1;
+            var winningDoor = 1;
+            if (chosenDoor == winningDoor) 
+            {
+                _didWin = true;
+            }
+            else _didWin = false;
         }
 
         public int GetResult()
@@ -25,7 +26,11 @@ namespace MontyHallKata
            }
            return 0;
         }
-        
-        
+
+
+        public object ChooseDoor(FakeRandom random)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -11,9 +11,9 @@ namespace MontyHallKata.Tests
         public void SimulatorShouldReturnResult()
         {
             var simulator = new Simulator();
-            var results = new List<int>() {1, 1, 1, 1, 1};
+            simulator.Results = new List<int>() {1, 1, 1, 1, 1};
             var expected = 100;
-            var actual = simulator.CalculateResults(results);
+            var actual = simulator.CalculateResults();
             Assert.Equal(expected, actual);
         }
 
@@ -55,7 +55,21 @@ namespace MontyHallKata.Tests
         public void SimulatorShouldAppendEachResultToList()
         {
             var simulator = new Simulator();
+            simulator.CollectGameResults(10);
+            Assert.Equal(10, simulator.Results.Count);
+        }
+
+        [Fact]
+        public void ContestantChoosesDoorAtRandom()
+        {
+            var random = new FakeRandom(new List<int>() {1,2,3});
+            var game = new Game();
+
+            var choice1 = game.ChooseDoor(random);
+            var choice2 = game.ChooseDoor(random);
             
+            Assert.Equal(1, choice1);
+            Assert.Equal(2, choice2);
         }
     }
 }
