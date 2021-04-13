@@ -71,5 +71,7 @@ namespace MontyHallKata.Tests
             Assert.Equal(1, choice1);
             Assert.Equal(2, choice2);
         }
+        
+        [Fact]
     }
 }

@@ -7,6 +7,7 @@ namespace MontyHallKata
     
     {
         public List<int> Results { get; set; }
+        
 
         public Simulator()
         {

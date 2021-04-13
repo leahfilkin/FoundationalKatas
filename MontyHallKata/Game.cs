@@ -28,9 +28,9 @@ namespace MontyHallKata
         }
 
 
-        public object ChooseDoor(FakeRandom random)
+        public int ChooseDoor(FakeRandom random)
         {
-            throw new NotImplementedException();
+            return random.Next(3);
         }
     }
 }
