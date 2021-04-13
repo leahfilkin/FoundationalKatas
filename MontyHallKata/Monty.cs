@@ -2,9 +2,17 @@ namespace MontyHallKata
 {
     public class Monty
     {
-        public object OpenIncorrectDoor(int contestantDoor)
+        public int GetIncorrectDoor(int contestantDoor, int winningDoor)
         {
-            throw new System.NotImplementedException();
+            var random = new Random();
+            while (true)
+            {
+                var doorToReturn = random.Next(3);
+                if (doorToReturn != contestantDoor && doorToReturn != winningDoor)
+                {
+                    return doorToReturn;
+                }
+            }
         }
     }
 }

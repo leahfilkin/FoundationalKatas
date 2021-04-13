@@ -74,12 +74,13 @@ namespace MontyHallKata.Tests
             Assert.Equal(2, choice2);
         }
 
-        [Fact]
-        public void MontyOpensIncorrectDoor()
+        [Theory]
+        [InlineData(1,1)]
+        [InlineData(1,2)]
+        public void MontyOpensDoorThatIsNotContestants(int contestantDoor, int winningDoor)
         {
             var monty = new Monty();
-            var contestantDoor = 1;
-            var incorrectDoor = monty.OpenIncorrectDoor(contestantDoor);
+            var incorrectDoor = monty.GetIncorrectDoor(contestantDoor, winningDoor);
             Assert.NotEqual(contestantDoor, incorrectDoor);
         }
     }
