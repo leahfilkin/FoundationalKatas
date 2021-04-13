@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Xunit;
 
 namespace MontyHallKata.Tests
@@ -46,7 +47,8 @@ namespace MontyHallKata.Tests
         public void ContestantChoiceReturnsSameDoor()
         {
             var contestant = new Contestant();
-            var result = contestant.ChooseDoor();
+            var random = new FakeRandom(new List<int>() {1,2,3});
+            var result = contestant.ChooseDoor(random);
             
             Assert.Equal(1, result);
         }
@@ -63,15 +65,22 @@ namespace MontyHallKata.Tests
         public void ContestantChoosesDoorAtRandom()
         {
             var random = new FakeRandom(new List<int>() {1,2,3});
-            var game = new Game();
+            var contestant = new Contestant();
 
-            var choice1 = game.ChooseDoor(random);
-            var choice2 = game.ChooseDoor(random);
+            var choice1 = contestant.ChooseDoor(random);
+            var choice2 = contestant.ChooseDoor(random);
             
             Assert.Equal(1, choice1);
             Assert.Equal(2, choice2);
         }
-        
+
         [Fact]
+        public void MontyOpensIncorrectDoor()
+        {
+            var monty = new Monty();
+            var contestantDoor = 1;
+            var incorrectDoor = monty.OpenIncorrectDoor(contestantDoor);
+            Assert.NotEqual(contestantDoor, incorrectDoor);
+        }
     }
 }

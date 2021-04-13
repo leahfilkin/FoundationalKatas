@@ -26,11 +26,5 @@ namespace MontyHallKata
            }
            return 0;
         }
-
-
-        public int ChooseDoor(FakeRandom random)
-        {
-            return random.Next(3);
-        }
     }
 }

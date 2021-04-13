@@ -2,9 +2,9 @@ namespace MontyHallKata
 {
     public class Contestant
     {
-        public int ChooseDoor()
+        public int ChooseDoor(FakeRandom random)
         {
-            return 1;
+            return random.Next(3);
         }
     }
 }
