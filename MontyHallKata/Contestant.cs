@@ -1,10 +1,13 @@
+using System.Collections.Generic;
+
 namespace MontyHallKata
 {
     public class Contestant
     {
-        public int ChooseDoor(FakeRandom random)
+        public Door ChooseDoor(IRandom random, List<Door> doors)
         {
-            return random.Next(3);
+            var randomIndex = random.Next(3) -1;
+                return doors[randomIndex];
         }
     }
 }

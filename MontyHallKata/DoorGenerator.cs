@@ -11,12 +11,12 @@ namespace MontyHallKata
             {
                 if (i == 0)
                 {
-                    var door = new Door(true);
+                    var door = new Door(true, true, true);
                     doors.Add(door);
                 }
                 else
                 {
-                    var door = new Door(false);
+                    var door = new Door(false, false, false);
                     doors.Add(door);
                 }
             }
