@@ -132,10 +132,6 @@ namespace MontyHallKata.Tests
             Assert.Equal(100, keepResult);
             Assert.Equal(0, changeResult);
             Assert.NotEqual(keepResult, changeResult);
-
-
-
-
         }
     }
 }
