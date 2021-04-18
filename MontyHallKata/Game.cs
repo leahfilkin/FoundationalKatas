@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace MontyHallKata
@@ -24,20 +22,12 @@ namespace MontyHallKata
                 doorsLeftToChoose.Remove(incorrectDoor);
                 chosenDoor = doorsLeftToChoose.First();
             }
-            if (chosenDoor.HasPrize) 
-            {
-                _didWin = true;
-            }
-            else _didWin = false;
+            _didWin = chosenDoor.HasPrize;
         }
 
         public int GetResult()
         {
-           if (_didWin)
-           {
-               return 1;
-           }
-           return 0;
+            return _didWin ? 1 : 0;
         }
     }
 }

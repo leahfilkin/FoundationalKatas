@@ -30,7 +30,7 @@ namespace MontyHallKata.Tests
         [Fact]
         public void IfDoorHasPrizeReturnTrue()
         {
-            var door = new Door(true, true, true);
+            var door = new Door(true, true);
 
             Assert.True(door.HasPrize);
         }
@@ -68,7 +68,6 @@ namespace MontyHallKata.Tests
         public void SimulatorShouldAppendEachResultToList()
         {
             var keepOriginalDoor = Strategy.KeepOriginalDoor;
-            var random = new Random();
             var simulator = new Simulator(keepOriginalDoor);
             simulator.CollectGameResults(10);
             Assert.Equal(10, simulator.Results.Count);

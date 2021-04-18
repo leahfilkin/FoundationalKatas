@@ -7,7 +7,7 @@ namespace MontyHallKata
     public class FakeSimulator : ISimulator
     {
         private readonly Strategy _strategy;
-        public List<int> Results { get; set; }
+        private List<int> Results { get; set; }
 
 
         public FakeSimulator(Strategy strategy)

@@ -4,15 +4,12 @@ namespace MontyHallKata
     {
         public bool HasPrize { get; }
         public bool IsContestantsFirstChoice { get; }
-        public bool IsContestantsSecondChoice { get; }
 
 
-
-        public Door(bool hasPrize, bool isContestantsFirstChoice, bool isContestantsSecondChoice)
+        public Door(bool hasPrize, bool isContestantsFirstChoice)
         {
             HasPrize = hasPrize;
             IsContestantsFirstChoice = isContestantsFirstChoice;
-            IsContestantsSecondChoice = isContestantsSecondChoice;
         }
     }
 }

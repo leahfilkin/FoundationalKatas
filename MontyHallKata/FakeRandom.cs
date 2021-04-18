@@ -5,7 +5,7 @@ namespace MontyHallKata
 {
     public class FakeRandom : IRandom
     {
-        private List<int> _nexts;
+        private readonly List<int> _nexts;
         public FakeRandom(List<int> nexts)
         {
             _nexts = nexts;
