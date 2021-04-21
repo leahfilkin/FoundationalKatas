@@ -19,10 +19,10 @@ namespace KataABC2
                 {
                     letterTwo = LetterGenerator.GenerateRandomLetter(alphabet);
                 }
-                var block = new Block(letterOne, letterTwo);
-                var createdBlock = block.CreateBlock();
-                string pair = ($"{letterOne} {letterTwo}");
-                blockList.Add(pair);
+                var blockClass = new Block(letterOne, letterTwo);
+                var createdBlock = blockClass.CreateBlock();
+                string block = ($"{letterOne} {letterTwo}");
+                blockList.Add(block);
                 Console.WriteLine(createdBlock);
             }
             var input = "";

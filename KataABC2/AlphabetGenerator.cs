@@ -4,10 +4,6 @@ namespace KataABC2
 {
     public class AlphabetGenerator
     {
-        public AlphabetGenerator()
-        {
-        }
-
         public List<char> CreateBeginningAlphabet()
         {
             return new List<char>
