@@ -17,12 +17,12 @@ namespace MontyHallKata
             Results = new List<int>();
         }
         
-        public double CalculateResults()
+        public double GetPercentage()
         {
             return Math.Round(Convert.ToDouble(Results.Sum()) / Results.Count * 100, 1 );
         }
 
-        public void CollectGameResults(int amountOfRuns)
+        public void RunSimulation(int amountOfRuns)
         {
             for (var i = 0; i < amountOfRuns; i++)
             {

@@ -2,9 +2,9 @@ namespace MontyHallKata
 {
     public interface ISimulator
     {
-        double CalculateResults();
+        double GetPercentage();
 
-        void CollectGameResults(int amountOfRuns);
+        void RunSimulation(int amountOfRuns);
         
         
 
