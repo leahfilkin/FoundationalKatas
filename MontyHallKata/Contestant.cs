@@ -6,7 +6,7 @@ namespace MontyHallKata
     {
         public Door ChooseDoor(IRandom random, List<Door> doors)
         {
-            var randomIndex = random.Next(3) -1;
+            var randomIndex = random.Next(doors.Count);
                 return doors[randomIndex];
         }
     }

@@ -5,15 +5,17 @@ using System.Linq;
 namespace MontyHallKata
 {
     public class Simulator : ISimulator
-    
     {
         private readonly Strategy _strategy;
         public List<int> Results { get; set; }
 
+        private IRandom _random;
 
-        public Simulator(Strategy strategy)
+
+        public Simulator(Strategy strategy, IRandom random)
         {
             _strategy = strategy;
+            _random = random;
             Results = new List<int>();
         }
         
@@ -26,10 +28,8 @@ namespace MontyHallKata
         {
             for (var i = 0; i < amountOfRuns; i++)
             {
-                var random = new Random();
                 var game = new Game();
-                game.PlayGame(random, _strategy);
-                Results.Add(game.GetResult());
+                Results.Add(game.PlayGame(_random, _strategy));
             }
         }
         

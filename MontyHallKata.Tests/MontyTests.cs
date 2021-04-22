@@ -9,7 +9,7 @@ namespace MontyHallKata.Tests
         public void MontyOpensDoorThatIsNotContestants()
         {
             var monty = new Monty();
-            var random = new FakeRandom(new List<int>() {1,2,3});
+            var random = new FakeRandom(new List<int>() {0,1,2});
             var contestant = new Contestant();
             var doorGenerator = new DoorGenerator();
             var doors = doorGenerator.GenerateDoors();

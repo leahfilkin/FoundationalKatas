@@ -9,8 +9,9 @@ namespace MontyHallKata.Tests
         [Fact]
         public void SimulatorShouldReturnResult()
         {
+            var random = new FakeRandom(new List<int>() {0,1,2});
             var keepOriginalDoor = Strategy.KeepOriginalDoor;
-            var simulator = new Simulator(keepOriginalDoor)
+            var simulator = new Simulator(keepOriginalDoor, random)
             {
                 Results = new List<int>()
                 {
@@ -27,10 +28,11 @@ namespace MontyHallKata.Tests
         }
         
         [Fact]
-        public void SimulatorShouldAppendEachResultToList()
+        public void SimulatorShouldAggregateResults()
         {
+            var random = new FakeRandom(new List<int>() {0,1,2,0,1,2,0,1,2,0});
             var keepOriginalDoor = Strategy.KeepOriginalDoor;
-            var simulator = new Simulator(keepOriginalDoor);
+            var simulator = new Simulator(keepOriginalDoor, random);
             simulator.RunSimulation(10);
             Assert.Equal(10, simulator.Results.Count);
         }
@@ -39,10 +41,11 @@ namespace MontyHallKata.Tests
         [InlineData(new []{1,0,0}, 33.3)]
         [InlineData(new []{0,0,0}, 0)]
         [InlineData(new []{1,1,1}, 100)]
-        public void CalculateResultShouldReturnCorrectPercentage(int[] results, double expected)
+        public void SimulatorShouldCalculateWinPercentageAccurately(int[] results, double expected)
         {
+            var random = new FakeRandom(new List<int>() {0,1,2});
             var keepOriginalDoor = Strategy.KeepOriginalDoor;
-            var simulator = new Simulator(keepOriginalDoor) {Results = results.ToList()};
+            var simulator = new Simulator(keepOriginalDoor, random) {Results = results.ToList()};
             var result = simulator.GetPercentage();
             Assert.Equal(expected, result);
         }
@@ -50,10 +53,9 @@ namespace MontyHallKata.Tests
         [Fact]
         public void SimulatorScoresStrategiesDifferently()
         {
-            var keepOriginalDoor = Strategy.KeepOriginalDoor;
-            var changeDoor = Strategy.ChangeDoor;
-            var keepOriginalDoorSimulator = new FakeSimulator(keepOriginalDoor);
-            var changeDoorSimulator = new FakeSimulator(changeDoor);
+            var random = new FakeRandom(new List<int>() {0,0,0,0,0,0,0,0,0});
+            var keepOriginalDoorSimulator = new Simulator(Strategy.KeepOriginalDoor, random);
+            var changeDoorSimulator = new Simulator(Strategy.ChangeDoor, random);
             
             keepOriginalDoorSimulator.RunSimulation(3);
             changeDoorSimulator.RunSimulation(3);

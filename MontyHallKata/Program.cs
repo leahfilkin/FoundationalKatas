@@ -7,8 +7,9 @@ namespace MontyHallKata
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to the Monty Hall simulation!");
-            var keepOriginalDoorSimulator = new Simulator(Strategy.KeepOriginalDoor);
-            var changeDoorSimulator = new Simulator(Strategy.ChangeDoor);
+            var random = new Random();
+            var keepOriginalDoorSimulator = new Simulator(Strategy.KeepOriginalDoor, random);
+            var changeDoorSimulator = new Simulator(Strategy.ChangeDoor, random);
             keepOriginalDoorSimulator.RunSimulation(1000);
             changeDoorSimulator.RunSimulation(1000);
             var keepResult = keepOriginalDoorSimulator.GetPercentage();

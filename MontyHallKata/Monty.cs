@@ -9,7 +9,7 @@ namespace MontyHallKata
             var random = new Random();
             while (true)
             {
-                var doorToReturnIndex = random.Next(3) - 1;
+                var doorToReturnIndex = random.Next(doors.Count);
                 var doorToReturn = doors[doorToReturnIndex];
                 if (!doorToReturn.IsContestantsFirstChoice && !doorToReturn.HasPrize)
                 {

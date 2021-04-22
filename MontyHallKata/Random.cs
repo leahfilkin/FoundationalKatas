@@ -5,7 +5,7 @@ namespace MontyHallKata
         public int Next(int range)
         {
             var random = new System.Random();
-            return random.Next(3) + 1;
+            return random.Next(range);
         }
     }
 }
