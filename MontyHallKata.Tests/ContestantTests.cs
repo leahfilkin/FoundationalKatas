@@ -1,8 +1,12 @@
+using System;
 using System.Collections.Generic;
 using Xunit;
+using Xunit.Sdk;
+using Moq;
 
 namespace MontyHallKata.Tests
 {
+    private readonly Mock<IRandom> contestantMock = new Mock<IRandom>();
     public class ContestantTests
     {
         [Fact]
@@ -42,5 +46,6 @@ namespace MontyHallKata.Tests
             var mockRandom = new MockRandom(doors.Count);
             contestant.ChooseDoor(random, doors);
         }
+        
     }
 }
