@@ -4,7 +4,7 @@ namespace MontyHallKata.Tests
 {
     public class FakeGame : IGame
     {
-        public int PlayGame(IRandom random, Strategy strategy)
+        public int Play(IRandom random, Strategy strategy)
         {
             if (strategy == Strategy.ChangeDoor)
             {

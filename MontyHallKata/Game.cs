@@ -4,7 +4,7 @@ namespace MontyHallKata
 {
     public class Game : IGame
     {
-        public int PlayGame(IRandom random, Strategy strategy)
+        public int Play(IRandom random, Strategy strategy)
         {
             var doorGenerator = new DoorGenerator();
             var contestant = new Contestant();

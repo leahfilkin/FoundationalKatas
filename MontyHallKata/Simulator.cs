@@ -11,12 +11,15 @@ namespace MontyHallKata
 
         private IRandom _random;
 
+        private IGame _game;
 
-        public Simulator(Strategy strategy, IRandom random)
+
+        public Simulator(Strategy strategy, IRandom random, IGame game)
         {
             _strategy = strategy;
             _random = random;
             Results = new List<int>();
+            _game = game;
         }
         
         public double GetPercentage()
@@ -28,8 +31,7 @@ namespace MontyHallKata
         {
             for (var i = 0; i < amountOfRuns; i++)
             {
-                var game = new Game();
-                Results.Add(game.PlayGame(_random, _strategy));
+                Results.Add(_game.Play(_random, _strategy));
             }
         }
     }
