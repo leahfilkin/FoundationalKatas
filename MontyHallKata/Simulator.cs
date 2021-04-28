@@ -32,7 +32,5 @@ namespace MontyHallKata
                 Results.Add(game.PlayGame(_random, _strategy));
             }
         }
-        
-        
     }
 }

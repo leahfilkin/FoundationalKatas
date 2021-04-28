@@ -3,13 +3,10 @@ namespace MontyHallKata
     public class Door
     {
         public bool HasPrize { get; }
-        public bool IsContestantsFirstChoice { get; }
 
-
-        public Door(bool hasPrize, bool isContestantsFirstChoice)
+        public Door(bool hasPrize)
         {
             HasPrize = hasPrize;
-            IsContestantsFirstChoice = isContestantsFirstChoice;
         }
     }
 }

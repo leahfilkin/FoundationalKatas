@@ -7,7 +7,7 @@ namespace MontyHallKata.Tests
         [Fact]
         public void IfDoorHasPrizeReturnTrue()
         {
-            var door = new Door(true, true);
+            var door = new Door(true);
 
             Assert.True(door.HasPrize);
         }

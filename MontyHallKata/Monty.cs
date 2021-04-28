@@ -4,16 +4,15 @@ namespace MontyHallKata
 {
     public class Monty
     {
-        public Door GetIncorrectDoor(List<Door> doors)
+        public Door GetIncorrectDoor(List<Door> doors, Door chosenDoor)
         {
             var random = new Random();
             while (true)
             {
-                var doorToReturnIndex = random.Next(doors.Count);
-                var doorToReturn = doors[doorToReturnIndex];
-                if (!doorToReturn.IsContestantsFirstChoice && !doorToReturn.HasPrize)
+                var doorToReturn = random.Next(doors.Count);
+                if (doors[doorToReturn] != chosenDoor && !doors[doorToReturn].HasPrize)
                 {
-                    return doorToReturn;
+                    return doors[doorToReturn];
                 }
             }
         }

@@ -1,48 +1,31 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
 public class DirReduction {
   
-    public static string[] DirReduc(String[] arr)
+    public static string[] dirReduc(String[] arr)
     {
-        var arrList = arr.ToList();
-        var group = arrList.GroupBy( i => i );
-        var counts = new Dictionary<string,int>(); 
-        foreach (var direction in group)
+        var opposite = new Dictionary<string, string> {{"NORTH", "SOUTH"}, {"EAST", "WEST"}, {"SOUTH", "NORTH"}, {"WEST", "EAST"}};
+        var reducedDirections = new Stack<string>();
+        foreach (var direction in arr)
         {
-            counts.Add(direction.Key, direction.Count());
-        }
-
-        if (arrList.Contains("NORTH") || arrList.Contains("SOUTH") && counts["NORTH"] > 1 && counts["SOUTH"] > 1)
-        {
-            var smallestCount = Math.Min(counts["NORTH"], counts["SOUTH"]);
-            for (var i = 0; i < smallestCount; i++)
+            if (reducedDirections.Count > 0)
             {
-                if (arrList.IndexOf("NORTH") - 1 == arrList.IndexOf("SOUTH") ||
-                    arrList.IndexOf("NORTH") + 1 == arrList.IndexOf("SOUTH"))
+                var prevDirection = reducedDirections.Pop();
+                if (prevDirection != opposite[direction])
                 {
-                    arrList.Remove("NORTH");
-                }
-
-                arrList.Remove("SOUTH");
-            }
-        }
-        if (arrList.Contains("EAST") || arrList.Contains("WEST") && counts["EAST"] > 1 && counts["WEST"] > 1)
-        {
-            var smallestCount = Math.Min(counts["EAST"], counts["WEST"]);
-            for (var i = 0; i < smallestCount; i++)
-            {
-                if (arrList.IndexOf("EAST") - 1 == arrList.IndexOf("WEST") ||
-                    arrList.IndexOf("EAST") + 1 == arrList.IndexOf("WEST"))
-                {
-                    arrList.Remove("EAST");
-                    arrList.Remove("WEST");
+                    reducedDirections.Push(prevDirection);
+                    reducedDirections.Push(direction);
                 }
             }
+            else
+            {
+                reducedDirections.Push(direction);
+            }
         }
-
-        return arrList.ToArray();
+        return reducedDirections.Reverse().ToArray();
     }
 }

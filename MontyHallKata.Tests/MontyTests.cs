@@ -12,12 +12,12 @@ namespace MontyHallKata.Tests
             var random = new FakeRandom(new List<int>() {0,1,2});
             var contestant = new Contestant();
             var doorGenerator = new DoorGenerator();
-            var doors = doorGenerator.GenerateDoors();
-            var contestantDoor = contestant.ChooseDoor(random, doors);
+            var doors = doorGenerator.GenerateDoors(random);
+            var chosenDoor = contestant.ChooseDoor(random, doors);
             
-            var incorrectDoor = monty.GetIncorrectDoor(doors);
+            var incorrectDoor = monty.GetIncorrectDoor(doors, chosenDoor);
             
-            Assert.NotEqual(contestantDoor, incorrectDoor);
+            Assert.NotEqual(chosenDoor, incorrectDoor);
         }
     }
 }
