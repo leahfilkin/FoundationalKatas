@@ -6,9 +6,11 @@ using Moq;
 
 namespace MontyHallKata.Tests
 {
-    private readonly Mock<IRandom> contestantMock = new Mock<IRandom>();
     public class ContestantTests
     {
+        private readonly Mock<IContestant> contestantMoq = new Mock<IContestant>();
+        private readonly Mock<IRandom> randomMoq = new Mock<IRandom>();
+        
         [Fact]
         public void ContestantChoiceReturnsTheDoorTheyChose()
         {
@@ -38,13 +40,14 @@ namespace MontyHallKata.Tests
 
         [Fact]
         public void ContestantUsesRandomNumberBasedOnDoorCount()
-        {
+        {   
             var contestant = new Contestant();
             var doorGenerator = new DoorGenerator();
             var random = new Random();
             var doors = doorGenerator.GenerateDoors(random);
-            var mockRandom = new MockRandom(doors.Count);
-            contestant.ChooseDoor(random, doors);
+            randomMoq.Setup(x => x.Next(doors.Count)).Returns<int>(range => 0);
+            var chosenDoor = contestant.ChooseDoor(randomMoq.Object, doors);
+            Assert.Equal(doors[0], chosenDoor);
         }
         
     }
