@@ -1,4 +1,9 @@
-$HEADER$namespace $NAMESPACE$
+using System.Collections.Generic;
+
+namespace MontyHallKata
 {
-  public interface $INTERFACE$ {$END$}
+    public interface IContestant
+    {
+        public Door ChooseDoor(IRandom random, List<Door> doors);
+    }
 }

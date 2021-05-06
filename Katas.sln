@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MontyHallKata.Tests", "Mont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codewars", "Codewars\Codewars.csproj", "{A02FD46E-ABBA-4BEF-BBE6-2DB1484C2CA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeMachine", "CoffeeMachine\CoffeeMachine.csproj", "{2423165F-5738-4101-BD2F-C5176445D409}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeMachine.Tests", "CoffeeMachine.Tests\CoffeeMachine.Tests.csproj", "{EF28B28D-29E5-4A3B-AE25-AC1D77330BA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,5 +65,13 @@ Global
 		{A02FD46E-ABBA-4BEF-BBE6-2DB1484C2CA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A02FD46E-ABBA-4BEF-BBE6-2DB1484C2CA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A02FD46E-ABBA-4BEF-BBE6-2DB1484C2CA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2423165F-5738-4101-BD2F-C5176445D409}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2423165F-5738-4101-BD2F-C5176445D409}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2423165F-5738-4101-BD2F-C5176445D409}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2423165F-5738-4101-BD2F-C5176445D409}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF28B28D-29E5-4A3B-AE25-AC1D77330BA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF28B28D-29E5-4A3B-AE25-AC1D77330BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF28B28D-29E5-4A3B-AE25-AC1D77330BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF28B28D-29E5-4A3B-AE25-AC1D77330BA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

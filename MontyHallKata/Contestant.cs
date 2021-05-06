@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace MontyHallKata
 {
-    public class Contestant
+    public class Contestant : IContestant
     {
         public Door ChooseDoor(IRandom random, List<Door> doors)
         {
