@@ -42,6 +42,17 @@ namespace CoffeeMachine
 
             return sugarAndStickDescription;
         }
+
+        public Dictionary<string, string> ProvideDescriptorsForStringCommand(string ticketInstructions)
+        {
+            var ticketBreakdown = ticketInstructions.Split(":");
+            return new Dictionary<string, string>()
+            {
+                ["drinkInitial"] = ticketBreakdown[0],
+                ["sugars"] = ticketBreakdown[1],
+                ["stick"] = ticketBreakdown[2]
+            };
+        }
     }
 }
     
