@@ -14,36 +14,21 @@ namespace CoffeeMachine.Tests
             var drinkMaker = new DrinkMaker();
             var ticket = new Ticket();
             ticket.SeperateStringCommandIntoOrderDetails(stringCommand);
-            var actual = drinkMaker.MakeDrink(ticket);
+            var actual = drinkMaker.MakeDrink(ticket, 5);
             Assert.Equal(expected, actual);
         }
 
         [Theory]
-        [InlineData("T:1:0", 0.4)]
-        [InlineData("H::", 0.7)]
-        [InlineData("C:2:0", 5.0)]
-        public void DrinkMakerShouldReturnTrueIfEnoughMoneyIsGiven(string stringCommand, double moneyGiven)
+        [InlineData(5, 4)]
+        [InlineData(0.6, 0.4)]
+        public void DrinkMakerShouldReturnMessageWithMissingMoneyAmountIfMoneyIsTooShort
+            (double ticketTotal, double moneyGiven)
         {
             var drinkMaker = new DrinkMaker();
-            var ticket = new Ticket();
-            ticket.SeperateStringCommandIntoOrderDetails(stringCommand);
-            ticket.CalculateTotalCostBasedOnDrink();
-            var canMakeDrink = drinkMaker.CheckIfEnoughMoneyIsGivenForOrder(moneyGiven, ticket.Total);
-            Assert.True(canMakeDrink);
-        }
-
-        [Theory]
-        [InlineData("T:1:0", 0.3)]
-        [InlineData("H::", 0.49)]
-        [InlineData("C:2:0", 0.1)]
-        public void DrinkMakerShouldReturnFalseIfNotEnoughMoneyIsGiven(string stringCommand, double moneyGiven)
-        {
-            var drinkMaker = new DrinkMaker();
-            var ticket = new Ticket();
-            ticket.SeperateStringCommandIntoOrderDetails(stringCommand);
-            ticket.CalculateTotalCostBasedOnDrink();
-            var canMakeDrink = drinkMaker.CheckIfEnoughMoneyIsGivenForOrder(moneyGiven, ticket.Total);
-            Assert.False(canMakeDrink);
+            var ticket = new Ticket {Total = ticketTotal};
+            var expected = $"You haven't given the drink machine enough money. You are {ticket.Total - moneyGiven} short";
+            var actual = drinkMaker.MakeDrink(ticket, moneyGiven);
+            Assert.Equal(expected, actual);
         }
     }
 }
