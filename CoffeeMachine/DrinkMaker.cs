@@ -6,22 +6,15 @@ namespace CoffeeMachine
 {
     public class DrinkMaker
     {
-        public string DescribeOrderToCustomer(Dictionary<string, string> ticketStringCommand)
+        public string MakeDrink(Ticket ticket)
         {
-            var ticket = new Ticket();
-            ticket.GetDrinkName(ticketStringCommand);
-            var sugarAndStickDescription = ticket.GetSugarAndStickDescription(ticketStringCommand);
-            return $"Drink maker makes 1 {ticket.Drink} with {sugarAndStickDescription}";
+            var sugarAndStickDescription = ticket.GetSugarAndStickDescription();
+            return $"Drink maker makes 1 {ticket.DrinkName} with {sugarAndStickDescription}";
         }
 
-        public bool CheckIfEnoughMoneyIsGiven(double moneyGiven, double ticketPrice)
+        public bool CheckIfEnoughMoneyIsGivenForOrder(double moneyGiven, double ticketPrice)
         {
             return moneyGiven >= ticketPrice;
-        }
-
-        public int CollectMoneyFromCustomer(double ticketPrice)
-        {
-            throw new NotImplementedException();
         }
     }
 }

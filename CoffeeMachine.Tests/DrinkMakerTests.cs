@@ -13,25 +13,37 @@ namespace CoffeeMachine.Tests
         {
             var drinkMaker = new DrinkMaker();
             var ticket = new Ticket();
-            var stringCommandWithDescriptors = ticket.ProvideDescriptorsForStringCommand(stringCommand);
-            var actual = drinkMaker.DescribeOrderToCustomer(stringCommandWithDescriptors);
+            ticket.SeperateStringCommandIntoOrderDetails(stringCommand);
+            var actual = drinkMaker.MakeDrink(ticket);
             Assert.Equal(expected, actual);
         }
 
         [Theory]
-        [InlineData("T:1:0")]
-        [InlineData("H::")]
-        [InlineData("C:2:0")]
-        public void DrinkMakerShouldReturnTrueIfEnoughMoneyIsGiven(string stringCommand)
+        [InlineData("T:1:0", 0.4)]
+        [InlineData("H::", 0.7)]
+        [InlineData("C:2:0", 5.0)]
+        public void DrinkMakerShouldReturnTrueIfEnoughMoneyIsGiven(string stringCommand, double moneyGiven)
         {
             var drinkMaker = new DrinkMaker();
             var ticket = new Ticket();
-            var stringCommandWithDescriptors = ticket.ProvideDescriptorsForStringCommand(stringCommand);
-            ticket.GetDrinkName(stringCommandWithDescriptors);
-            ticket.CalculateTotal();
-            var moneyGiven = 0.6;
-            var canMakeDrink = drinkMaker.CheckIfEnoughMoneyIsGiven(moneyGiven, ticket.Total);
+            ticket.SeperateStringCommandIntoOrderDetails(stringCommand);
+            ticket.CalculateTotalCostBasedOnDrink();
+            var canMakeDrink = drinkMaker.CheckIfEnoughMoneyIsGivenForOrder(moneyGiven, ticket.Total);
             Assert.True(canMakeDrink);
+        }
+
+        [Theory]
+        [InlineData("T:1:0", 0.3)]
+        [InlineData("H::", 0.49)]
+        [InlineData("C:2:0", 0.1)]
+        public void DrinkMakerShouldReturnFalseIfNotEnoughMoneyIsGiven(string stringCommand, double moneyGiven)
+        {
+            var drinkMaker = new DrinkMaker();
+            var ticket = new Ticket();
+            ticket.SeperateStringCommandIntoOrderDetails(stringCommand);
+            ticket.CalculateTotalCostBasedOnDrink();
+            var canMakeDrink = drinkMaker.CheckIfEnoughMoneyIsGivenForOrder(moneyGiven, ticket.Total);
+            Assert.False(canMakeDrink);
         }
     }
 }
