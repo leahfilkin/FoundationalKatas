@@ -5,23 +5,24 @@ namespace CoffeeMachine
 {
     public class Ticket
     {
-        public object GetDrinkName(Dictionary<string, string> instructions)
+        public double Total;
+        public string Drink;
+
+        public void GetDrinkName(Dictionary<string, string> instructions)
         {
             var drink = "";
             switch (instructions["drinkInitial"])
             {
                 case "T":
-                    drink = "tea";
+                    Drink = "tea";
                     break;
                 case "H":
-                    drink = "chocolate";
+                    Drink = "chocolate";
                     break;
                 case "C":
-                    drink = "coffee";
+                    Drink = "coffee";
                     break;
             }
-
-            return drink;
         }
 
         public string GetSugarAndStickDescription(Dictionary<string, string> instructions)
@@ -43,15 +44,31 @@ namespace CoffeeMachine
             return sugarAndStickDescription;
         }
 
-        public Dictionary<string, string> ProvideDescriptorsForStringCommand(string ticketInstructions)
+        public Dictionary<string, string> ProvideDescriptorsForStringCommand(string ticketStringCommand)
         {
-            var ticketBreakdown = ticketInstructions.Split(":");
+            var ticketBreakdown = ticketStringCommand.Split(":");
             return new Dictionary<string, string>()
             {
                 ["drinkInitial"] = ticketBreakdown[0],
                 ["sugars"] = ticketBreakdown[1],
                 ["stick"] = ticketBreakdown[2]
             };
+        }
+
+        public void CalculateTotal()
+        {
+            switch (Drink)
+            {
+                case "coffee":
+                    Total = 0.6;
+                    break;
+                case "tea":
+                    Total = 0.4;
+                    break;
+                case "chocolate":
+                    Total = 0.5;
+                    break;
+            }
         }
     }
 }

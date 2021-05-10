@@ -17,5 +17,21 @@ namespace CoffeeMachine.Tests
             var actual = drinkMaker.DescribeOrderToCustomer(stringCommandWithDescriptors);
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData("T:1:0")]
+        [InlineData("H::")]
+        [InlineData("C:2:0")]
+        public void DrinkMakerShouldReturnTrueIfEnoughMoneyIsGiven(string stringCommand)
+        {
+            var drinkMaker = new DrinkMaker();
+            var ticket = new Ticket();
+            var stringCommandWithDescriptors = ticket.ProvideDescriptorsForStringCommand(stringCommand);
+            ticket.GetDrinkName(stringCommandWithDescriptors);
+            ticket.CalculateTotal();
+            var moneyGiven = 0.6;
+            var canMakeDrink = drinkMaker.CheckIfEnoughMoneyIsGiven(moneyGiven, ticket.Total);
+            Assert.True(canMakeDrink);
+        }
     }
 }
