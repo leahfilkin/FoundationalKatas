@@ -25,7 +25,7 @@ namespace CoffeeMachine
                 case 0:
                     if (DrinkName != "orange juice")
                     {
-                        sugarAndStickDescription = "with no sugar - and therefore no stick";
+                        sugarAndStickDescription = "with no sugar";
                     }
                     break;
                 case 1:

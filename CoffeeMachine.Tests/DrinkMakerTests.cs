@@ -7,7 +7,7 @@ namespace CoffeeMachine.Tests
     {
         [Theory]
         [InlineData("T:1:0", "Drink maker makes 1 tea with 1 sugar and a stick")]
-        [InlineData("H::", "Drink maker makes 1 chocolate with no sugar - and therefore no stick")]
+        [InlineData("H::", "Drink maker makes 1 chocolate with no sugar")]
         [InlineData("C:2:0","Drink maker makes 1 coffee with 2 sugars and a stick")]
         public void DrinkMakerReturnsOrderInformationBasedOnTicket(string stringCommand, string expected)
         {
@@ -42,7 +42,19 @@ namespace CoffeeMachine.Tests
             var actual = drinkMaker.MakeDrink(ticket, 5);
             Assert.Equal(expected, actual);
         }
-        
+
+        [Theory]
+        [InlineData("Hh:1:0", "Drink maker makes 1 extra hot chocolate with 1 sugar and a stick")]
+        [InlineData("Ch::", "Drink maker makes 1 extra hot coffee with no sugar")]
+        [InlineData("Th:2:0", "Drink maker makes 1 extra hot tea with 2 sugars and a stick")]
+        public void DrinkMakerShouldAcceptExtraHoOptionForHotDrinks(string stringCommand, string expected)
+        {
+            var drinkMaker = new DrinkMaker();
+            var ticket = new Ticket();
+            ticket.SeperateStringCommandIntoOrderDetails(stringCommand);
+            var actual = drinkMaker.MakeDrink(ticket, 5);
+            Assert.Equal(expected, actual);
+        }
     }
     
 }
