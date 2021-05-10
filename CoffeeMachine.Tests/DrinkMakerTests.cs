@@ -19,16 +19,30 @@ namespace CoffeeMachine.Tests
         }
 
         [Theory]
-        [InlineData(5, 4)]
-        [InlineData(0.6, 0.4)]
-        public void DrinkMakerShouldReturnMessageWithMissingMoneyAmountIfMoneyIsTooShort
-            (double ticketTotal, double moneyGiven)
+        [InlineData(0.2)]
+        [InlineData(0.4)]
+        public void DrinkMakerShouldReturnMessageWithMissingMoneyAmountIfMoneyIsTooShort(double moneyGiven)
         {
             var drinkMaker = new DrinkMaker();
-            var ticket = new Ticket {Total = ticketTotal};
+            var ticket = new Ticket();
+            ticket.SeperateStringCommandIntoOrderDetails("C:1:0");
+            ticket.CalculateTotalCostBasedOnDrink();
             var expected = $"You haven't given the drink machine enough money. You are {ticket.Total - moneyGiven} short";
             var actual = drinkMaker.MakeDrink(ticket, moneyGiven);
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData("O::", "Drink maker makes 1 orange juice")]
+        public void DrinkMakerReturnsOrderInformationForOrangeJuice(string stringCommand, string expected)
+        {
+            var drinkMaker = new DrinkMaker();
+            var ticket = new Ticket();
+            ticket.SeperateStringCommandIntoOrderDetails(stringCommand);
+            var actual = drinkMaker.MakeDrink(ticket, 5);
+            Assert.Equal(expected, actual);
+        }
+        
     }
+    
 }
