@@ -5,16 +5,28 @@ namespace CoffeeMachine.Tests
 {
     public class ReportTests
     {
-        [Fact]
-        public void ReportShouldCalculateAmountOfDrinksBoughtPerDrink()
+        [Theory]
+        [MemberData(nameof(ReceiptData))]
+        public void ReportShouldCalculateTotalsCorrectly(Receipt receipt)
         {
-            var receipt = new Receipt{NumberOfChocolatesSold = 1};
             var receiptList = new List<Receipt>();
             var receiptRepository = new ReceiptRepository(receiptList);
             receiptRepository.Add(receipt);
             var report = new Report(receiptRepository);
-            report.CalculateNumberOfDrinksSold();
-            Assert.Equal("0,0,1,0,0", string.Join(",",report.ReportDetails.Values));
+            report.CalculateTotals();
+            Assert.Equal("0,0,1,0,0.6", string.Join(",", report.ReportDetails.Values));
+        }
+
+        public static IEnumerable<object[]> ReceiptData()
+        {
+            yield return new object[]
+            {
+                new Receipt()
+                {
+                    NumberOfChocolatesSold = 1,
+                    TotalMoneyEarned = 0.6
+                }
+            };
         }
     }
 }

@@ -19,7 +19,7 @@ namespace CoffeeMachine
             };
         }
 
-        public void CalculateNumberOfDrinksSold()
+        public void CalculateTotals()
         {
             var receipts = _receiptRepository.GetAll();
             foreach (var receipt in receipts)
@@ -30,6 +30,11 @@ namespace CoffeeMachine
                 ReportDetails["Number of Orange Juices Sold"] += receipt.NumberOfOrangeJuicesSold;
                 ReportDetails["Total Money Earned"] += receipt.TotalMoneyEarned;
             }
+        }
+
+        public void CalculateTotalMoneyEarned()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
