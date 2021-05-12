@@ -4,30 +4,40 @@ namespace CoffeeMachine
 {
     public class Menu
     {
-        public Dictionary<string, string> Drinks { get; }
-        public Dictionary<string, double> Prices { get; }
+        public Dictionary<string, Drink> Drinks { get; }
+        public Dictionary<Drink, double> Prices { get; }
+        public List<Drink> HotDrinks { get; }
 
         public Menu()
         {
-            Drinks = new Dictionary<string, string>()
+            Drinks = new Dictionary<string, Drink>()
             {
-                {"C", "coffee"},
-                {"T", "tea"},
-                {"O", "orange juice"},
-                {"H", "chocolate"},
-                {"Ch", "extra hot coffee"},
-                {"Hh", "extra hot chocolate"},
-                {"Th", "extra hot tea"}
+                {"C", Drink.Coffee},
+                {"T", Drink.Tea},
+                {"O", Drink.OrangeJuice},
+                {"H", Drink.Chocolate},
+                {"Ch", Drink.ExtraHotCoffee},
+                {"Hh", Drink.ExtraHotChocolate},
+                {"Th", Drink.ExtraHotTea}
             };
-            Prices = new Dictionary<string, double>()
+            Prices = new Dictionary<Drink, double>()
             {
-                {"coffee", 0.6},
-                {"tea", 0.4},
-                {"chocolate", 0.5},
-                {"orange juice", 0.6},
-                {"extra hot coffee", 0.6},
-                {"extra hot chocolate", 0.5},
-                {"extra hot tea", 0.4}
+                {Drink.Coffee, 0.6},
+                {Drink.Tea, 0.4},
+                {Drink.Chocolate, 0.5},
+                {Drink.OrangeJuice, 0.6},
+                {Drink.ExtraHotCoffee, 0.6},
+                {Drink.ExtraHotChocolate, 0.5},
+                {Drink.ExtraHotTea, 0.4}
+            };
+            HotDrinks = new List<Drink>()
+            {
+                Drink.Coffee,
+                Drink.Tea,
+                Drink.Chocolate,
+                Drink.ExtraHotCoffee,
+                Drink.ExtraHotChocolate,
+                Drink.ExtraHotTea
             };
         }
     }

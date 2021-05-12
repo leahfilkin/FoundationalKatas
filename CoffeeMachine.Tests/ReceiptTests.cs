@@ -8,7 +8,7 @@ namespace CoffeeMachine.Tests
         [Fact]
         public void ReceiptShouldBeGeneratedOnDemand()
         {
-            var receipt = new Receipt{NumberOfChocolatesSold = 1};
+            var receipt = new Receipt(Drink.Chocolate, 0.6) {NumberOfChocolatesSold = 1};
             var receiptList = new List<Receipt>();
             var receiptRepository = new ReceiptRepository(receiptList);
             receiptRepository.Add(receipt);

@@ -31,10 +31,5 @@ namespace CoffeeMachine
                 ReportDetails["Total Money Earned"] += receipt.TotalMoneyEarned;
             }
         }
-
-        public void CalculateTotalMoneyEarned()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

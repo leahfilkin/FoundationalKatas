@@ -13,7 +13,7 @@ namespace CoffeeMachine.Tests
         {
             var drinkMaker = new DrinkMaker();
             var ticket = new Ticket();
-            ticket.SeperateStringCommandIntoOrderDetails(stringCommand);
+            ticket.SeparateStringCommandIntoOrderDetails(stringCommand);
             var actual = drinkMaker.MakeDrink(ticket, 5);
             Assert.Equal(expected, actual);
         }
@@ -25,7 +25,7 @@ namespace CoffeeMachine.Tests
         {
             var drinkMaker = new DrinkMaker();
             var ticket = new Ticket();
-            ticket.SeperateStringCommandIntoOrderDetails(stringCommand);
+            ticket.SeparateStringCommandIntoOrderDetails(stringCommand);
             ticket.CalculateTotalCostBasedOnDrink();
             var expected = $"You haven't given the drink machine enough money. You are {ticket.Total - moneyGiven} short";
             var actual = drinkMaker.MakeDrink(ticket, moneyGiven);
@@ -38,7 +38,7 @@ namespace CoffeeMachine.Tests
         {
             var drinkMaker = new DrinkMaker();
             var ticket = new Ticket();
-            ticket.SeperateStringCommandIntoOrderDetails(stringCommand);
+            ticket.SeparateStringCommandIntoOrderDetails(stringCommand);
             var actual = drinkMaker.MakeDrink(ticket, 5);
             Assert.Equal(expected, actual);
         }
@@ -47,11 +47,11 @@ namespace CoffeeMachine.Tests
         [InlineData("Hh:1:0", "Drink maker makes 1 extra hot chocolate with 1 sugar and a stick")]
         [InlineData("Ch::", "Drink maker makes 1 extra hot coffee with no sugar")]
         [InlineData("Th:2:0", "Drink maker makes 1 extra hot tea with 2 sugars and a stick")]
-        public void DrinkMakerShouldAcceptExtraHoOptionForHotDrinks(string stringCommand, string expected)
+        public void DrinkMakerShouldAcceptExtraHotOptionForHotDrinks(string stringCommand, string expected)
         {
             var drinkMaker = new DrinkMaker();
             var ticket = new Ticket();
-            ticket.SeperateStringCommandIntoOrderDetails(stringCommand);
+            ticket.SeparateStringCommandIntoOrderDetails(stringCommand);
             var actual = drinkMaker.MakeDrink(ticket, 5);
             Assert.Equal(expected, actual);
         }

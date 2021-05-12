@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace CoffeeMachine
@@ -7,38 +6,39 @@ namespace CoffeeMachine
     public class Ticket
     {
         private string _drinkInitial;
-        public string DrinkName { get; private set; }
+        public Drink Drink { get; private set; }
         public double Total { get; private set; }
-        public int AmountOfSugars;
+        private int _amountOfSugars;
 
-        public void GetDrinkName()
+        private void GetDrinkName()
         {
             var menu = new Menu();
-            DrinkName = menu.Drinks[_drinkInitial];
+            Drink = menu.Drinks[_drinkInitial];
         }
 
         public string GetSugarAndStickDescription()
         {
+            var menu = new Menu();
             var sugarAndStickDescription = "";
-            switch (Convert.ToInt32(AmountOfSugars))
+            switch (Convert.ToInt32(_amountOfSugars))
             {
                 case 0:
-                    if (DrinkName != "orange juice")
+                    if (menu.HotDrinks.Contains(Drink))
                     {
                         sugarAndStickDescription = "with no sugar";
                     }
                     break;
                 case 1:
-                    sugarAndStickDescription = $"with {AmountOfSugars} sugar and a stick";
+                    sugarAndStickDescription = $"with {_amountOfSugars} sugar and a stick";
                     break;
                 default:
-                    sugarAndStickDescription = $"with {AmountOfSugars} sugars and a stick";
+                    sugarAndStickDescription = $"with {_amountOfSugars} sugars and a stick";
                     break;
             }
             return sugarAndStickDescription;
         }
 
-        public void SeperateStringCommandIntoOrderDetails(string ticketStringCommand)
+        public void SeparateStringCommandIntoOrderDetails(string ticketStringCommand)
         {
             if (!new Regex(@"[C|H|T|O|Ch|Hh|Th]\:\d?\:0?$").IsMatch(ticketStringCommand))
             {
@@ -47,13 +47,14 @@ namespace CoffeeMachine
             var ticketBreakdown = ticketStringCommand.Split(":");
             _drinkInitial = ticketBreakdown[0];
             GetDrinkName();
-            AmountOfSugars = Convert.ToInt32(ticketBreakdown[1] == "" ? "0" : ticketBreakdown[1]);
+            _amountOfSugars = Convert.ToInt32(ticketBreakdown[1] == "" ? "0" : ticketBreakdown[1]);
+            CalculateTotalCostBasedOnDrink();
         }
 
         public void CalculateTotalCostBasedOnDrink()
         {
             var menu = new Menu();
-            Total = menu.Prices[DrinkName];
+            Total = menu.Prices[Drink];
         }
     }
 }
