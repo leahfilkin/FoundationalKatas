@@ -1,6 +1,6 @@
-namespace CoffeeMachine
+namespace CoffeeMachine.Enums
 {
-    public enum Drink
+    public enum DrinkType
     {
         Coffee,
         Tea,

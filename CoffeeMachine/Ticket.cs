@@ -1,19 +1,20 @@
 using System;
 using System.Text.RegularExpressions;
+using CoffeeMachine.Enums;
 
 namespace CoffeeMachine
 {
     public class Ticket
     {
         private string _drinkInitial;
-        public Drink Drink { get; private set; }
+        public DrinkType DrinkType { get; private set; }
         public double Total { get; private set; }
         private int _amountOfSugars;
 
         private void GetDrinkName()
         {
             var menu = new Menu();
-            Drink = menu.Drinks[_drinkInitial];
+            DrinkType = menu.Drinks[_drinkInitial];
         }
 
         public string GetSugarAndStickDescription()
@@ -23,7 +24,7 @@ namespace CoffeeMachine
             switch (Convert.ToInt32(_amountOfSugars))
             {
                 case 0:
-                    if (menu.HotDrinks.Contains(Drink))
+                    if (menu.HotDrinks.Contains(DrinkType))
                     {
                         sugarAndStickDescription = "with no sugar";
                     }
@@ -54,7 +55,7 @@ namespace CoffeeMachine
         public void CalculateTotalCostBasedOnDrink()
         {
             var menu = new Menu();
-            Total = menu.Prices[Drink];
+            Total = menu.Prices[DrinkType];
         }
     }
 }

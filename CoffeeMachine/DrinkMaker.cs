@@ -1,51 +1,39 @@
 using System.Linq;
+using CoffeeMachine.Enums;
 
 namespace CoffeeMachine
 {
-    public class DrinkMaker
+    public class DrinkMaker : IBeverageQuantityChecker
     {
-        public string MakeDrink(Ticket ticket, double moneyGiven)
+        public int MilkLeft { get; private set; }
+        public int WaterLeft { get; private set; }
+        public DrinkMaker(int milkLeft = 10, int waterLeft = 10)
         {
-            var drinkName = ConvertDrinkToString(ticket.Drink);
-            if (!(moneyGiven >= ticket.Total))
-            {
-                return $"You haven't given the drink machine enough money. You are {ticket.Total - moneyGiven} short";
-            }
-            var sugarAndStickDescription = ticket.GetSugarAndStickDescription();
-            var orderInformation = string.Join(" ", new [] 
-                    {"Drink maker makes 1", drinkName, sugarAndStickDescription}
-                .Where(x => x != ""));
-            return orderInformation;
+            MilkLeft = milkLeft;
+            WaterLeft = waterLeft;
+        }
+        public void MakeDrink(Ticket ticket, double moneyGiven)
+        {
+            var recipe = GetRecipe(ticket.DrinkType);
+            DeductIngredients(recipe);
+            
         }
 
-        private static string ConvertDrinkToString(Drink drink)
+        private void DeductIngredients(Recipe recipe)
         {
-            var drinkString = "";
-            switch (drink)
-            {
-                case Drink.Coffee:
-                    drinkString = "coffee";
-                    break;
-                case Drink.Tea:
-                    drinkString = "tea";
-                    break;
-                case Drink.Chocolate:
-                    drinkString = "chocolate";
-                    break;
-                case Drink.OrangeJuice:
-                    drinkString = "orange juice";
-                    break;
-                case Drink.ExtraHotCoffee:
-                    drinkString = "extra hot coffee";
-                    break;
-                case Drink.ExtraHotTea:
-                    drinkString = "extra hot tea";
-                    break;
-                case Drink.ExtraHotChocolate:
-                    drinkString = "extra hot chocolate";
-                    break;
-            }
-            return drinkString;
+            MilkLeft -= recipe.MilkNeeded;
+            WaterLeft -= recipe.WaterNeeded;
+        }
+
+        private Recipe GetRecipe(DrinkType drinkType)
+        {
+             return new Recipe(drinkType);
+        }
+        
+
+        public bool IsEmpty(DrinkType drinkType)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

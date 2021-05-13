@@ -55,6 +55,55 @@ namespace CoffeeMachine.Tests
             var actual = drinkMaker.MakeDrink(ticket, 5);
             Assert.Equal(expected, actual);
         }
+        
+        [Fact]
+        public void DrinkMakerHasOneLessMilkAndWaterAfterMakingCoffee()
+        {
+            var milkLeft = 3;
+            var waterLeft = 3;
+            var drinkMaker = new DrinkMaker(milkLeft, waterLeft);
+            var ticket = new Ticket();
+            ticket.SeparateStringCommandIntoOrderDetails("C::");
+            
+            var message = drinkMaker.MakeDrink(ticket, 5);
+            
+            Assert.Equal(2, drinkMaker.MilkLeft);
+            Assert.Equal(2, drinkMaker.WaterLeft);
+        }
+
+        [Theory]
+        [InlineData("C::", 2)]
+        [InlineData("O::", 3)]
+        public void DrinkMakerUsesIngredientsBasedOnTicket(string stringCommand, int expected)
+        {
+            var milkLeft = 3;
+            var waterLeft = 3;
+            var drinkMaker = new DrinkMaker(milkLeft, waterLeft);
+            var ticket = new Ticket();
+            ticket.SeparateStringCommandIntoOrderDetails(stringCommand);
+            
+            var message = drinkMaker.MakeDrink(ticket, 5);
+            
+            Assert.Equal(expected, drinkMaker.MilkLeft);
+            Assert.Equal(expected, drinkMaker.WaterLeft);
+        }
+
+        [Fact]
+        public void DrinkMakerRunsOutOfMilk_PrintsError()
+        {
+            var expectedErrorMessage = "There is a shortage in milk. We have notified the manager.";
+            var milkLeft = 0;
+            var waterLeft = 3;
+            var drinkMaker = new DrinkMaker(milkLeft, waterLeft);
+            var ticket = new Ticket();
+            ticket.SeparateStringCommandIntoOrderDetails("C::");
+
+            var actualErrorMessage = drinkMaker.MakeDrink(ticket, 4);
+            
+            Assert.Equal(expectedErrorMessage, actualErrorMessage);
+
+        }
+        
     }
     
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CoffeeMachine.Enums;
 using Xunit;
 
 namespace CoffeeMachine.Tests
@@ -21,7 +22,7 @@ namespace CoffeeMachine.Tests
         {
             yield return new object[]
             {
-                new Receipt(Drink.Chocolate, 0.6)
+                new Receipt(DrinkType.Chocolate, 0.6)
                 {
                     NumberOfChocolatesSold = 1,
                     TotalMoneyEarned = 0.6
@@ -45,7 +46,7 @@ namespace CoffeeMachine.Tests
                 var ticket = new Ticket();
                 ticket.SeparateStringCommandIntoOrderDetails(t);
                 drinkMaker.MakeDrink(ticket, 5);
-                var receipt = new Receipt(ticket.Drink, ticket.Total);
+                var receipt = new Receipt(ticket.DrinkType, ticket.Total);
                 receiptRepository.Add(receipt);
             }
             var report = new Report(receiptRepository);

@@ -4,6 +4,7 @@
     {
         public static void Main(string[] args)
         {
+            Output.DisplayOrderInformation(ticket, moneyGiven);
         }
     }
 }
