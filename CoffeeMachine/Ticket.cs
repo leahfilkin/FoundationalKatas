@@ -9,34 +9,12 @@ namespace CoffeeMachine
         private string _drinkInitial;
         public DrinkType DrinkType { get; private set; }
         public double Total { get; private set; }
-        private int _amountOfSugars;
+        public int AmountOfSugars;
 
         private void GetDrinkName()
         {
             var menu = new Menu();
             DrinkType = menu.Drinks[_drinkInitial];
-        }
-
-        public string GetSugarAndStickDescription()
-        {
-            var menu = new Menu();
-            var sugarAndStickDescription = "";
-            switch (Convert.ToInt32(_amountOfSugars))
-            {
-                case 0:
-                    if (menu.HotDrinks.Contains(DrinkType))
-                    {
-                        sugarAndStickDescription = "with no sugar";
-                    }
-                    break;
-                case 1:
-                    sugarAndStickDescription = $"with {_amountOfSugars} sugar and a stick";
-                    break;
-                default:
-                    sugarAndStickDescription = $"with {_amountOfSugars} sugars and a stick";
-                    break;
-            }
-            return sugarAndStickDescription;
         }
 
         public void SeparateStringCommandIntoOrderDetails(string ticketStringCommand)
@@ -48,11 +26,11 @@ namespace CoffeeMachine
             var ticketBreakdown = ticketStringCommand.Split(":");
             _drinkInitial = ticketBreakdown[0];
             GetDrinkName();
-            _amountOfSugars = Convert.ToInt32(ticketBreakdown[1] == "" ? "0" : ticketBreakdown[1]);
-            CalculateTotalCostBasedOnDrink();
+            AmountOfSugars = Convert.ToInt32(ticketBreakdown[1] == "" ? "0" : ticketBreakdown[1]);
+            CalculateTotalTicketCost();
         }
 
-        public void CalculateTotalCostBasedOnDrink()
+        public void CalculateTotalTicketCost()
         {
             var menu = new Menu();
             Total = menu.Prices[DrinkType];

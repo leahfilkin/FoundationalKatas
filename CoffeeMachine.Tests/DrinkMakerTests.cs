@@ -9,7 +9,7 @@ namespace CoffeeMachine.Tests
         [InlineData("T:1:0", "Drink maker makes 1 tea with 1 sugar and a stick")]
         [InlineData("H::", "Drink maker makes 1 chocolate with no sugar")]
         [InlineData("C:2:0","Drink maker makes 1 coffee with 2 sugars and a stick")]
-        public void DrinkMakerReturnsOrderInformationBasedOnTicket(string stringCommand, string expected)
+        public void StringCommandReturnsCorrectInfoMessages(string stringCommand, string expected)
         {
             var drinkMaker = new DrinkMaker();
             var ticket = new Ticket();
@@ -26,7 +26,7 @@ namespace CoffeeMachine.Tests
             var drinkMaker = new DrinkMaker();
             var ticket = new Ticket();
             ticket.SeparateStringCommandIntoOrderDetails(stringCommand);
-            ticket.CalculateTotalCostBasedOnDrink();
+            ticket.CalculateTotalTicketCost();
             var expected = $"You haven't given the drink machine enough money. You are {ticket.Total - moneyGiven} short";
             var actual = drinkMaker.MakeDrink(ticket, moneyGiven);
             Assert.Equal(expected, actual);

@@ -18,14 +18,16 @@ namespace CoffeeMachine.Tests
         }
         
         [Fact]
-        public void ReceiptShouldMatchTicketThatItHasBeenCreatedFrom()
+        public void ReceiptShouldReflectTicketInformation()
         {
             var drinkMaker = new DrinkMaker();
             var ticket = new Ticket();
             var stringCommand = "C::";
             ticket.SeparateStringCommandIntoOrderDetails(stringCommand);
             drinkMaker.MakeDrink(ticket, 5);
+            
             var receipt = new Receipt(ticket.DrinkType, ticket.Total);
+            
             Assert.Equal(1, receipt.NumberOfCoffeesSold);
         }
     }
