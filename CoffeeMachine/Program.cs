@@ -8,7 +8,7 @@ namespace CoffeeMachine
         {
             var userInput = new UserInput();
             var ticket = new Ticket();
-            var drinkMaker = new DrinkMaker();
+            var drinkMaker = new DrinkMaker(2,2);
             var stringCommand = userInput.GetStringCommand();
             var notEnoughMoney = true;
             ticket.SeparateStringCommandIntoOrderDetails(stringCommand);
@@ -18,7 +18,16 @@ namespace CoffeeMachine
                 var moneyGiven = userInput.GetMoneyFromCustomerForTicket();
                 notEnoughMoney = drinkMaker.NotEnoughMoney(ticket.Total, moneyGiven);
             }
-            drinkMaker.MakeDrink(ticket);
+            var recipe = drinkMaker.GetRecipe(ticket.DrinkType);
+            if (drinkMaker.IsOutOfIngredientsFor(recipe.DrinkType))
+            {
+                var ingredient = drinkMaker.GetOutOfStockIngredient();
+                Output.DisplayOutOfStockMessage(ingredient);
+            }
+            else
+            {
+                drinkMaker.MakeDrink(ticket, recipe);
+            }
         }
     }
 }

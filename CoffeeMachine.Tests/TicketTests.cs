@@ -24,7 +24,8 @@ namespace CoffeeMachine.Tests
             var ticket = new Ticket();
             var stringCommand = "C::";
             ticket.SeparateStringCommandIntoOrderDetails(stringCommand);
-            drinkMaker.MakeDrink(ticket, 5);
+            var recipe = drinkMaker.GetRecipe(ticket.DrinkType);
+            drinkMaker.MakeDrink(ticket, recipe);
             
             var receipt = new Receipt(ticket.DrinkType, ticket.Total);
             

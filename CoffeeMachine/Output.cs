@@ -1,57 +1,40 @@
 using System;
+using System.IO;
 using System.Linq;
 using CoffeeMachine.Enums;
 
 namespace CoffeeMachine
 {
-    public class Output
+    public class Output : IOutput
     {
         public static string ToString(DrinkType drinkType)
         {
-            var drinkString = "";
-            switch (drinkType)
+            var drinkString = drinkType switch
             {
-                case DrinkType.Coffee:
-                    drinkString = "coffee";
-                    break;
-                case DrinkType.Tea:
-                    drinkString = "tea";
-                    break;
-                case DrinkType.Chocolate:
-                    drinkString = "chocolate";
-                    break;
-                case DrinkType.OrangeJuice:
-                    drinkString = "orange juice";
-                    break;
-                case DrinkType.ExtraHotCoffee:
-                    drinkString = "extra hot coffee";
-                    break;
-                case DrinkType.ExtraHotTea:
-                    drinkString = "extra hot tea";
-                    break;
-                case DrinkType.ExtraHotChocolate:
-                    drinkString = "extra hot chocolate";
-                    break;
-            }
+                DrinkType.Coffee => "coffee",
+                DrinkType.Tea => "tea",
+                DrinkType.Chocolate => "chocolate",
+                DrinkType.OrangeJuice => "orange juice",
+                DrinkType.ExtraHotCoffee => "extra hot coffee",
+                DrinkType.ExtraHotTea => "extra hot tea",
+                DrinkType.ExtraHotChocolate => "extra hot chocolate",
+                _ => ""
+            };
             return drinkString;
         }
 
-        public static string ToString(Ingredient ingredient)
+        private static string ToString(Ingredient ingredient)
         {
-            var stringIngredient = "";
-            switch (ingredient)
+            var stringIngredient = ingredient switch
             {
-                case Ingredient.Milk:
-                    stringIngredient = "milk";
-                    break;
-                case Ingredient.Water:
-                    stringIngredient = "water";
-                    break;
-            }
+                Ingredient.Milk => "milk",
+                Ingredient.Water => "water",
+                _ => ""
+            };
             return stringIngredient;
         }
 
-        public static void DisplayOrderInformation(Ticket ticket)
+        public void DisplayOrderInformation(Ticket ticket)
         {
             var drinkName = ToString(ticket.DrinkType);
             Console.WriteLine(string.Join(" ", new [] {"Drink maker makes 1", drinkName, GetSugarAndStickDescription(ticket)}
@@ -63,14 +46,14 @@ namespace CoffeeMachine
             var stringIngredient = ToString(ingredient);   
             Console.WriteLine($"We don't have enough {stringIngredient} to make your order. The company has been notified");
         }
+
         public static string GetSugarAndStickDescription(Ticket ticket)
         {
-            var menu = new Menu();
             var sugarAndStickDescription = "";
             switch (Convert.ToInt32(ticket.AmountOfSugars))
             {
                 case 0:
-                    if (menu.HotDrinks.Contains(ticket.DrinkType))
+                    if (ticket.DrinkType != DrinkType.OrangeJuice)
                     {
                         sugarAndStickDescription = "with no sugar";
                     }
