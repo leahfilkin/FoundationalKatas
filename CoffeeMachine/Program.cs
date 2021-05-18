@@ -9,6 +9,7 @@ namespace CoffeeMachine
             var userInput = new UserInput();
             var ticket = new Ticket();
             var drinkMaker = new DrinkMaker(2,2);
+            var output = new Output();
             var stringCommand = userInput.GetStringCommand();
             var notEnoughMoney = true;
             ticket.SeparateStringCommandIntoOrderDetails(stringCommand);
@@ -21,12 +22,13 @@ namespace CoffeeMachine
             var recipe = drinkMaker.GetRecipe(ticket.DrinkType);
             if (drinkMaker.IsOutOfIngredientsFor(recipe.DrinkType))
             {
-                var ingredient = drinkMaker.GetOutOfStockIngredient();
-                Output.DisplayOutOfStockMessage(ingredient);
+                var ingredients = drinkMaker.GetOutOfStockIngredient();
+                output.DisplayOutOfStockMessage(ingredients);
             }
             else
             {
                 drinkMaker.MakeDrink(ticket, recipe);
+                output.DisplayOrderInformation(ticket);
             }
         }
     }

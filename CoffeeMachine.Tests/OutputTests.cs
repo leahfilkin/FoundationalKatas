@@ -1,0 +1,24 @@
+using Xunit;
+
+namespace CoffeeMachine.Tests
+{
+    public class OutputTests
+    {
+        [Theory]
+        [InlineData(0,0, "We don't have enough milk or water to make your order. The company has been notified. ")]
+        [InlineData(3,0, "We don't have enough water to make your order. The company has been notified. " )]
+        [InlineData(0,3, "We don't have enough milk to make your order. The company has been notified. ")]
+        public void OutputPrintsErrorWhenNotEnoughIngredientsForDrink(int milkLeft, int waterLeft, string expectedErrorMessage)
+        {
+            var drinkMaker = new DrinkMaker(milkLeft, waterLeft);
+            var ticket = new Ticket();
+            ticket.SeparateStringCommandIntoOrderDetails("C::");
+            var ingredient = drinkMaker.GetOutOfStockIngredient();
+            var fakeOutput = new FakeOutput();
+
+            fakeOutput.DisplayOutOfStockMessage(ingredient);
+            
+            Assert.Equal(expectedErrorMessage, fakeOutput.OutputString);
+        }
+    }
+}

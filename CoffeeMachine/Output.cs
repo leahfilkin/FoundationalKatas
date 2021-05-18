@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using CoffeeMachine.Enums;
 
 namespace CoffeeMachine
@@ -23,15 +25,15 @@ namespace CoffeeMachine
             return drinkString;
         }
 
-        private static string ToString(Ingredient ingredient)
+        public static List<string> ToString(List<Ingredient> ingredients)
         {
-            var stringIngredient = ingredient switch
-            {
-                Ingredient.Milk => "milk",
-                Ingredient.Water => "water",
-                _ => ""
-            };
-            return stringIngredient;
+            return ingredients.Select(ingredient => ingredient switch
+                {
+                    Ingredient.Milk => "milk",
+                    Ingredient.Water => "water",
+                    _ => ""
+                })
+                .ToList();
         }
 
         public void DisplayOrderInformation(Ticket ticket)
@@ -41,10 +43,10 @@ namespace CoffeeMachine
                 .Where(x => x != "")));
         }
 
-        public static void DisplayOutOfStockMessage(Ingredient ingredient)
+        public void DisplayOutOfStockMessage(List<Ingredient> ingredients)
         {
-            var stringIngredient = ToString(ingredient);   
-            Console.WriteLine($"We don't have enough {stringIngredient} to make your order. The company has been notified");
+            var stringIngredients = ToString(ingredients);
+            Console.WriteLine($"We don't have enough {string.Join(" or ", stringIngredients)} to make your order. The company has been notified");
         }
 
         public static string GetSugarAndStickDescription(Ticket ticket)

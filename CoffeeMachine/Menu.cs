@@ -5,10 +5,10 @@ namespace CoffeeMachine
 {
     public class Menu
     {
-        public Dictionary<string, DrinkType> Drinks { get; }
-        public Dictionary<DrinkType, double> Prices { get; }
-        public List<DrinkType> HotDrinks { get; }
-        
+        public static Dictionary<string, DrinkType> Drinks { get; set; }
+        public static Dictionary<DrinkType, double> Prices { get; set; }
+        public static List<DrinkType> HotDrinks { get; set; }
+
         public List<Ingredient> Ingredients { get; }
 
         public Menu()

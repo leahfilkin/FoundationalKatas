@@ -13,8 +13,7 @@ namespace CoffeeMachine
 
         private void GetDrinkName()
         {
-            var menu = new Menu();
-            DrinkType = menu.Drinks[_drinkInitial];
+            DrinkType = Menu.Drinks[_drinkInitial];
         }
 
         public void SeparateStringCommandIntoOrderDetails(string ticketStringCommand)
@@ -32,8 +31,7 @@ namespace CoffeeMachine
 
         public void CalculateTotalTicketCost()
         {
-            var menu = new Menu();
-            Total = menu.Prices[DrinkType];
+            Total = Menu.Prices[DrinkType];
         }
     }
 }

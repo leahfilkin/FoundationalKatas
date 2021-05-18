@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using CoffeeMachine.Enums;
@@ -19,17 +20,20 @@ namespace CoffeeMachine
         public void MakeDrink(Ticket ticket, Recipe recipe)
         {   
             DeductIngredients(recipe);
-            new Output().DisplayOrderInformation(ticket);
         }
 
-        public Ingredient GetOutOfStockIngredient()
+        public List<Ingredient> GetOutOfStockIngredient()
         {
+            var ingredients = new List<Ingredient>();
             if (MilkLeft == 0)
             {
-                return Ingredient.Milk;
+                ingredients.Add(Ingredient.Milk);
             }
-
-            return Ingredient.Water;
+            else
+            {
+                ingredients.Add(Ingredient.Water);
+            }
+            return ingredients;
         }
 
         public void DeductIngredients(Recipe recipe)
@@ -50,7 +54,6 @@ namespace CoffeeMachine
             {
                 return true;
             }
-
             return false;
         }
 
