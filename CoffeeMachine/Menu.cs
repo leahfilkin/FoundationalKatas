@@ -3,15 +3,15 @@ using CoffeeMachine.Enums;
 
 namespace CoffeeMachine
 {
-    public class Menu
+    public static class Menu
     {
         public static Dictionary<string, DrinkType> Drinks { get; set; }
         public static Dictionary<DrinkType, double> Prices { get; set; }
         public static List<DrinkType> HotDrinks { get; set; }
 
-        public List<Ingredient> Ingredients { get; }
+        public static List<Ingredient> Ingredients { get; }
 
-        public Menu()
+        static Menu()
         {
             Drinks = new Dictionary<string, DrinkType>
             {

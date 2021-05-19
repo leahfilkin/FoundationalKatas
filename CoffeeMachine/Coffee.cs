@@ -6,12 +6,17 @@ namespace CoffeeMachine
     {
         public Coffee()
         {
-        var _description = DrinkType.Coffee.ToString();
+        var description = DrinkType.Coffee.ToString();
         }
 
         public override double Cost()
         {
             return Menu.Prices[DrinkType.Coffee];
+        }
+        
+        public override DrinkType GetDrinkType()
+        {
+            return DrinkType.Coffee;
         }
     }
 }

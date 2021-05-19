@@ -12,5 +12,9 @@ namespace CoffeeMachine
         {
             return Menu.Prices[DrinkType.Tea];
         }
+        public override DrinkType GetDrinkType()
+        {
+            return DrinkType.Tea;
+        }
     }
 }

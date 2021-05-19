@@ -16,8 +16,8 @@ namespace CoffeeMachine.Tests
         public void StringCommandReturnsCorrectInfoMessages(string stringCommand, string expected)
         {
             var ticket = new Ticket();
-            var drinkMaker = new DrinkMaker(0,0);
-            ticket.SeparateStringCommandIntoOrderDetails(stringCommand);
+            ticket.ToOrderDetails(stringCommand);
+            var drinkMaker = new DrinkMaker(ticket,0, 0);
             var recipe = drinkMaker.GetRecipe(ticket.DrinkType);
             drinkMaker.DeductIngredients(recipe);
             var fakeOutput = new FakeOutput();
@@ -32,11 +32,10 @@ namespace CoffeeMachine.Tests
         [InlineData(0.4, "O::")]
         public void DrinkMakerShouldReturnFalseIfMoneyIsTooShort(double moneyGiven, string stringCommand)
         {
-            var drinkMaker = new DrinkMaker();
             var ticket = new Ticket();
-            ticket.SeparateStringCommandIntoOrderDetails(stringCommand);
-            ticket.CalculateTotalTicketCost();
-            var notEnoughMoney = drinkMaker.NotEnoughMoney(ticket.Total, moneyGiven);
+            var drinkMaker = new DrinkMaker(ticket);
+            ticket.ToOrderDetails(stringCommand);
+            var notEnoughMoney = drinkMaker.NotEnoughMoney(ticket.Drink.Cost(), moneyGiven);
             Assert.True(notEnoughMoney);
         }
 
@@ -45,12 +44,12 @@ namespace CoffeeMachine.Tests
         {
             var milkLeft = 3;
             var waterLeft = 3;
-            var drinkMaker = new DrinkMaker(milkLeft, waterLeft);
             var ticket = new Ticket();
-            ticket.SeparateStringCommandIntoOrderDetails("C::");
+            var drinkMaker = new DrinkMaker(ticket, milkLeft, waterLeft);
+            ticket.ToOrderDetails("C::");
             var recipe = drinkMaker.GetRecipe(ticket.DrinkType);
             
-            drinkMaker.MakeDrink(ticket, recipe);
+            drinkMaker.MakeDrink(recipe);
             
             Assert.Equal(2, drinkMaker.MilkLeft);
             Assert.Equal(2, drinkMaker.WaterLeft);
@@ -63,15 +62,28 @@ namespace CoffeeMachine.Tests
         {
             var milkLeft = 3;
             var waterLeft = 3;
-            var drinkMaker = new DrinkMaker(milkLeft, waterLeft);
             var ticket = new Ticket();
-            ticket.SeparateStringCommandIntoOrderDetails(stringCommand);
+            var drinkMaker = new DrinkMaker(ticket, milkLeft, waterLeft);
+            ticket.ToOrderDetails(stringCommand);
             var recipe = drinkMaker.GetRecipe(ticket.DrinkType);
             
-            drinkMaker.MakeDrink(ticket, recipe);
+            drinkMaker.MakeDrink(recipe);
             
             Assert.Equal(expected, drinkMaker.MilkLeft);
             Assert.Equal(expected, drinkMaker.WaterLeft);
+        }
+
+        [Fact]
+        public void DrinkMakerMakesTea()
+        {
+            var ticket = new Ticket();
+            var drinkMaker = new DrinkMaker(ticket);
+            ticket.ToOrderDetails("T::");
+            var recipe = drinkMaker.GetRecipe(ticket.DrinkType);
+            
+            var tea = drinkMaker.MakeDrink(recipe);
+            
+            Assert.IsType<Tea>(tea);
         }
     }
     

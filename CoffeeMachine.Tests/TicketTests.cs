@@ -14,20 +14,20 @@ namespace CoffeeMachine.Tests
         public void TicketShouldNotAcceptStringCommandsThatDontMatchPossibilities(string stringCommand)
         {
             var ticket = new Ticket();
-            Assert.Throws<ArgumentException>(() => ticket.SeparateStringCommandIntoOrderDetails(stringCommand));
+            Assert.Throws<ArgumentException>(() => ticket.ToOrderDetails(stringCommand));
         }
         
         [Fact]
         public void ReceiptShouldReflectTicketInformation()
         {
-            var drinkMaker = new DrinkMaker();
             var ticket = new Ticket();
+            var drinkMaker = new DrinkMaker(ticket);
             var stringCommand = "C::";
-            ticket.SeparateStringCommandIntoOrderDetails(stringCommand);
+            ticket.ToOrderDetails(stringCommand);
             var recipe = drinkMaker.GetRecipe(ticket.DrinkType);
-            drinkMaker.MakeDrink(ticket, recipe);
+            drinkMaker.MakeDrink(recipe);
             
-            var receipt = new Receipt(ticket.DrinkType, ticket.Total);
+            var receipt = new Receipt(drinkMaker.Drink.GetDrinkType(), ticket.Drink.Cost());
             
             Assert.Equal(1, receipt.NumberOfCoffeesSold);
         }

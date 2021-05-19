@@ -8,16 +8,15 @@ namespace CoffeeMachine
         {
             var userInput = new UserInput();
             var ticket = new Ticket();
-            var drinkMaker = new DrinkMaker(2,2);
+            var drinkMaker = new DrinkMaker(ticket, 2,2);
             var output = new Output();
             var stringCommand = userInput.GetStringCommand();
             var notEnoughMoney = true;
-            ticket.SeparateStringCommandIntoOrderDetails(stringCommand);
-            ticket.CalculateTotalTicketCost();
+            ticket.ToOrderDetails(stringCommand);
             while (notEnoughMoney)
             {
                 var moneyGiven = userInput.GetMoneyFromCustomerForTicket();
-                notEnoughMoney = drinkMaker.NotEnoughMoney(ticket.Total, moneyGiven);
+                notEnoughMoney = drinkMaker.NotEnoughMoney(ticket.Drink.Cost(), moneyGiven);
             }
             var recipe = drinkMaker.GetRecipe(ticket.DrinkType);
             if (drinkMaker.IsOutOfIngredientsFor(recipe.DrinkType))
@@ -27,7 +26,7 @@ namespace CoffeeMachine
             }
             else
             {
-                drinkMaker.MakeDrink(ticket, recipe);
+                drinkMaker.MakeDrink(recipe);
                 output.DisplayOrderInformation(ticket);
             }
         }
