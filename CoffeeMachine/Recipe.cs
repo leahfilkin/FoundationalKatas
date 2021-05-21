@@ -4,19 +4,19 @@ namespace CoffeeMachine
 {
     public class Recipe
     {
-        public readonly DrinkType DrinkType;
+        public readonly Drink Drink;
         public int MilkNeeded;
         public int WaterNeeded;
 
-        public Recipe(DrinkType drinkType)
+        public Recipe(Drink drink)
         {
-            DrinkType = drinkType;
+            Drink = drink;
             CalculateIngredientsNeededToMakeDrink();
         }
 
         private void CalculateIngredientsNeededToMakeDrink()
         {
-            if (DrinkType != DrinkType.OrangeJuice)
+            if (!(Drink is OrangeJuice))
             {
                 MilkNeeded = 1;
                 WaterNeeded = 1;

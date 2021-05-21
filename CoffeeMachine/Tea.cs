@@ -4,14 +4,17 @@ namespace CoffeeMachine
 {
     public class Tea : Drink
     {
-        public Tea()
-        {
-            var _description = DrinkType.Tea.ToString();
-        }
         public override double Cost()
         {
             return Menu.Prices[DrinkType.Tea];
         }
+
+        public override string GetDescription()
+        {
+            _description = "tea";
+            return _description;
+        }
+
         public override DrinkType GetDrinkType()
         {
             return DrinkType.Tea;

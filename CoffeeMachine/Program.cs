@@ -16,10 +16,10 @@ namespace CoffeeMachine
             while (notEnoughMoney)
             {
                 var moneyGiven = userInput.GetMoneyFromCustomerForTicket();
-                notEnoughMoney = drinkMaker.NotEnoughMoney(ticket.Drink.Cost(), moneyGiven);
+                notEnoughMoney = drinkMaker.NotEnoughMoney(moneyGiven);
             }
-            var recipe = drinkMaker.GetRecipe(ticket.DrinkType);
-            if (drinkMaker.IsOutOfIngredientsFor(recipe.DrinkType))
+            var recipe = drinkMaker.GetRecipe(drinkMaker.Drink);
+            if (drinkMaker.IsOutOfIngredientsFor(recipe))
             {
                 var ingredients = drinkMaker.GetOutOfStockIngredient();
                 output.DisplayOutOfStockMessage(ingredients);
@@ -27,7 +27,7 @@ namespace CoffeeMachine
             else
             {
                 drinkMaker.MakeDrink(recipe);
-                output.DisplayOrderInformation(ticket);
+                output.DisplayOrderInformation(drinkMaker.Drink);
             }
         }
     }

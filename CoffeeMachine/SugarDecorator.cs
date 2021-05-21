@@ -15,11 +15,12 @@ namespace CoffeeMachine
         
         public override string GetDescription()
         {
-            if (_amount > 1)
+            return _amount switch
             {
-                return _drink.GetDescription() + $"with {_amount} sugars and a stick";
-            }
-            return _drink.GetDescription() + $"with {_amount} sugar and a stick";
+                0 => _drink.GetDescription() + " with no sugar",
+                1 => _drink.GetDescription() + $" with {_amount} sugar and a stick",
+                _ => _drink.GetDescription() + $" with {_amount} sugars and a stick"
+            };
         }
 
         public override DrinkType GetDrinkType()

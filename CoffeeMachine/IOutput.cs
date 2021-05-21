@@ -5,7 +5,7 @@ namespace CoffeeMachine
 {
     public interface IOutput
     {
-        public void DisplayOrderInformation(Ticket ticket);
+        public void DisplayOrderInformation(Drink drink);
 
         public void DisplayOutOfStockMessage(List<Ingredient> ingredient);
     }

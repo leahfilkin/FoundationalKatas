@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml;
 using CoffeeMachine.Enums;
 
 namespace CoffeeMachine
@@ -17,10 +15,11 @@ namespace CoffeeMachine
         public DrinkMaker(Ticket ticket, int milkLeft = 10, int waterLeft = 10)
         {
             Ticket = ticket;
+            GetDrink();
             MilkLeft = milkLeft;
             WaterLeft = waterLeft;
         }
-        
+
         private void GetDrink()
         {
             Drink baseDrink = new Coffee();
@@ -55,7 +54,6 @@ namespace CoffeeMachine
 
         public Drink MakeDrink(Recipe recipe)
         {
-            GetDrink();
             AddSugars();
             DeductIngredients(recipe);
             return Drink;
@@ -63,7 +61,7 @@ namespace CoffeeMachine
 
         private void AddSugars()
         {
-            if (Ticket.AmountOfSugars > 0)
+            if (!(Drink is OrangeJuice))
             {
                 Drink = new SugarDecorator(Drink, Ticket.AmountOfSugars);
             }
@@ -85,18 +83,20 @@ namespace CoffeeMachine
 
         public void DeductIngredients(Recipe recipe)
         {
-            MilkLeft -= recipe.MilkNeeded;
-            WaterLeft -= recipe.WaterNeeded;
+            if (!(Drink is OrangeJuice))
+            {
+                MilkLeft -= recipe.MilkNeeded;
+                WaterLeft -= recipe.WaterNeeded;
+            }
         }
 
-        public Recipe GetRecipe(DrinkType drinkType)
+        public Recipe GetRecipe(Drink drink)
         {
-            return new Recipe(drinkType);
+            return new Recipe(drink);
         }
 
-        public bool IsOutOfIngredientsFor(DrinkType drinkType)
+        public bool IsOutOfIngredientsFor(Recipe recipe)
         {
-            var recipe = GetRecipe(drinkType);
             if (MilkLeft < recipe.MilkNeeded || WaterLeft < recipe.WaterNeeded)
             {
                 return true;
@@ -104,13 +104,13 @@ namespace CoffeeMachine
             return false;
         }
 
-        public bool NotEnoughMoney(double total, double moneyGiven)
+        public bool NotEnoughMoney(double moneyGiven)
         {
-            if (moneyGiven >= total)
+            if (moneyGiven >= Drink.Cost())
             {
                 return false;
             }
-            Console.WriteLine($"You haven't given the drink machine enough money. You are {total - moneyGiven} short");
+            Console.WriteLine($"You haven't given the drink machine enough money. You are {Drink.Cost() - moneyGiven} short");
             return true;
         }
     }

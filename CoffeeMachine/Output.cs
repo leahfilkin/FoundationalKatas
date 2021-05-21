@@ -36,38 +36,15 @@ namespace CoffeeMachine
                 .ToList();
         }
 
-        public void DisplayOrderInformation(Ticket ticket)
+        public void DisplayOrderInformation(Drink drink)
         {
-            var drinkName = ToString(ticket.DrinkType);
-            Console.WriteLine(string.Join(" ", new [] {"Drink maker makes 1", drinkName, GetSugarAndStickDescription(ticket)}
-                .Where(x => x != "")));
+            Console.WriteLine(string.Join(" ", new [] {"Drink maker makes 1", drink.GetDescription()}));
         }
 
         public void DisplayOutOfStockMessage(List<Ingredient> ingredients)
         {
             var stringIngredients = ToString(ingredients);
             Console.WriteLine($"We don't have enough {string.Join(" or ", stringIngredients)} to make your order. The company has been notified");
-        }
-
-        public static string GetSugarAndStickDescription(Ticket ticket)
-        {
-            var sugarAndStickDescription = "";
-            switch (Convert.ToInt32(ticket.AmountOfSugars))
-            {
-                case 0:
-                    if (ticket.DrinkType != DrinkType.OrangeJuice)
-                    {
-                        sugarAndStickDescription = "with no sugar";
-                    }
-                    break;
-                case 1:
-                    sugarAndStickDescription = $"with {ticket.AmountOfSugars} sugar and a stick";
-                    break;
-                default:
-                    sugarAndStickDescription = $"with {ticket.AmountOfSugars} sugars and a stick";
-                    break;
-            }
-            return sugarAndStickDescription;
         }
     }
 }
