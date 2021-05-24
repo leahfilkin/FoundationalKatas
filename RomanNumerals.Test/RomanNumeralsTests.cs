@@ -6,8 +6,11 @@ namespace RomanNumerals.Test
     public class RomanNumeralsTests
     {
         [Fact]
-        public void Test1()
+        public void Converts1ToI()
         {
+            var romanNumeral = RomanNumeral.Convert(1);
+            
+            Assert.Equal("I", romanNumeral);
         }
     }
 }
