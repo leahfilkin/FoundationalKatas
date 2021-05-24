@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 
 namespace RomanNumerals
 {
@@ -6,7 +5,12 @@ namespace RomanNumerals
     {
         public static string Convert(int i)
         {
-            return "I";
+            if (i == 1)
+            {
+                return "I";
+            }
+            
+            return "II";
         }
     }
 }

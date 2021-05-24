@@ -12,5 +12,13 @@ namespace RomanNumerals.Test
             
             Assert.Equal("I", romanNumeral);
         }
+
+        [Fact]
+        public void Converts2ToII()
+        {
+            var romanNumeral = RomanNumeral.Convert(2);
+
+            Assert.Equal("II", romanNumeral);
+        }
     }
 }
