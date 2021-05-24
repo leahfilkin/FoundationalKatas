@@ -1,10 +1,10 @@
-using CoffeeMachine.Enums;
+using CoffeeMachine.Drinks;
 
-namespace CoffeeMachine
+namespace CoffeeMachine.Decorators
 {
     public abstract class CondimentDecorator : Drink
     {
-        public abstract override double Cost();
+        public abstract override double GetCost();
         public abstract override DrinkType GetDrinkType();
 
     }

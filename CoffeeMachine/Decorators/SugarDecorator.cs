@@ -1,11 +1,11 @@
-using CoffeeMachine.Enums;
+using CoffeeMachine.Drinks;
 
-namespace CoffeeMachine
+namespace CoffeeMachine.Decorators
 {
     public class SugarDecorator : CondimentDecorator
     {
-        private readonly Drink _drink;
-        private readonly int _amount;
+        private Drink _drink;
+        private int _amount;
 
         public SugarDecorator(Drink drink, int amountOfSugars)
         {
@@ -28,9 +28,9 @@ namespace CoffeeMachine
             return _drink.DrinkType;
         }
 
-        public override double Cost()
+        public override double GetCost()
         {
-            return _drink.Cost();
+            return _drink.GetCost();
         }
     }
 }

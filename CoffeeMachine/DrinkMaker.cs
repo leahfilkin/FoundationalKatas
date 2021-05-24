@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using CoffeeMachine.Enums;
+using CoffeeMachine.Decorators;
+using CoffeeMachine.Drinks;
 
 namespace CoffeeMachine
 {
@@ -50,6 +51,7 @@ namespace CoffeeMachine
                     Drink = new ExtraHotDecorator(baseDrink);
                     break;
             }
+            var myDrink = Drink;
         }
 
         public Drink MakeDrink(Recipe recipe)
@@ -67,21 +69,21 @@ namespace CoffeeMachine
             }
         }
 
-        public List<Ingredient> GetOutOfStockIngredient()
+        public List<Ingredient> GetOutOfStockIngredients()
         {
             var ingredients = new List<Ingredient>();
             if (MilkLeft == 0)
             {
                 ingredients.Add(Ingredient.Milk);
             }
-            else
+            if (WaterLeft == 0)
             {
                 ingredients.Add(Ingredient.Water);
             }
             return ingredients;
         }
 
-        public void DeductIngredients(Recipe recipe)
+        private void DeductIngredients(Recipe recipe)
         {
             if (!(Drink is OrangeJuice))
             {
@@ -106,11 +108,11 @@ namespace CoffeeMachine
 
         public bool NotEnoughMoney(double moneyGiven)
         {
-            if (moneyGiven >= Drink.Cost())
+            if (moneyGiven >= Drink.GetCost())
             {
                 return false;
             }
-            Console.WriteLine($"You haven't given the drink machine enough money. You are {Drink.Cost() - moneyGiven} short");
+            Console.WriteLine($"You haven't given the drink machine enough money. You are {Drink.GetCost() - moneyGiven} short");
             return true;
         }
     }

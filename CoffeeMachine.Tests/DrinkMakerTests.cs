@@ -1,5 +1,4 @@
-using System;
-using CoffeeMachine.Enums;
+using CoffeeMachine.Drinks;
 using Xunit;
 
 namespace CoffeeMachine.Tests
@@ -21,11 +20,11 @@ namespace CoffeeMachine.Tests
             var drinkMaker = new DrinkMaker(ticket,1, 1);
             var recipe = drinkMaker.GetRecipe(drinkMaker.Drink);
             drinkMaker.MakeDrink(recipe);
-            var fakeOutput = new FakeOutput();
+            var output = new Output();
             
-            fakeOutput.DisplayOrderInformation(drinkMaker.Drink);
+            var actual = Output.CreateOrderInformation(drinkMaker.Drink);
             
-            Assert.Equal(expected, fakeOutput.OutputString);
+            Assert.Equal(expected, actual);
         }
 
         [Theory]
@@ -41,7 +40,7 @@ namespace CoffeeMachine.Tests
         }
 
         [Theory]
-        // [InlineData("C::", 2)]
+        [InlineData("C::", 2)]
         [InlineData("O::", 3)]
         public void DrinkMakerUsesIngredientsBasedOnTicket(string stringCommand, int expected)
         {

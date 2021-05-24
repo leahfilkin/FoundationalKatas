@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace CoffeeMachine
+namespace CoffeeMachine.Report
 {
     public class Report
     {

@@ -1,6 +1,6 @@
-using CoffeeMachine.Enums;
+using CoffeeMachine.Drinks;
 
-namespace CoffeeMachine
+namespace CoffeeMachine.Decorators
 {
     public class ExtraHotDecorator : CondimentDecorator
     {
@@ -21,9 +21,9 @@ namespace CoffeeMachine
             return _drink.DrinkType;
         }
 
-        public override double Cost()
+        public override double GetCost()
         {
-            return _drink.Cost();
+            return _drink.GetCost();
         }
     }
 }

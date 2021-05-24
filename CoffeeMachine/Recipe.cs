@@ -1,4 +1,4 @@
-using CoffeeMachine.Enums;
+using CoffeeMachine.Drinks;
 
 namespace CoffeeMachine
 {

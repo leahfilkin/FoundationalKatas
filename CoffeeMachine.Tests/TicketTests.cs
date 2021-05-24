@@ -1,4 +1,5 @@
 using System;
+using CoffeeMachine.Report;
 using Xunit;
 
 namespace CoffeeMachine.Tests
@@ -21,13 +22,14 @@ namespace CoffeeMachine.Tests
         public void ReceiptShouldReflectTicketInformation()
         {
             var ticket = new Ticket();
-            var drinkMaker = new DrinkMaker(ticket);
             var stringCommand = "C::";
             ticket.ToOrderDetails(stringCommand);
+            var drinkMaker = new DrinkMaker(ticket);
             var recipe = drinkMaker.GetRecipe(drinkMaker.Drink);
+            
             drinkMaker.MakeDrink(recipe);
             
-            var receipt = new Receipt(drinkMaker.Drink.GetDrinkType(), drinkMaker.Drink.Cost());
+            var receipt = new Receipt(drinkMaker.Drink, drinkMaker.Drink.GetCost());
             
             Assert.Equal(1, receipt.NumberOfCoffeesSold);
         }

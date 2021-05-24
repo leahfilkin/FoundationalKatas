@@ -1,4 +1,4 @@
-namespace CoffeeMachine.Enums
+namespace CoffeeMachine.Drinks
 {
     public enum Ingredient
     {

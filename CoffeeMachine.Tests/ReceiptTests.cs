@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using CoffeeMachine.Enums;
+using CoffeeMachine.Drinks;
+using CoffeeMachine.Report;
 using Xunit;
 
 namespace CoffeeMachine.Tests
@@ -9,7 +10,7 @@ namespace CoffeeMachine.Tests
         [Fact]
         public void ReceiptShouldBeGeneratedOnDemand()
         {
-            var receipt = new Receipt(DrinkType.Chocolate, 0.6) {NumberOfChocolatesSold = 1};
+            var receipt = new Receipt(new Chocolate(), 0.6) {NumberOfChocolatesSold = 1};
             var receiptList = new List<Receipt>();
             var receiptRepository = new ReceiptRepository(receiptList);
             receiptRepository.Add(receipt);

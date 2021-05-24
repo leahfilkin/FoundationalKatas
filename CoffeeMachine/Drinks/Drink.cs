@@ -1,16 +1,15 @@
-using CoffeeMachine.Enums;
-
-namespace CoffeeMachine
+namespace CoffeeMachine.Drinks
 {
     public abstract class Drink
     {
         protected string _description;
-        public readonly DrinkType DrinkType;
+        public DrinkType DrinkType;
+        protected double _cost;
 
         public abstract string GetDescription();
 
         public abstract DrinkType GetDrinkType();
 
-        public abstract double Cost();
+        public abstract double GetCost();
     }
 }

@@ -1,6 +1,7 @@
-using CoffeeMachine.Enums;
+using System;
+using CoffeeMachine.Drinks;
 
-namespace CoffeeMachine
+namespace CoffeeMachine.Report
 {
     public class Receipt
     {
@@ -10,26 +11,26 @@ namespace CoffeeMachine
         public int NumberOfOrangeJuicesSold { get; }
         public double TotalMoneyEarned { get; set; }
 
-        public Receipt(DrinkType drinkType, double total)
+        public Receipt(Drink drink, double total)
         {
+            drink.GetDrinkType();
             TotalMoneyEarned = total;
-            switch (drinkType)
+            switch (drink.DrinkType)
             {
                 case DrinkType.Coffee:
-                case DrinkType.ExtraHotCoffee:
                     NumberOfCoffeesSold += 1;
                     break;
                 case DrinkType.Tea:
-                case DrinkType.ExtraHotTea:
                     NumberOfTeasSold += 1;
                     break;
                 case DrinkType.Chocolate:
-                case DrinkType.ExtraHotChocolate:
                     NumberOfChocolatesSold += 1;
                     break;
                 case DrinkType.OrangeJuice:
                     NumberOfOrangeJuicesSold += 1;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

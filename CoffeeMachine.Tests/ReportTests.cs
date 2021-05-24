@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using CoffeeMachine.Enums;
+using CoffeeMachine.Drinks;
+using CoffeeMachine.Report;
 using Xunit;
 
 namespace CoffeeMachine.Tests
@@ -13,7 +14,7 @@ namespace CoffeeMachine.Tests
             var receiptList = new List<Receipt>();
             var receiptRepository = new ReceiptRepository(receiptList);
             receiptRepository.Add(receipt);
-            var report = new Report(receiptRepository);
+            var report = new Report.Report(receiptRepository);
             report.CalculateTotals();
             Assert.Equal("0,0,1,0,0.6", string.Join(",", report.ReportDetails.Values));
         }
@@ -22,7 +23,7 @@ namespace CoffeeMachine.Tests
         {
             yield return new object[]
             {
-                new Receipt(DrinkType.Chocolate, 0.6)
+                new Receipt(new Chocolate(), 0.6)
                 {
                     NumberOfChocolatesSold = 1,
                     TotalMoneyEarned = 0.6

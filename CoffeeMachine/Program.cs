@@ -21,13 +21,13 @@ namespace CoffeeMachine
             var recipe = drinkMaker.GetRecipe(drinkMaker.Drink);
             if (drinkMaker.IsOutOfIngredientsFor(recipe))
             {
-                var ingredients = drinkMaker.GetOutOfStockIngredient();
-                output.DisplayOutOfStockMessage(ingredients);
+                var ingredients = drinkMaker.GetOutOfStockIngredients();
+                Output.CreateOutOfStockMessage(ingredients);
             }
             else
             {
                 drinkMaker.MakeDrink(recipe);
-                output.DisplayOrderInformation(drinkMaker.Drink);
+                Output.CreateOrderInformation(drinkMaker.Drink);
             }
         }
     }

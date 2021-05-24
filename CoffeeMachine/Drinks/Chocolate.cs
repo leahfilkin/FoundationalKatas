@@ -1,12 +1,11 @@
-using CoffeeMachine.Enums;
-
-namespace CoffeeMachine
+namespace CoffeeMachine.Drinks
 {
     public class Chocolate : Drink
     {
-        public override double Cost()
+        public override double GetCost()
         {
-            return Menu.Prices[DrinkType.Chocolate];
+            _cost = 0.5;
+            return _cost;
         }
 
         public override string GetDescription()
@@ -17,7 +16,8 @@ namespace CoffeeMachine
 
         public override DrinkType GetDrinkType()
         {
-            return DrinkType.Chocolate;
+            DrinkType = DrinkType.Chocolate;
+            return DrinkType;
         }
 
     }

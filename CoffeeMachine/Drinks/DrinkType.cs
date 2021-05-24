@@ -1,4 +1,4 @@
-namespace CoffeeMachine.Enums
+namespace CoffeeMachine.Drinks
 {
     public enum DrinkType
     {
@@ -6,8 +6,5 @@ namespace CoffeeMachine.Enums
         Tea,
         Chocolate,
         OrangeJuice,
-        ExtraHotCoffee,
-        ExtraHotTea,
-        ExtraHotChocolate
     }
 }
