@@ -20,5 +20,13 @@ namespace RomanNumerals.Test
 
             Assert.Equal("II", romanNumeral);
         }
+
+        [Fact]
+        public void Converts3ToIII()
+        {
+            var romanNumeral = RomanNumeral.Convert(3);
+
+            Assert.Equal("III", romanNumeral);
+        }
     }
 }

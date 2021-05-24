@@ -9,8 +9,11 @@ namespace RomanNumerals
             {
                 return "I";
             }
-            
-            return "II";
+            if (i == 2)
+            {
+                return "II";
+            }
+            return "III";
         }
     }
 }
