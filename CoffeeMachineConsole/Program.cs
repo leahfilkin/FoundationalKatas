@@ -1,34 +1,31 @@
-﻿using System;
-
-namespace CoffeeMachine
+﻿namespace CoffeeMachine.Console
 {
-    internal class Program
+    class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
-            var userInput = new UserInput();
             var ticket = new Ticket();
             var drinkMaker = new DrinkMaker(ticket, 2,2);
-            var output = new Output();
-            var stringCommand = userInput.GetStringCommand();
+            var stringCommand = UserInterface.GetStringCommand();
             var notEnoughMoney = true;
             ticket.ToOrderDetails(stringCommand);
             while (notEnoughMoney)
             {
-                var moneyGiven = userInput.GetMoneyFromCustomerForTicket();
+                var moneyGiven = UserInterface.GetMoneyFromCustomerForTicket();
                 notEnoughMoney = drinkMaker.NotEnoughMoney(moneyGiven);
             }
             var recipe = drinkMaker.GetRecipe(drinkMaker.Drink);
             if (drinkMaker.IsOutOfIngredientsFor(recipe))
             {
                 var ingredients = drinkMaker.GetOutOfStockIngredients();
-                Output.CreateOutOfStockMessage(ingredients);
+                UserInterface.PrintOutOfStockMessage(ingredients);
             }
             else
             {
                 drinkMaker.MakeDrink(recipe);
-                Output.CreateOrderInformation(drinkMaker.Drink);
+                UserInterface.PrintOrderInformation(drinkMaker.Drink);
             }
+            
         }
     }
 }

@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeMachine", "CoffeeMach
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeMachine.Tests", "CoffeeMachine.Tests\CoffeeMachine.Tests.csproj", "{EF28B28D-29E5-4A3B-AE25-AC1D77330BA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeMachine.Console", "CoffeeMachine.Console\CoffeeMachine.Console.csproj", "{7453534B-AAAD-4976-8D96-538EC70C7CC5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeMachineConsole", "CoffeeMachineConsole\CoffeeMachineConsole.csproj", "{7453534B-AAAD-4976-8D96-538EC70C7CC5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanNumerals", "RomanNumerals\RomanNumerals.csproj", "{E5BC4D2B-3548-43D3-AEF4-FCA2E89267D7}"
 EndProject
