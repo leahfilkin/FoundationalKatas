@@ -105,15 +105,5 @@ namespace CoffeeMachine
             }
             return false;
         }
-
-        public bool NotEnoughMoney(double moneyGiven)
-        {
-            if (moneyGiven >= Drink.GetCost())
-            {
-                return false;
-            }
-            Console.WriteLine($"You haven't given the drink machine enough money. You are {Drink.GetCost() - moneyGiven} short");
-            return true;
-        }
     }
 }

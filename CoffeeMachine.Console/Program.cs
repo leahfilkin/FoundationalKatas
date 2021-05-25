@@ -1,11 +1,18 @@
-﻿
-namespace CoffeeMachine.Console
+﻿namespace CoffeeMachine.Console
 {
-    class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            System.Console.WriteLine("Hello World!");
+            var ticket = new Ticket();
+            var stringCommand = UserInterface.GetStringCommand();
+            ticket.ToOrderDetails(stringCommand);
+            var drinkMaker = new DrinkMaker(ticket);
+            Validator.CheckPayment(drinkMaker.Drink.GetCost());
+            var recipe = drinkMaker.GetRecipe(drinkMaker.Drink);
+            Validator.CheckStock(recipe, drinkMaker);
+            drinkMaker.MakeDrink(recipe);
+            UserInterface.PrintOrderInformation(drinkMaker.Drink);
         }
     }
 }
