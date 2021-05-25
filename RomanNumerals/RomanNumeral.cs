@@ -5,15 +5,13 @@ namespace RomanNumerals
     {
         public static string Convert(int i)
         {
-            if (i == 1)
+            return i switch
             {
-                return "I";
-            }
-            if (i == 2)
-            {
-                return "II";
-            }
-            return "III";
+                1 => "I",
+                2 => "II",
+                3 => "III",
+                _ => "IV"
+            };
         }
     }
 }

@@ -1,32 +1,21 @@
 using System;
+using System.Runtime.InteropServices;
 using Xunit;
 
 namespace RomanNumerals.Test
 {
     public class RomanNumeralsTests
     {
-        [Fact]
-        public void Converts1ToI()
+        [Theory]
+        [InlineData(1, "I")]
+        [InlineData(2, "II")]
+        [InlineData(3, "III")]
+        [InlineData(4, "IV")]
+        public void ConvertsIntegerToRomanNumeral(int toConvert, string expected)
         {
-            var romanNumeral = RomanNumeral.Convert(1);
+            var romanNumeral = RomanNumeral.Convert(toConvert);
             
-            Assert.Equal("I", romanNumeral);
-        }
-
-        [Fact]
-        public void Converts2ToII()
-        {
-            var romanNumeral = RomanNumeral.Convert(2);
-
-            Assert.Equal("II", romanNumeral);
-        }
-
-        [Fact]
-        public void Converts3ToIII()
-        {
-            var romanNumeral = RomanNumeral.Convert(3);
-
-            Assert.Equal("III", romanNumeral);
+            Assert.Equal(expected, romanNumeral);
         }
     }
 }
