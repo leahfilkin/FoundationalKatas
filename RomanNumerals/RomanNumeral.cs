@@ -1,10 +1,16 @@
 
+using System;
+
 namespace RomanNumerals
 {
     public static class RomanNumeral
     {
         public static string Convert(int i)
         {
+            if (i <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(i), "Number must be greater than zero");
+            }
             var result = ConvertTens(i);
             var one = i % 10;
 

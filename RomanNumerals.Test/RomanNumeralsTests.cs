@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 
 namespace RomanNumerals.Test
@@ -21,6 +22,15 @@ namespace RomanNumerals.Test
             var romanNumeral = RomanNumeral.Convert(toConvert);
             
             Assert.Equal(expected, romanNumeral);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        [InlineData(-50)]
+        public void ThrowsForNumbersLessThanOne(int toConvert)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => RomanNumeral.Convert(toConvert));
         }
     }
 }
