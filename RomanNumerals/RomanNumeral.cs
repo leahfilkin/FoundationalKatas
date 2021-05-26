@@ -5,37 +5,36 @@ namespace RomanNumerals
     {
         public static string Convert(int i)
         {
-            var tens = i / 10;
-            var ones = i % 10;
-            var numberList = new int[] {tens, ones};
-            
-            var result = "";
+            var result = ConvertTens(i);
+            var one = i % 10;
 
-            foreach (var number in numberList)
+            result += one switch
             {
-                result += number switch
-                {
-                    1 => "I",
-                    2 => "II",
-                    3 => "III",
-                    4 => "IV",
-                    5 => "V",
-                    6 => "VI",
-                    7 => "VII",
-                    8 => "VIII",
-                    9 => "IX",
-                    10 => "X",
-                    _ => ""
-                };
-            }
+                1 => "I",
+                2 => "II",
+                3 => "III",
+                4 => "IV",
+                5 => "V",
+                6 => "VI",
+                7 => "VII",
+                8 => "VIII",
+                9 => "IX",
+                10 => "X",
+                _ => ""
+            };
 
             return result;
         }
 
-        public static string NumberOfTens(int i)
+        private static string ConvertTens(int i)
         {
-            var tens = i / 10;
-            for (int x; x < tens; )
+            var amountOfTens = i / 10;
+            var tens = "";
+            for (int x = 0; x < amountOfTens; x++)
+            {
+                tens += "X";
+            }
+            return tens;
         }
     }
 }
