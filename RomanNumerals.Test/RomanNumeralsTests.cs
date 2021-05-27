@@ -17,6 +17,8 @@ namespace RomanNumerals.Test
         [InlineData(9, "IX")]
         [InlineData(10, "X")]
         [InlineData(11, "XI")]
+        [InlineData(39, "XXXIX")]
+        [InlineData(40, "XL")]
         public void ConvertsIntegerToRomanNumeral(int toConvert, string expected)
         {
             var romanNumeral = RomanNumeral.Convert(toConvert);

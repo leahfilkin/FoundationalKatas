@@ -40,6 +40,11 @@ namespace RomanNumerals
             {
                 tens += "X";
             }
+            if (tens == "XXXX")
+            {
+                tens = "XL";
+            }
+
             return tens;
         }
     }
