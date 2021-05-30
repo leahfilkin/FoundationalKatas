@@ -44,6 +44,10 @@ namespace RomanNumerals
             {
                 tens = "XL";
             }
+            if (tens == "XXXXX")
+            {
+                tens = "L";
+            }
 
             return tens;
         }
