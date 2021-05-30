@@ -11,10 +11,13 @@ namespace RomanNumerals
             {
                 throw new ArgumentOutOfRangeException(nameof(i), "Number must be greater than zero");
             }
-            var result = ConvertTens(i);
-            var one = i % 10;
+            return ConvertTens(i) + ConvertOnes(i);
+        }
 
-            result += one switch
+        private static string ConvertOnes(int i)
+        {
+            var ones = i % 10;
+            return ones switch
             {
                 1 => "I",
                 2 => "II",
@@ -28,28 +31,20 @@ namespace RomanNumerals
                 10 => "X",
                 _ => ""
             };
-
-            return result;
         }
 
         private static string ConvertTens(int i)
         {
-            var amountOfTens = i / 10;
-            var tens = "";
-            for (int x = 0; x < amountOfTens; x++)
+            var tens = i / 10;
+            return tens switch
             {
-                tens += "X";
-            }
-            if (tens == "XXXX")
-            {
-                tens = "XL";
-            }
-            if (tens == "XXXXX")
-            {
-                tens = "L";
-            }
-
-            return tens;
+                1 => "X",
+                2 => "XX",
+                3 => "XXX",
+                4 => "XL",
+                5 => "L",
+                _ => ""
+            };
         }
     }
 }
