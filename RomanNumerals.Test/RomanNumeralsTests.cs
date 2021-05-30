@@ -40,6 +40,14 @@ namespace RomanNumerals.Test
             Assert.Equal(expected, romanNumeral);
         }
 
+        [Fact]
+        public void ConvertsInteger100ToRomanNumeral()
+        {
+            var romanNumeral = RomanNumeral.Convert(100);
+
+            Assert.Equal("C", romanNumeral);
+        }
+
         [Theory]
         [InlineData(0)]
         [InlineData(-1)]

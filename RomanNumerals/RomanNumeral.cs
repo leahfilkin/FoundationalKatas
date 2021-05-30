@@ -11,7 +11,7 @@ namespace RomanNumerals
             {
                 throw new ArgumentOutOfRangeException(nameof(i), "Number must be greater than zero");
             }
-            return ConvertTens(i) + ConvertOnes(i);
+            return ConvertHundreds(i) + ConvertTens(i) + ConvertOnes(i);
         }
 
         private static string ConvertOnes(int i)
@@ -46,6 +46,15 @@ namespace RomanNumerals
                 7 => "LXX",
                 8 => "LXXX",
                 9 => "XC",
+                _ => ""
+            };
+        }
+        private static string ConvertHundreds(int i)
+        {
+            var hundreds = i / 100;
+            return hundreds switch
+            {
+                1 => "C",
                 _ => ""
             };
         }
