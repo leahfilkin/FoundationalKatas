@@ -28,7 +28,6 @@ namespace RomanNumerals
                 7 => "VII",
                 8 => "VIII",
                 9 => "IX",
-                10 => "X",
                 _ => ""
             };
         }
@@ -43,6 +42,10 @@ namespace RomanNumerals
                 3 => "XXX",
                 4 => "XL",
                 5 => "L",
+                6 => "LX",
+                7 => "LXX",
+                8 => "LXXX",
+                9 => "XC",
                 _ => ""
             };
         }

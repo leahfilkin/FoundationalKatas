@@ -15,13 +15,25 @@ namespace RomanNumerals.Test
         [InlineData(7, "VII")]
         [InlineData(8, "VIII")]
         [InlineData(9, "IX")]
+        public void ConvertsIntegerUnder10ToRomanNumeral(int toConvert, string expected)
+        {
+            var romanNumeral = RomanNumeral.Convert(toConvert);
+            
+            Assert.Equal(expected, romanNumeral);
+        }
+        
+        [Theory]
         [InlineData(10, "X")]
         [InlineData(11, "XI")]
         [InlineData(39, "XXXIX")]
         [InlineData(40, "XL")]
         [InlineData(49, "XLIX")]
         [InlineData(50, "L")]
-        public void ConvertsIntegerToRomanNumeral(int toConvert, string expected)
+        [InlineData(63, "LXIII")]
+        [InlineData(74, "LXXIV")]
+        [InlineData(89, "LXXXIX")]
+        [InlineData(99, "XCIX")]
+        public void ConvertsIntegerFrom10To99ToRomanNumeral(int toConvert, string expected)
         {
             var romanNumeral = RomanNumeral.Convert(toConvert);
             
