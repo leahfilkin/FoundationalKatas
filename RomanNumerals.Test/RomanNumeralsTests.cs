@@ -77,5 +77,14 @@ namespace RomanNumerals.Test
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => RomanNumeral.Convert(toConvert));
         }
+
+        [Theory]
+        [InlineData(4000)]
+        [InlineData(5999)]
+        [InlineData(10000)]
+        public void ThrowsForNumbersOver3999(int toConvert)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => RomanNumeral.Convert(toConvert));
+        }
     }
 }
