@@ -59,6 +59,16 @@ namespace RomanNumerals.Test
         }
 
         [Theory]
+        [InlineData(1000, "M")]
+        [InlineData(3999, "MMMCMXCIX")]
+        [InlineData(2500, "MMD")]
+        public void ConvertsInteger1000To3999ToRomanNumeral(int toConvert, string expected)
+        {
+            var romanNumeral = RomanNumeral.Convert(toConvert);
+            Assert.Equal(expected, romanNumeral);
+        }
+
+        [Theory]
         [InlineData(0)]
         [InlineData(-1)]
         [InlineData(-50)]
