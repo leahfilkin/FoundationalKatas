@@ -60,8 +60,9 @@ namespace RomanNumerals.Test
 
         [Theory]
         [InlineData(1000, "M")]
-        [InlineData(3999, "MMMCMXCIX")]
         [InlineData(2500, "MMD")]
+        [InlineData(3999, "MMMCMXCIX")]
+
         public void ConvertsInteger1000To3999ToRomanNumeral(int toConvert, string expected)
         {
             var romanNumeral = RomanNumeral.Convert(toConvert);
