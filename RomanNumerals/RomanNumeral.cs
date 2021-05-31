@@ -34,7 +34,7 @@ namespace RomanNumerals
 
         private static string ConvertTens(int i)
         {
-            var tens = i / 10;
+            var tens = i / 10 % 10;
             return tens switch
             {
                 1 => "X",
@@ -55,6 +55,14 @@ namespace RomanNumerals
             return hundreds switch
             {
                 1 => "C",
+                2 => "CC",
+                3 => "CCC",
+                4 => "CD",
+                5 => "D",
+                6 => "DC",
+                7 => "DCC",
+                8 => "DCCC",
+                9 => "CM",
                 _ => ""
             };
         }

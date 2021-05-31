@@ -40,12 +40,22 @@ namespace RomanNumerals.Test
             Assert.Equal(expected, romanNumeral);
         }
 
-        [Fact]
-        public void ConvertsInteger100ToRomanNumeral()
+        [Theory]
+        [InlineData(100, "C")]
+        [InlineData(191, "CXCI")]
+        [InlineData(282, "CCLXXXII")]
+        [InlineData(373, "CCCLXXIII")]
+        [InlineData(464, "CDLXIV")]
+        [InlineData(555, "DLV")]
+        [InlineData(646, "DCXLVI")]
+        [InlineData(737, "DCCXXXVII")]
+        [InlineData(828, "DCCCXXVIII")]
+        [InlineData(919, "CMXIX")]
+        public void ConvertsInteger100To999ToRomanNumeral(int toConvert, string expected)
         {
-            var romanNumeral = RomanNumeral.Convert(100);
+            var romanNumeral = RomanNumeral.Convert(toConvert);
 
-            Assert.Equal("C", romanNumeral);
+            Assert.Equal(expected, romanNumeral);
         }
 
         [Theory]
