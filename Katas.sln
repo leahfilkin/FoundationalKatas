@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanNumerals", "RomanNumer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanNumerals.Test", "RomanNumerals.Test\RomanNumerals.Test.csproj", "{9D4E8B70-5DB3-45F8-9EE9-287BD1E373E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarsRover", "MarsRover\MarsRover.csproj", "{00CBFFCA-E5F0-40BE-A6AF-A16034367F86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarsRover.Tests", "MarsRover.Tests\MarsRover.Tests.csproj", "{3D14E6DB-6131-4DEA-BBF6-A752CA694E31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,5 +89,13 @@ Global
 		{9D4E8B70-5DB3-45F8-9EE9-287BD1E373E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D4E8B70-5DB3-45F8-9EE9-287BD1E373E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D4E8B70-5DB3-45F8-9EE9-287BD1E373E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00CBFFCA-E5F0-40BE-A6AF-A16034367F86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00CBFFCA-E5F0-40BE-A6AF-A16034367F86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00CBFFCA-E5F0-40BE-A6AF-A16034367F86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00CBFFCA-E5F0-40BE-A6AF-A16034367F86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D14E6DB-6131-4DEA-BBF6-A752CA694E31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D14E6DB-6131-4DEA-BBF6-A752CA694E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D14E6DB-6131-4DEA-BBF6-A752CA694E31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D14E6DB-6131-4DEA-BBF6-A752CA694E31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
