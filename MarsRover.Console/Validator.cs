@@ -6,7 +6,6 @@ namespace MarsRover.Console
 {
     public class Validator
     {
-
         public static bool IsStartingPositionValid(string position, Grid grid)
         {
             var coords = Array.ConvertAll(position.Split(","), int.Parse);

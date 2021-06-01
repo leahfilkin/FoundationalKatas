@@ -19,20 +19,13 @@ namespace MarsRover.Console.Tests
             Assert.True(Validator.IsStartingPositionValid("5,2", grid));
         }
         
-        [Fact]
-        public void ThrowExceptionIfGridSizeIsNegative()
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        public void ThrowExceptionIfGridSizeIsInvalid(int gridSize)
         {
-            var gridSize = -1;
             Assert.Throws<ArgumentOutOfRangeException>(() => Validator.IsGridSizeValid(gridSize));
         }
-
-        [Fact]
-        public void ThrowExceptionIfGridSizeIs0()
-        {
-            var gridSize = 0;
-            Assert.Throws<ArgumentOutOfRangeException>(() => Validator.IsGridSizeValid(gridSize));
-        }
-
 
         // check char array doesnt have any characters that dont indicate directions
     }
