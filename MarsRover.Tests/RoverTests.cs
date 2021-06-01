@@ -8,8 +8,15 @@ namespace MarsRover.Tests
         [Fact]
         public void ShouldHaveStartingCoords()
         {
-            var rover = new Rover(5, 3);
-            Assert.Equal("[5,3]", rover.GetPosition());
+            var rover = new Rover(5, 3, 'N');
+            Assert.Equal("(5,3)", rover.GetPosition());
+        }
+
+        [Fact]
+        public void ShouldHaveStartingDirection()
+        {
+            var rover = new Rover(1, 1, 'N');
+            Assert.Equal("North", rover.GetDirection());
         }
     }
 }
