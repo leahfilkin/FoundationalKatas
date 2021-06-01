@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\RomanNumerals\RomanNumerals.csproj" />
+      <ProjectReference Include="..\MarsRover.Console\MarsRover.Console.csproj" />
     </ItemGroup>
 
 </Project>

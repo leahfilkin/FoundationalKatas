@@ -1,12 +1,11 @@
-using System.Collections.Generic;
 
 namespace MarsRover
 {
     public class Rover
     {
-        private int _x;
-        private int _y;
-        private char _direction;
+        private readonly int _x;
+        private readonly int _y;
+        private readonly char _direction;
         public Rover(int x, int y, char direction)
         {
             _x = x;
@@ -19,14 +18,15 @@ namespace MarsRover
             return $"({_x},{_y})";
         }
 
-        public IEnumerable<char> GetDirection()
+        public string DirectionToString()
         {
             return _direction switch
             {
                 'N' => "North",
                 'S' => "South",
                 'E' => "East",
-                'W' => "West"
+                'W' => "West",
+                _ => ""
             };
         }
     }

@@ -16,7 +16,7 @@ namespace MarsRover.Tests
         public void ShouldHaveStartingDirection()
         {
             var rover = new Rover(1, 1, 'N');
-            Assert.Equal("North", rover.GetDirection());
+            Assert.Equal("North", rover.DirectionToString());
         }
     }
 }
