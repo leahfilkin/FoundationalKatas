@@ -43,6 +43,14 @@ namespace MarsRover.Tests
             rover.Turn('l');
             Assert.Equal("West",rover.DirectionToString());
         }
+
+        [Fact]
+        public void EndEastWhenTurningLeftFromSouth()
+        {
+            var rover = new Rover(5, 5, 'S');
+            rover.Turn('l');
+            Assert.Equal("East", rover.DirectionToString());
+        }
         
     }
 }
