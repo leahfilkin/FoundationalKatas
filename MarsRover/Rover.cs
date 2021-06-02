@@ -32,13 +32,28 @@ namespace MarsRover
 
         public void Move(char command)
         {
-            switch (command)
+            switch (_direction)
             {
-                case 'f':
-                    _x -= 1;
+                case 'N':
+                    switch (command)
+                    {
+                        case 'f':
+                            _x -= 1;
+                            break;
+                        case 'b':
+                            _x += 1;
+                            break;
+                    }
+
                     break;
-                case 'b':
-                    _x += 1;
+                case 'S':
+                    switch (command)
+                    {
+                        case 'f':
+                            _x += 1;
+                            break;
+                    }
+
                     break;
             }
         }

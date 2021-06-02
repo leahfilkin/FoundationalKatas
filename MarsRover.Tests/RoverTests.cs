@@ -19,22 +19,18 @@ namespace MarsRover.Tests
             Assert.Equal("North", rover.DirectionToString());
         }
 
-        [Fact]
-        public void RoverShouldMoveForward()
-        {
-            var rover = new Rover(2, 1, 'N');
-            var command = 'f';
-            rover.Move(command);
-            Assert.Equal("(1,1)", rover.PositionToString());
-        }
+        [Theory]
+        [InlineData('N', 'f', "(4,5)")]
+        [InlineData('N', 'b', "(6,5)")]
+        [InlineData('S', 'f', "(6,5)")]
+        [InlineData('S', 'b', "(4,5)")]
 
-        [Fact]
-        public void RoverShouldMoveBackward()
+
+        public void RoverShouldMoveToTheRightSpotDependingOnDirectionAndCommandGiven(char direction, char command, string expected)
         {
-            var rover = new Rover(2, 1, 'N');
-            var command = 'b';
+            var rover = new Rover(5,5, direction);
             rover.Move(command);
-            Assert.Equal("(3,1)", rover.PositionToString());
+            Assert.Equal(expected, rover.PositionToString());
         }
     }
 }
