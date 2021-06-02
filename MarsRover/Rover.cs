@@ -5,7 +5,7 @@ namespace MarsRover
     {
         private int _x;
         private int _y;
-        private readonly char _direction;
+        private char _direction;
         public Rover(int x, int y, char direction)
         {
             _x = x;
@@ -99,6 +99,11 @@ namespace MarsRover
                     _y += 1;
                     break;
             }
+        }
+
+        public void Turn(char c)
+        {
+            _direction = 'W';
         }
     }
 }

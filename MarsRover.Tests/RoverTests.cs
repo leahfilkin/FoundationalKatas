@@ -28,14 +28,21 @@ namespace MarsRover.Tests
         [InlineData('E', 'b', "(4,5)")]
         [InlineData('W', 'f', "(4,5)")]
         [InlineData('W', 'b', "(6,5)")]
-        
-        
 
-        public void RoverShouldMoveToTheRightSpotDependingOnDirectionAndCommandGiven(char direction, char command, string expected)
+        public void MoveToTheRightSpotDependingOnDirectionAndCommandGiven(char direction, char command, string expected)
         {
             var rover = new Rover(5,5, direction);
             rover.Move(command);
             Assert.Equal(expected, rover.PositionToString());
         }
+
+        [Fact]
+        public void EndWestWhenTurningLeftFromNorth()
+        {
+            var rover = new Rover(5, 5, 'N');
+            rover.Turn('l');
+            Assert.Equal("West",rover.DirectionToString());
+        }
+        
     }
 }
