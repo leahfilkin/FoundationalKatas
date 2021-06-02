@@ -103,15 +103,14 @@ namespace MarsRover
 
         public void Turn(char command)
         {
-            if (_direction == 'N')
+            _direction = _direction switch
             {
-                _direction = 'W';
-            }
-
-            if (_direction == 'S')
-            {
-                _direction = 'E';
-            }
+                'N' => 'W',
+                'S' => 'E',
+                'E' => 'N',
+                'W' => 'S',
+                _ => _direction
+            };
         }
     }
 }

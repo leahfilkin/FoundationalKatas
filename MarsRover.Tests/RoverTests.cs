@@ -36,20 +36,17 @@ namespace MarsRover.Tests
             Assert.Equal(expected, rover.PositionToString());
         }
 
-        [Fact]
-        public void EndWestWhenTurningLeftFromNorth()
-        {
-            var rover = new Rover(5, 5, 'N');
-            rover.Turn('l');
-            Assert.Equal("West",rover.DirectionToString());
-        }
+        [Theory]
+        [InlineData('N', "West")]
+        [InlineData('S', "East")]
+        [InlineData('W', "South")]
+        [InlineData('E', "North")]
 
-        [Fact]
-        public void EndEastWhenTurningLeftFromSouth()
+        public void TurnToDirectionToTheLeftWhenLCommandGiven(char direction, string expected)
         {
-            var rover = new Rover(5, 5, 'S');
+            var rover = new Rover(5, 5, direction);
             rover.Turn('l');
-            Assert.Equal("East", rover.DirectionToString());
+            Assert.Equal(expected,rover.DirectionToString());
         }
         
     }
