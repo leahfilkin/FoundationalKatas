@@ -9,14 +9,16 @@ namespace MarsRover.Console.Tests
         public void ReturnFalseIfPositionTooBigForGrid()
         {
             var grid = new Grid(3);
-            Assert.False(Validator.IsStartingPositionValid("5,2", grid));
+            var point = new Point(5, 2);
+            Assert.False(Validator.IsPositionValid(point, grid));
         }
 
         [Fact]
         public void ReturnTrueIfPositionFitsOnGrid()
         {
             var grid = new Grid(7);
-            Assert.True(Validator.IsStartingPositionValid("5,2", grid));
+            var point = new Point(5, 2);
+            Assert.True(Validator.IsPositionValid(point, grid));
         }
         // check char array doesnt have any characters that dont indicate directions
     }

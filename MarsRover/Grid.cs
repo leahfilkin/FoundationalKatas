@@ -6,7 +6,7 @@ namespace MarsRover
     {
         public int Size;
 
-        public Grid(int x = 10)
+        public Grid(Rover rover, int x = 10)
         {
             if (x < 0)
             {

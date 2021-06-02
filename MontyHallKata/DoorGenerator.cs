@@ -6,7 +6,7 @@ namespace MontyHallKata
     {
         public List<Door> GenerateDoors(IRandom random)
         {
-            var winningDoor = random.Next(3);
+            var winningDoor = random.Next(3); 
             var doors = new List<Door>();
             for (var i = 0; i < 3; i++)
             {

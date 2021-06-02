@@ -6,15 +6,13 @@ namespace MarsRover.Console
 {
     public class Validator
     {
-        public static bool IsStartingPositionValid(string position, Grid grid)
+        public static bool IsPositionValid(Point point, Grid grid)
         {
-            var coords = Array.ConvertAll(position.Split(","), int.Parse);
-            return coords.All(axis => axis <= grid.Size);
-        }
-
-        public static object AreInstructionsValid(char[] instructions)
-        {
-            throw new NotImplementedException();
+            if (Math.Max(point.X, point.Y) > grid.Size)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace MarsRover.Tests
         public void ShouldHaveStartingCoords()
         {
             var rover = new Rover(5, 3, 'N');
-            Assert.Equal("(5,3)", rover.GetPosition());
+            Assert.Equal("(5,3)", rover.PositionToString());
         }
 
         [Fact]

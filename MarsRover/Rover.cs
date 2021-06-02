@@ -13,7 +13,7 @@ namespace MarsRover
             _direction = direction;
         }
 
-        public string GetPosition()
+        public string PositionToString()
         {
             return $"({_x},{_y})";
         }
