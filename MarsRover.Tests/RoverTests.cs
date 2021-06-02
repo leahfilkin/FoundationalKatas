@@ -20,11 +20,16 @@ namespace MarsRover.Tests
         }
 
         [Theory]
-        [InlineData('N', 'f', "(4,5)")]
-        [InlineData('N', 'b', "(6,5)")]
-        [InlineData('S', 'f', "(6,5)")]
-        [InlineData('S', 'b', "(4,5)")]
-
+        [InlineData('N', 'f', "(5,4)")]
+        [InlineData('N', 'b', "(5,6)")]
+        [InlineData('S', 'f', "(5,6)")]
+        [InlineData('S', 'b', "(5,4)")]
+        [InlineData('E', 'f', "(6,5)")]
+        [InlineData('E', 'b', "(4,5)")]
+        [InlineData('W', 'f', "(4,5)")]
+        [InlineData('W', 'b', "(6,5)")]
+        
+        
 
         public void RoverShouldMoveToTheRightSpotDependingOnDirectionAndCommandGiven(char direction, char command, string expected)
         {

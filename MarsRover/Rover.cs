@@ -35,25 +35,68 @@ namespace MarsRover
             switch (_direction)
             {
                 case 'N':
-                    switch (command)
-                    {
-                        case 'f':
-                            _x -= 1;
-                            break;
-                        case 'b':
-                            _x += 1;
-                            break;
-                    }
-
+                    MoveWhenFacingNorth(command);
                     break;
                 case 'S':
-                    switch (command)
-                    {
-                        case 'f':
-                            _x += 1;
-                            break;
-                    }
+                    MoveWhenFacingSouth(command);
+                    break;
+                case 'E':
+                    MoveWhenFacingEast(command);
+                    break;
+                case 'W':
+                    MoveWhenFacingWest(command);
+                    break;
+            }
+        }
 
+        private void MoveWhenFacingWest(char command)
+        {
+            switch (command)
+            {
+                case 'f':
+                    _x -= 1;
+                    break;
+                case 'b':
+                    _x += 1;
+                    break;
+            }
+        }
+
+        private void MoveWhenFacingEast(char command)
+        {
+            switch (command)
+            {
+                case 'f':
+                    _x += 1;
+                    break;
+                case 'b':
+                    _x -= 1;
+                    break;
+            }
+        }
+
+        private void MoveWhenFacingSouth(char command)
+        {
+            switch (command)
+            {
+                case 'f':
+                    _y += 1;
+                    break;
+                case 'b':
+                    _y -= 1;
+                    break;
+            }
+        }
+
+        private void MoveWhenFacingNorth(char command)
+        {
+            switch (command)
+            {
+                case 'f':
+                    _y -= 1;
+                    break;
+                case 'b':
+                    _y += 1;
                     break;
             }
         }
