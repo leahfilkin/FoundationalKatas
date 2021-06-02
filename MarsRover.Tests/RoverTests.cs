@@ -20,14 +20,21 @@ namespace MarsRover.Tests
         }
 
         [Fact]
-        public void RoverShouldMoveForwardForCommandF()
+        public void RoverShouldMoveForward()
         {
             var rover = new Rover(2, 1, 'N');
-            var grid = new Grid();
             var command = 'f';
             rover.Move(command);
             Assert.Equal("(1,1)", rover.PositionToString());
-            
+        }
+
+        [Fact]
+        public void RoverShouldMoveBackward()
+        {
+            var rover = new Rover(2, 1, 'N');
+            var command = 'b';
+            rover.Move(command);
+            Assert.Equal("(3,1)", rover.PositionToString());
         }
     }
 }
