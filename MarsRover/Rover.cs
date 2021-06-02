@@ -3,8 +3,8 @@ namespace MarsRover
 {
     public class Rover
     {
-        private readonly int _x;
-        private readonly int _y;
+        private int _x;
+        private int _y;
         private readonly char _direction;
         public Rover(int x, int y, char direction)
         {
@@ -28,6 +28,11 @@ namespace MarsRover
                 'W' => "West",
                 _ => ""
             };
+        }
+
+        public void Move(char command)
+        {
+            _x -= 1;
         }
     }
 }

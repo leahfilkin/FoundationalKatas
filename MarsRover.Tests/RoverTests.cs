@@ -18,5 +18,16 @@ namespace MarsRover.Tests
             var rover = new Rover(1, 1, 'N');
             Assert.Equal("North", rover.DirectionToString());
         }
+
+        [Fact]
+        public void RoverShouldMoveForwardForCommandF()
+        {
+            var rover = new Rover(2, 1, 'N');
+            var grid = new Grid();
+            var command = 'f';
+            rover.Move(command);
+            Assert.Equal("(1,1)", rover.PositionToString());
+            
+        }
     }
 }
