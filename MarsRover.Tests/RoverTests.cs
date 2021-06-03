@@ -42,11 +42,23 @@ namespace MarsRover.Tests
         [InlineData('W', "South")]
         [InlineData('E', "North")]
 
-        public void TurnToDirectionToTheLeftWhenLCommandGiven(char direction, string expected)
+        public void TurnToLeft(char direction, string expected)
         {
             var rover = new Rover(5, 5, direction);
             rover.Turn('l');
             Assert.Equal(expected,rover.DirectionToString());
+        }
+
+        [Theory]
+        [InlineData('N', "East")]
+        [InlineData('S', "West")]
+        [InlineData('E', "South")]
+        // [InlineData('W', "North")]
+        public void TurnToRight(char direction, string expected)
+        {
+            var rover = new Rover(5, 5, direction);
+            rover.Turn('r');
+            Assert.Equal(expected, rover.DirectionToString());
         }
         
     }

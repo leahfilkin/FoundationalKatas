@@ -103,12 +103,39 @@ namespace MarsRover
 
         public void Turn(char command)
         {
-            _direction = _direction switch
+            switch (_direction)
             {
-                'N' => 'W',
-                'S' => 'E',
-                'E' => 'N',
-                'W' => 'S',
+                case 'N':
+                    TurnWhenFacingNorth(command);
+                    break;
+                case 'S':
+                    TurnWhenFacingSouth(command);
+                    break;
+                case 'E':
+                    _direction = 'N';
+                    break;
+                case 'W':
+                    _direction = 'S';
+                    break;
+            };
+        }
+
+        private void TurnWhenFacingSouth(char command)
+        {
+            _direction = command switch
+            {
+                'l' => 'E',
+                'r' => 'W',
+                _ => _direction
+            };
+        }
+
+        private void TurnWhenFacingNorth(char command)
+        {
+            _direction = command switch
+            {
+                'l' => 'W',
+                'r' => 'E',
                 _ => _direction
             };
         }
