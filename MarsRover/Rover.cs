@@ -52,7 +52,10 @@ namespace MarsRover
             switch (command)
             {
                 case 'f':
-                    _position.X -= 1;
+                    if (_position.X == 0)
+                    {
+                        _position.X = new Grid().Size - 1;
+                    }
                     break;
                 case 'b':
                     _position.X += 1;
@@ -78,7 +81,10 @@ namespace MarsRover
             switch (command)
             {
                 case 'f':
-                    _position.Y += 1;
+                    if (_position.Y == new Grid().Size - 1)
+                    {
+                        _position.Y = 0;
+                    }
                     break;
                 case 'b':
                     _position.Y -= 1;

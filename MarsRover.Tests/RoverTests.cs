@@ -61,21 +61,23 @@ namespace MarsRover.Tests
             Assert.Equal(expected, rover.DirectionToString());
         }
         
-        [Fact]
-        public void ShouldWrapWhenRoverMovesForwardOffEdgeWhenFacingNorth()
+        [Theory]
+        [InlineData('N', 0, 0, "(0,9)")]
+        [InlineData('S', 3, 9, "(3,0)")]
+        [InlineData('W', 0, 4, "(9,4)")]
+        public void ShouldWrapWhenRoverMovesForwardOffEdge(char direction, int x, int y, string expected)
         {
-            var rover = new Rover(0,0, 'N');
+            var rover = new Rover(x,y, direction);
             rover.Move('f');
-            Assert.Equal("(0,9)", rover.PositionToString());
+            Assert.Equal(expected, rover.PositionToString());
         }
 
-        // [Fact]
-        // public void ShouldWrapWhenRoverMovesForwardOffEdgeWhenFacingSouth()
-        // {
-        //     var rover = new Rover(0,0, 'S');
-        //     rover.Move('f');
-        //     Assert.Equal("(1,10)", rover.PositionToString());
-        // }
-
+        [Fact]
+        public void ShouldWrapWhenRoverMovesForwardOffEdgeWhenFacingSouth()
+        {
+            var rover = new Rover(0,9, 'S');
+            rover.Move('f');
+            Assert.Equal("(0,0)", rover.PositionToString());
+        }
     }
 }
