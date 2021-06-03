@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using Xunit.Sdk;
 
 namespace MarsRover.Tests
 {
@@ -8,14 +9,16 @@ namespace MarsRover.Tests
         [Fact]
         public void ShouldHaveStartingCoords()
         {
-            var rover = new Rover(5, 3, 'N');
+            var startingPosition = new Point(5, 3);
+            var rover = new Rover(startingPosition,  'N');
             Assert.Equal("(5,3)", rover.PositionToString());
         }
 
         [Fact]
         public void ShouldHaveStartingDirection()
         {
-            var rover = new Rover(1, 1, 'N');
+            var startingPosition = new Point(1, 1);
+            var rover = new Rover(startingPosition, 'N');
             Assert.Equal("North", rover.DirectionToString());
         }
 
@@ -29,9 +32,10 @@ namespace MarsRover.Tests
         [InlineData('W', 'f', "(4,5)")]
         [InlineData('W', 'b', "(6,5)")]
 
-        public void MoveToTheRightSpotDependingOnDirectionAndCommandGiven(char direction, char command, string expected)
+        public void MoveToTheRightSpotFromDirectionDependingOnCommandGiven(char direction, char command, string expected)
         {
-            var rover = new Rover(5,5, direction);
+            var startingPosition = new Point(5, 5);
+            var rover = new Rover(startingPosition, direction);
             rover.Move(command);
             Assert.Equal(expected, rover.PositionToString());
         }
@@ -44,7 +48,8 @@ namespace MarsRover.Tests
 
         public void TurnToLeft(char direction, string expected)
         {
-            var rover = new Rover(5, 5, direction);
+            var startingPosition = new Point(5, 5);
+            var rover = new Rover(startingPosition, direction);
             rover.Turn('l');
             Assert.Equal(expected,rover.DirectionToString());
         }
@@ -56,7 +61,8 @@ namespace MarsRover.Tests
         [InlineData('W', "North")]
         public void TurnToRight(char direction, string expected)
         {
-            var rover = new Rover(5, 5, direction);
+            var startingPosition = new Point(5, 5);
+            var rover = new Rover(startingPosition, direction);
             rover.Turn('r');
             Assert.Equal(expected, rover.DirectionToString());
         }
@@ -65,19 +71,27 @@ namespace MarsRover.Tests
         [InlineData('N', 0, 0, "(0,9)")]
         [InlineData('S', 3, 9, "(3,0)")]
         [InlineData('W', 0, 4, "(9,4)")]
-        public void ShouldWrapWhenRoverMovesForwardOffEdge(char direction, int x, int y, string expected)
+        [InlineData('E', 9, 6, "(0,6)")]
+        
+        public void WrapWhenRoverMovesForwardOffEdge(char direction, int x, int y, string expected)
         {
-            var rover = new Rover(x,y, direction);
+            var startingPosition = new Point(x, y);
+            var rover = new Rover(startingPosition, direction);
             rover.Move('f');
             Assert.Equal(expected, rover.PositionToString());
         }
 
         [Fact]
-        public void ShouldWrapWhenRoverMovesForwardOffEdgeWhenFacingSouth()
+        public void DetectsObstaclesOnGrid()
         {
-            var rover = new Rover(0,9, 'S');
+            var startingPosition = new Point(0, 0);
+            var rover = new Rover(startingPosition, 'S');
+            var grid = new Grid();
             rover.Move('f');
-            Assert.Equal("(0,0)", rover.PositionToString());
+            var hasObstacle = rover.ObserveObstacles(grid);
+            
+            Assert.True(hasObstacle);
+
         }
     }
 }

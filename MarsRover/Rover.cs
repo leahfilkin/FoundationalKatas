@@ -1,13 +1,15 @@
 
+using System.Linq;
+
 namespace MarsRover
 {
     public class Rover
     {
         private readonly Point _position;
         private char _direction;
-        public Rover(int x, int y, char direction)
+        public Rover(Point point, char direction)
         {
-            _position = new Point(x, y);
+            _position = point;
             _direction = direction;
         }
 
@@ -68,7 +70,10 @@ namespace MarsRover
             switch (command)
             {
                 case 'f':
-                    _position.X += 1;
+                    if (_position.X == new Grid().Size - 1)
+                    {
+                        _position.X = 0;
+                    }
                     break;
                 case 'b':
                     _position.X -= 1;
@@ -169,6 +174,19 @@ namespace MarsRover
                 'r' => 'E',
                 _ => _direction
             };
+        }
+
+        public bool ObserveObstacles(Grid grid)
+        {
+            if (grid.Obstacles.SelectMany(obstacle => obstacle)
+                .Any(coordinate => coordinate == _position.X - 1 
+                                   || coordinate == _position.X + 1
+                                   || coordinate == _position.Y - 1
+                                   || coordinate == _position.Y + 1))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

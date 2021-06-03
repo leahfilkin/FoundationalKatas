@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 
 namespace MarsRover
 {
     public class Grid
     {
         public int Size;
+        public List<List<int>> Obstacles;
 
         public Grid(int x = 10)
         {
@@ -20,6 +22,7 @@ namespace MarsRover
                     "You cannot have a grid that's size is 0");
             }
             Size = x;
+            Obstacles = new List<List<int>>() { new List<int>() {1, 1} };
         }
     }
 }
