@@ -7,9 +7,11 @@ namespace MarsRover
     {
         private readonly Point _position;
         private char _direction;
-        public Rover(Point point, char direction)
+        private Grid _grid;
+        public Rover(Grid grid, Point position, char direction)
         {
-            _position = point;
+            _grid = grid;
+            _position = position;
             _direction = direction;
         }
 
@@ -56,7 +58,7 @@ namespace MarsRover
                 case 'f':
                     if (_position.X == 0)
                     {
-                        _position.X = new Grid().Size - 1;
+                        _position.X = _grid.Size - 1;
                     }
                     break;
                 case 'b':
@@ -70,7 +72,7 @@ namespace MarsRover
             switch (command)
             {
                 case 'f':
-                    if (_position.X == new Grid().Size - 1)
+                    if (_position.X == _grid.Size - 1)
                     {
                         _position.X = 0;
                     }
@@ -86,7 +88,7 @@ namespace MarsRover
             switch (command)
             {
                 case 'f':
-                    if (_position.Y == new Grid().Size - 1)
+                    if (_position.Y == _grid.Size - 1)
                     {
                         _position.Y = 0;
                     }
@@ -104,7 +106,7 @@ namespace MarsRover
                 case 'f':
                     if (_position.Y == 0)
                     {
-                        _position.Y = new Grid().Size - 1;
+                        _position.Y = _grid.Size - 1;
                     }
                     else
                     {
@@ -176,17 +178,22 @@ namespace MarsRover
             };
         }
 
-        public bool ObserveObstacles(Grid grid)
+        // public bool ObserveObstacles()
+        // {
+        //     if (_grid.Obstacles.SelectMany(obstacle => obstacle)
+        //         .Any(coordinate => coordinate == _position.X - 1 
+        //                            || coordinate == _position.X + 1
+        //                            || coordinate == _position.Y - 1
+        //                            || coordinate == _position.Y + 1))
+        //     {
+        //         return true;
+        //     }
+        //     return false;
+        // }
+
+        public bool ObserveObstacle()
         {
-            if (grid.Obstacles.SelectMany(obstacle => obstacle)
-                .Any(coordinate => coordinate == _position.X - 1 
-                                   || coordinate == _position.X + 1
-                                   || coordinate == _position.Y - 1
-                                   || coordinate == _position.Y + 1))
-            {
-                return true;
-            }
-            return false;
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace MarsRover.Tests
         public void ShouldHaveStartingCoords()
         {
             var startingPosition = new Point(5, 3);
-            var rover = new Rover(startingPosition,  'N');
+            var rover = new Rover(new Grid(), startingPosition,  'N');
             Assert.Equal("(5,3)", rover.PositionToString());
         }
 
@@ -18,7 +18,7 @@ namespace MarsRover.Tests
         public void ShouldHaveStartingDirection()
         {
             var startingPosition = new Point(1, 1);
-            var rover = new Rover(startingPosition, 'N');
+            var rover = new Rover(new Grid(), startingPosition, 'N');
             Assert.Equal("North", rover.DirectionToString());
         }
 
@@ -35,7 +35,7 @@ namespace MarsRover.Tests
         public void MoveToTheRightSpotFromDirectionDependingOnCommandGiven(char direction, char command, string expected)
         {
             var startingPosition = new Point(5, 5);
-            var rover = new Rover(startingPosition, direction);
+            var rover = new Rover(new Grid(), startingPosition, direction);
             rover.Move(command);
             Assert.Equal(expected, rover.PositionToString());
         }
@@ -49,7 +49,7 @@ namespace MarsRover.Tests
         public void TurnToLeft(char direction, string expected)
         {
             var startingPosition = new Point(5, 5);
-            var rover = new Rover(startingPosition, direction);
+            var rover = new Rover(new Grid(), startingPosition, direction);
             rover.Turn('l');
             Assert.Equal(expected,rover.DirectionToString());
         }
@@ -62,7 +62,7 @@ namespace MarsRover.Tests
         public void TurnToRight(char direction, string expected)
         {
             var startingPosition = new Point(5, 5);
-            var rover = new Rover(startingPosition, direction);
+            var rover = new Rover(new Grid(), startingPosition, direction);
             rover.Turn('r');
             Assert.Equal(expected, rover.DirectionToString());
         }
@@ -76,22 +76,17 @@ namespace MarsRover.Tests
         public void WrapWhenRoverMovesForwardOffEdge(char direction, int x, int y, string expected)
         {
             var startingPosition = new Point(x, y);
-            var rover = new Rover(startingPosition, direction);
+            var rover = new Rover(new Grid(), startingPosition, direction);
             rover.Move('f');
             Assert.Equal(expected, rover.PositionToString());
         }
 
         [Fact]
-        public void DetectsObstaclesOnGrid()
+        public void IdentifiesObstacleWhenItIsInRoversPath()
         {
             var startingPosition = new Point(0, 0);
-            var rover = new Rover(startingPosition, 'S');
-            var grid = new Grid();
-            rover.Move('f');
-            var hasObstacle = rover.ObserveObstacles(grid);
-            
-            Assert.True(hasObstacle);
-
+            var rover = new Rover(new Grid(), startingPosition, 'S');
+            Assert.True(rover.ObserveObstacle());
         }
     }
 }

@@ -14,5 +14,12 @@ namespace MarsRover.Tests
             Assert.Throws<ArgumentOutOfRangeException>(() => new Grid(gridSize));
         }
 
+        [Fact]
+        public void HasObstacles()
+        {
+            var grid = new Grid();
+
+            Assert.NotEmpty(grid.Obstacles);
+        }
     }
 }
