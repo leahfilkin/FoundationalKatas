@@ -53,7 +53,7 @@ namespace MarsRover.Tests
         [InlineData('N', "East")]
         [InlineData('S', "West")]
         [InlineData('E', "South")]
-        // [InlineData('W', "North")]
+        [InlineData('W', "North")]
         public void TurnToRight(char direction, string expected)
         {
             var rover = new Rover(5, 5, direction);

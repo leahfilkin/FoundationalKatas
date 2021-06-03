@@ -115,8 +115,18 @@ namespace MarsRover
                     TurnWhenFacingEast(command);
                     break;
                 case 'W':
-                    _direction = 'S';
+                    TurnWhenFacingWest(command);
                     break;
+            };
+        }
+
+        private void TurnWhenFacingWest(char command)
+        {
+            _direction = command switch
+            {
+                'l' => 'S',
+                'r' => 'N',
+                _ => _direction
             };
         }
 
