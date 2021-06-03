@@ -61,5 +61,21 @@ namespace MarsRover.Tests
             Assert.Equal(expected, rover.DirectionToString());
         }
         
+        [Fact]
+        public void ShouldWrapWhenRoverMovesForwardOffEdgeWhenFacingNorth()
+        {
+            var rover = new Rover(0,0, 'N');
+            rover.Move('f');
+            Assert.Equal("(0,9)", rover.PositionToString());
+        }
+
+        // [Fact]
+        // public void ShouldWrapWhenRoverMovesForwardOffEdgeWhenFacingSouth()
+        // {
+        //     var rover = new Rover(0,0, 'S');
+        //     rover.Move('f');
+        //     Assert.Equal("(1,10)", rover.PositionToString());
+        // }
+
     }
 }

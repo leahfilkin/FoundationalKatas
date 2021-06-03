@@ -15,7 +15,6 @@ namespace MarsRover
             }
             X = x;
             Y = y;
-            
         }
     }
 }

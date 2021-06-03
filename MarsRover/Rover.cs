@@ -3,19 +3,17 @@ namespace MarsRover
 {
     public class Rover
     {
-        private int _x;
-        private int _y;
+        private readonly Point _position;
         private char _direction;
         public Rover(int x, int y, char direction)
         {
-            _x = x;
-            _y = y;
+            _position = new Point(x, y);
             _direction = direction;
         }
 
         public string PositionToString()
         {
-            return $"({_x},{_y})";
+            return $"({_position.X},{_position.Y})";
         }
 
         public string DirectionToString()
@@ -54,10 +52,10 @@ namespace MarsRover
             switch (command)
             {
                 case 'f':
-                    _x -= 1;
+                    _position.X -= 1;
                     break;
                 case 'b':
-                    _x += 1;
+                    _position.X += 1;
                     break;
             }
         }
@@ -67,10 +65,10 @@ namespace MarsRover
             switch (command)
             {
                 case 'f':
-                    _x += 1;
+                    _position.X += 1;
                     break;
                 case 'b':
-                    _x -= 1;
+                    _position.X -= 1;
                     break;
             }
         }
@@ -80,10 +78,10 @@ namespace MarsRover
             switch (command)
             {
                 case 'f':
-                    _y += 1;
+                    _position.Y += 1;
                     break;
                 case 'b':
-                    _y -= 1;
+                    _position.Y -= 1;
                     break;
             }
         }
@@ -93,10 +91,17 @@ namespace MarsRover
             switch (command)
             {
                 case 'f':
-                    _y -= 1;
+                    if (_position.Y == 0)
+                    {
+                        _position.Y = new Grid().Size - 1;
+                    }
+                    else
+                    {
+                        _position.Y -= 1;
+                    }
                     break;
                 case 'b':
-                    _y += 1;
+                    _position.Y += 1;
                     break;
             }
         }
