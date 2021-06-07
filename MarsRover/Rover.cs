@@ -4,7 +4,7 @@ namespace MarsRover
 {
     public class Rover
     {
-        private readonly Point _position;
+        private Point _position;
         private char _direction;
         private readonly Grid _grid;
         private Point _nextPosition;
@@ -63,11 +63,11 @@ namespace MarsRover
                     }
                     else
                     {
-                        _nextPosition.X = _position.X -= 1;
+                        _nextPosition.X = _position.X - 1;
                     }
                         break;
                 case 'b':
-                    _nextPosition.X = _position.X += 1;
+                    _nextPosition.X = _position.X + 1;
                     break;
             }
         }
@@ -83,11 +83,11 @@ namespace MarsRover
                     }
                     else
                     {
-                        _nextPosition.X = _position.X += 1;
+                        _nextPosition.X = _position.X + 1;
                     }
                     break;
                 case 'b':
-                    _nextPosition.X = _position.X -= 1;
+                    _nextPosition.X = _position.X - 1;
                     break;
             }
             
@@ -104,11 +104,11 @@ namespace MarsRover
                     }
                     else
                     {
-                        _nextPosition.Y = _position.Y += 1;
+                        _nextPosition.Y = _position.Y + 1;
                     }
                     break;
                 case 'b':
-                    _nextPosition.Y = _position.Y -= 1;
+                    _nextPosition.Y = _position.Y - 1;
                     break;
             }
         }
@@ -124,11 +124,11 @@ namespace MarsRover
                     }
                     else
                     {
-                        _nextPosition.Y = _position.Y -= 1;
+                        _nextPosition.Y = _position.Y - 1;
                     }
                     break;
                 case 'b':
-                    _nextPosition.Y = _position.Y += 1;
+                    _nextPosition.Y = _position.Y + 1;
                     break;
             }
         }
@@ -195,6 +195,28 @@ namespace MarsRover
         public bool ObserveObstacle()
         {
             return _grid.Obstacles.Any(obstacle => obstacle.X == _nextPosition.X && obstacle.Y == _nextPosition.Y);
+        }
+
+        public string Move(char command)
+        {
+            GetNextPosition(command);
+            if (!ObserveObstacle())
+            {
+                UpdatePositionToNextPosition();
+                return $"The rover has moved to {PositionToString()}";
+            }
+            return GetObstacleInformation();
+        }
+
+        private string GetObstacleInformation()
+        {
+            return $"There is an obstacle at ({_nextPosition.X}, {_nextPosition.Y}. \n" +
+                   "The Rover cannot move further. The obstacle has been reported.";
+        }
+
+        private void UpdatePositionToNextPosition()
+        {
+            _position = _nextPosition;
         }
     }
 }
