@@ -1,6 +1,4 @@
-using System;
 using Xunit;
-using Xunit.Sdk;
 
 namespace MarsRover.Tests
 {
@@ -85,9 +83,10 @@ namespace MarsRover.Tests
         public void IdentifiesObstacleWhenItIsInRoversPath()
         {
             var startingPosition = new Point(0, 0);
-            var rover = new Rover(new Grid(), startingPosition, 'S');
-            rover.GetNextPosition('f');
-            Assert.True(rover.ObserveObstacle());
+            var grid = new Grid();
+            var rover = new Rover(grid, startingPosition, 'S');
+            var nextPosition = rover.GetNextPosition('f');
+            Assert.True(grid.HasObstacleAt(nextPosition));
         }
 
         [Fact]

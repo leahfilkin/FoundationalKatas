@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MarsRover
 {
@@ -23,6 +24,11 @@ namespace MarsRover
             }
             Size = x;
             Obstacles = new List<Point>() {new Point(0, 1)};
+        }
+
+        public bool HasObstacleAt(Point nextPosition)
+        {
+            return Obstacles.Any(obstacle => obstacle.X == nextPosition.X && obstacle.Y == nextPosition.Y);
         }
     }
 }

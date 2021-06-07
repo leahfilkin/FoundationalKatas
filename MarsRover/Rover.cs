@@ -7,13 +7,11 @@ namespace MarsRover
         private Point _position;
         private char _direction;
         private readonly Grid _grid;
-        private Point _nextPosition;
         public Rover(Grid grid, Point position, char direction)
         {
             _grid = grid;
             _position = position;
             _direction = direction;
-            _nextPosition = _position;
         }
 
         public string PositionToString()
@@ -33,104 +31,116 @@ namespace MarsRover
             };
         }
 
-        public void GetNextPosition(char command)
+        public Point GetNextPosition(char command)
         {
+            var nextPosition = _position;
             switch (_direction)
             {
                 case 'N':
-                    GetNextPositionWhenFacingNorth(command);
+                    nextPosition = GetNextPositionWhenFacingNorth(command);
                     break;
                 case 'S':
-                    GetNextPositionWhenFacingSouth(command);
+                    nextPosition = GetNextPositionWhenFacingSouth(command);
                     break;
                 case 'E':
-                    GetNextPositionWhenFacingEast(command);
+                    nextPosition = GetNextPositionWhenFacingEast(command);
                     break;
                 case 'W':
-                    GetNextPositionWhenFacingWest(command);
+                    nextPosition = GetNextPositionWhenFacingWest(command);
                     break;
             }
+            return nextPosition;
         }
 
-        private void GetNextPositionWhenFacingWest(char command)
+        private Point GetNextPositionWhenFacingWest(char command)
         {
+            var nextPosition = _position;
             switch (command)
             {
                 case 'f':
                     if (_position.X == 0)
                     {
-                        _nextPosition.X = _grid.Size - 1;
+                        nextPosition.X = _grid.Size - 1;
                     }
                     else
                     {
-                        _nextPosition.X = _position.X - 1;
+                        nextPosition.X = _position.X - 1;
                     }
-                        break;
+                    break;
                 case 'b':
-                    _nextPosition.X = _position.X + 1;
+                    nextPosition.X = _position.X + 1;
                     break;
             }
+
+            return nextPosition;
         }
 
-        private void GetNextPositionWhenFacingEast(char command)
+        private Point GetNextPositionWhenFacingEast(char command)
         {
+            var nextPosition = _position;
             switch (command)
             {
                 case 'f':
                     if (_position.X == _grid.Size - 1)
                     {
-                        _nextPosition.X = 0;
+                        nextPosition.X = 0;
                     }
                     else
                     {
-                        _nextPosition.X = _position.X + 1;
+                        nextPosition.X = _position.X + 1;
                     }
                     break;
                 case 'b':
-                    _nextPosition.X = _position.X - 1;
+                    nextPosition.X = _position.X - 1;
                     break;
             }
-            
+            return nextPosition;
         }
 
-        private void GetNextPositionWhenFacingSouth(char command)
+        private Point GetNextPositionWhenFacingSouth(char command)
         {
+            var nextPosition = _position;
             switch (command)
             {
                 case 'f':
                     if (_position.Y == _grid.Size - 1)
                     {
-                        _nextPosition.Y = 0;
+                        nextPosition.Y = 0;
                     }
                     else
                     {
-                        _nextPosition.Y = _position.Y + 1;
+                        nextPosition.Y = _position.Y + 1;
                     }
                     break;
                 case 'b':
-                    _nextPosition.Y = _position.Y - 1;
+                    nextPosition.Y = _position.Y - 1;
                     break;
             }
+
+            return nextPosition;
         }
 
-        private void GetNextPositionWhenFacingNorth(char command)
+        private Point GetNextPositionWhenFacingNorth(char command)
         {
+            var nextPosition = _position;
             switch (command)
             {
                 case 'f':
                     if (_position.Y == 0)
                     {
-                        _nextPosition.Y = _grid.Size - 1;
+                        nextPosition.Y = _grid.Size - 1;
                     }
                     else
                     {
-                        _nextPosition.Y = _position.Y - 1;
+                        nextPosition.Y = _position.Y - 1;
                     }
                     break;
                 case 'b':
-                    _nextPosition.Y = _position.Y + 1;
+                    nextPosition.Y = _position.Y + 1;
                     break;
             }
+
+            return nextPosition;
         }
 
         public void Turn(char command)
@@ -191,32 +201,23 @@ namespace MarsRover
                 _ => _direction
             };
         }
-        
-        public bool ObserveObstacle()
-        {
-            return _grid.Obstacles.Any(obstacle => obstacle.X == _nextPosition.X && obstacle.Y == _nextPosition.Y);
-        }
+
 
         public string Move(char command)
         {
-            GetNextPosition(command);
-            if (!ObserveObstacle())
+            var nextPosition = GetNextPosition(command);
+            if (_grid.HasObstacleAt(nextPosition))
             {
-                UpdatePositionToNextPosition();
-                return $"The rover has moved to {PositionToString()}";
+                return GetObstacleInformation(nextPosition);
             }
-            return GetObstacleInformation();
+            _position = nextPosition;
+            return $"The rover has moved to {PositionToString()}";
         }
 
-        private string GetObstacleInformation()
+        private string GetObstacleInformation(Point nextPosition)
         {
-            return $"There is an obstacle at ({_nextPosition.X}, {_nextPosition.Y}. \n" +
+            return $"There is an obstacle at ({nextPosition.X}, {nextPosition.Y}. \n" +
                    "The Rover cannot move further. The obstacle has been reported.";
-        }
-
-        private void UpdatePositionToNextPosition()
-        {
-            _position = _nextPosition;
         }
     }
 }
