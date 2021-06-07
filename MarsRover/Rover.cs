@@ -1,4 +1,3 @@
-
 using System.Linq;
 
 namespace MarsRover
@@ -7,12 +6,14 @@ namespace MarsRover
     {
         private readonly Point _position;
         private char _direction;
-        private Grid _grid;
+        private readonly Grid _grid;
+        private Point _nextPosition;
         public Rover(Grid grid, Point position, char direction)
         {
             _grid = grid;
             _position = position;
             _direction = direction;
+            _nextPosition = _position;
         }
 
         public string PositionToString()
@@ -32,89 +33,102 @@ namespace MarsRover
             };
         }
 
-        public void Move(char command)
+        public void GetNextPosition(char command)
         {
             switch (_direction)
             {
                 case 'N':
-                    MoveWhenFacingNorth(command);
+                    GetNextPositionWhenFacingNorth(command);
                     break;
                 case 'S':
-                    MoveWhenFacingSouth(command);
+                    GetNextPositionWhenFacingSouth(command);
                     break;
                 case 'E':
-                    MoveWhenFacingEast(command);
+                    GetNextPositionWhenFacingEast(command);
                     break;
                 case 'W':
-                    MoveWhenFacingWest(command);
+                    GetNextPositionWhenFacingWest(command);
                     break;
             }
         }
 
-        private void MoveWhenFacingWest(char command)
+        private void GetNextPositionWhenFacingWest(char command)
         {
             switch (command)
             {
                 case 'f':
                     if (_position.X == 0)
                     {
-                        _position.X = _grid.Size - 1;
+                        _nextPosition.X = _grid.Size - 1;
                     }
-                    break;
+                    else
+                    {
+                        _nextPosition.X = _position.X -= 1;
+                    }
+                        break;
                 case 'b':
-                    _position.X += 1;
+                    _nextPosition.X = _position.X += 1;
                     break;
             }
         }
 
-        private void MoveWhenFacingEast(char command)
+        private void GetNextPositionWhenFacingEast(char command)
         {
             switch (command)
             {
                 case 'f':
                     if (_position.X == _grid.Size - 1)
                     {
-                        _position.X = 0;
+                        _nextPosition.X = 0;
+                    }
+                    else
+                    {
+                        _nextPosition.X = _position.X += 1;
                     }
                     break;
                 case 'b':
-                    _position.X -= 1;
+                    _nextPosition.X = _position.X -= 1;
                     break;
             }
+            
         }
 
-        private void MoveWhenFacingSouth(char command)
+        private void GetNextPositionWhenFacingSouth(char command)
         {
             switch (command)
             {
                 case 'f':
                     if (_position.Y == _grid.Size - 1)
                     {
-                        _position.Y = 0;
+                        _nextPosition.Y = 0;
+                    }
+                    else
+                    {
+                        _nextPosition.Y = _position.Y += 1;
                     }
                     break;
                 case 'b':
-                    _position.Y -= 1;
+                    _nextPosition.Y = _position.Y -= 1;
                     break;
             }
         }
 
-        private void MoveWhenFacingNorth(char command)
+        private void GetNextPositionWhenFacingNorth(char command)
         {
             switch (command)
             {
                 case 'f':
                     if (_position.Y == 0)
                     {
-                        _position.Y = _grid.Size - 1;
+                        _nextPosition.Y = _grid.Size - 1;
                     }
                     else
                     {
-                        _position.Y -= 1;
+                        _nextPosition.Y = _position.Y -= 1;
                     }
                     break;
                 case 'b':
-                    _position.Y += 1;
+                    _nextPosition.Y = _position.Y += 1;
                     break;
             }
         }
@@ -135,7 +149,7 @@ namespace MarsRover
                 case 'W':
                     TurnWhenFacingWest(command);
                     break;
-            };
+            }
         }
 
         private void TurnWhenFacingWest(char command)
@@ -177,23 +191,10 @@ namespace MarsRover
                 _ => _direction
             };
         }
-
-        // public bool ObserveObstacles()
-        // {
-        //     if (_grid.Obstacles.SelectMany(obstacle => obstacle)
-        //         .Any(coordinate => coordinate == _position.X - 1 
-        //                            || coordinate == _position.X + 1
-        //                            || coordinate == _position.Y - 1
-        //                            || coordinate == _position.Y + 1))
-        //     {
-        //         return true;
-        //     }
-        //     return false;
-        // }
-
+        
         public bool ObserveObstacle()
         {
-            throw new System.NotImplementedException();
+            return _grid.Obstacles.Any(obstacle => obstacle.X == _nextPosition.X && obstacle.Y == _nextPosition.Y);
         }
     }
 }

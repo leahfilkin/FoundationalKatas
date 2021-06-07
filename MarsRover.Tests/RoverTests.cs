@@ -36,7 +36,7 @@ namespace MarsRover.Tests
         {
             var startingPosition = new Point(5, 5);
             var rover = new Rover(new Grid(), startingPosition, direction);
-            rover.Move(command);
+            rover.GetNextPosition(command);
             Assert.Equal(expected, rover.PositionToString());
         }
 
@@ -77,7 +77,7 @@ namespace MarsRover.Tests
         {
             var startingPosition = new Point(x, y);
             var rover = new Rover(new Grid(), startingPosition, direction);
-            rover.Move('f');
+            rover.GetNextPosition('f');
             Assert.Equal(expected, rover.PositionToString());
         }
 
@@ -86,6 +86,7 @@ namespace MarsRover.Tests
         {
             var startingPosition = new Point(0, 0);
             var rover = new Rover(new Grid(), startingPosition, 'S');
+            rover.GetNextPosition('f');
             Assert.True(rover.ObserveObstacle());
         }
     }
