@@ -6,11 +6,11 @@ namespace MarsRover.Console.Tests
     public class ValidatorTests
     {
         [Fact]
-        public void ReturnFalseIfPositionTooBigForGrid()
+        public void ThrowsExceptionIfPositionTooBigForGrid()
         {
             var grid = new Grid(3);
             var point = new Point(5, 2);
-            Assert.False(Validator.IsPositionValid(point, grid));
+            Assert.Throws<ArgumentException>( () => Validator.IsPositionValid(point, grid));
         }
 
         [Fact]

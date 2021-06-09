@@ -31,10 +31,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarsRover", "MarsRover\Mars
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarsRover.Tests", "MarsRover.Tests\MarsRover.Tests.csproj", "{3D14E6DB-6131-4DEA-BBF6-A752CA694E31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarsRover.Console", "MarsRover.Console\MarsRover.Console.csproj", "{F2083149-FDA5-4F0C-ABC7-7FE95A753A73}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarsRover.Console.Tests", "MarsRover.Console.Tests\MarsRover.Console.Tests.csproj", "{18046EA8-EBCA-4C5A-BE57-A536025D36DE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,13 +97,5 @@ Global
 		{3D14E6DB-6131-4DEA-BBF6-A752CA694E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D14E6DB-6131-4DEA-BBF6-A752CA694E31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D14E6DB-6131-4DEA-BBF6-A752CA694E31}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F2083149-FDA5-4F0C-ABC7-7FE95A753A73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F2083149-FDA5-4F0C-ABC7-7FE95A753A73}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F2083149-FDA5-4F0C-ABC7-7FE95A753A73}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F2083149-FDA5-4F0C-ABC7-7FE95A753A73}.Release|Any CPU.Build.0 = Release|Any CPU
-		{18046EA8-EBCA-4C5A-BE57-A536025D36DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{18046EA8-EBCA-4C5A-BE57-A536025D36DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{18046EA8-EBCA-4C5A-BE57-A536025D36DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{18046EA8-EBCA-4C5A-BE57-A536025D36DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,223 +1,203 @@
-using System.Linq;
+
+using System;
+using System.Collections.Generic;
 
 namespace MarsRover
 {
     public class Rover
     {
-        private Point _position;
-        private char _direction;
+        public Point Position { get; private set; }
+        public Direction Direction { get; private set; }
         private readonly Grid _grid;
-        public Rover(Grid grid, Point position, char direction)
+        public Rover(Grid grid, Point position, Direction direction)
         {
             _grid = grid;
-            _position = position;
-            _direction = direction;
+            Position = position;
+            Direction = direction;
         }
 
-        public string PositionToString()
+        public Point CalculateNextPosition(Command command)
         {
-            return $"({_position.X},{_position.Y})";
-        }
-
-        public string DirectionToString()
-        {
-            return _direction switch
+            var nextPosition = Position;
+            
+            switch (Direction)
             {
-                'N' => "North",
-                'S' => "South",
-                'E' => "East",
-                'W' => "West",
-                _ => ""
-            };
-        }
-
-        public Point GetNextPosition(char command)
-        {
-            var nextPosition = _position;
-            switch (_direction)
-            {
-                case 'N':
+                case Direction.North:
                     nextPosition = GetNextPositionWhenFacingNorth(command);
                     break;
-                case 'S':
+                case Direction.South:
                     nextPosition = GetNextPositionWhenFacingSouth(command);
                     break;
-                case 'E':
+                case Direction.East:
                     nextPosition = GetNextPositionWhenFacingEast(command);
                     break;
-                case 'W':
+                case Direction.West:
                     nextPosition = GetNextPositionWhenFacingWest(command);
                     break;
             }
             return nextPosition;
         }
 
-        private Point GetNextPositionWhenFacingWest(char command)
+        private Point GetNextPositionWhenFacingWest(Command command)
         {
-            var nextPosition = _position;
+            var nextPosition = Position;
             switch (command)
             {
-                case 'f':
-                    if (_position.X == 0)
+                case Command.Forward:
+                    if (Position.X == 0)
                     {
                         nextPosition.X = _grid.Size - 1;
                     }
                     else
                     {
-                        nextPosition.X = _position.X - 1;
+                        nextPosition.X = Position.X - 1;
                     }
                     break;
-                case 'b':
-                    nextPosition.X = _position.X + 1;
+                case Command.Back:
+                    nextPosition.X = Position.X + 1;
                     break;
             }
 
             return nextPosition;
         }
 
-        private Point GetNextPositionWhenFacingEast(char command)
+        private Point GetNextPositionWhenFacingEast(Command command)
         {
-            var nextPosition = _position;
+            var nextPosition = Position;
             switch (command)
             {
-                case 'f':
-                    if (_position.X == _grid.Size - 1)
+                case Command.Forward:
+                    if (Position.X == _grid.Size - 1)
                     {
                         nextPosition.X = 0;
                     }
                     else
                     {
-                        nextPosition.X = _position.X + 1;
+                        nextPosition.X = Position.X + 1;
                     }
                     break;
-                case 'b':
-                    nextPosition.X = _position.X - 1;
+                case Command.Back:
+                    nextPosition.X = Position.X - 1;
                     break;
             }
             return nextPosition;
         }
 
-        private Point GetNextPositionWhenFacingSouth(char command)
+        private Point GetNextPositionWhenFacingSouth(Command command)
         {
-            var nextPosition = _position;
+            var nextPosition = Position;
             switch (command)
             {
-                case 'f':
-                    if (_position.Y == _grid.Size - 1)
+                case Command.Forward:
+                    if (Position.Y == _grid.Size - 1)
                     {
                         nextPosition.Y = 0;
                     }
                     else
                     {
-                        nextPosition.Y = _position.Y + 1;
+                        nextPosition.Y = Position.Y + 1;
                     }
                     break;
-                case 'b':
-                    nextPosition.Y = _position.Y - 1;
+                case Command.Back:
+                    nextPosition.Y = Position.Y - 1;
                     break;
             }
 
             return nextPosition;
         }
 
-        private Point GetNextPositionWhenFacingNorth(char command)
+        private Point GetNextPositionWhenFacingNorth(Command command)
         {
-            var nextPosition = _position;
+            var nextPosition = Position;
             switch (command)
             {
-                case 'f':
-                    if (_position.Y == 0)
+                case Command.Forward:
+                    if (Position.Y == 0)
                     {
                         nextPosition.Y = _grid.Size - 1;
                     }
                     else
                     {
-                        nextPosition.Y = _position.Y - 1;
+                        nextPosition.Y = Position.Y - 1;
                     }
                     break;
-                case 'b':
-                    nextPosition.Y = _position.Y + 1;
+                case Command.Back:
+                    nextPosition.Y = Position.Y + 1;
                     break;
             }
 
             return nextPosition;
         }
 
-        public void Turn(char command)
+        public void Turn(Command command)
         {
-            switch (_direction)
+            if (command == Command.Back || command == Command.Forward)
+                throw new ArgumentException("Rover can only turn left and right.");
+            switch (Direction)
             {
-                case 'N':
+                case Direction.North:
                     TurnWhenFacingNorth(command);
                     break;
-                case 'S':
+                case Direction.South:
                     TurnWhenFacingSouth(command);
                     break;
-                case 'E':
+                case Direction.East:
                     TurnWhenFacingEast(command);
                     break;
-                case 'W':
+                case Direction.West:
                     TurnWhenFacingWest(command);
                     break;
             }
         }
 
-        private void TurnWhenFacingWest(char command)
+        private void TurnWhenFacingWest(Command command)
         {
-            _direction = command switch
+            Direction = command switch
             {
-                'l' => 'S',
-                'r' => 'N',
-                _ => _direction
+                Command.Left => Direction.South,
+                Command.Right => Direction.North,
             };
         }
 
-        private void TurnWhenFacingEast(char command)
+        private void TurnWhenFacingEast(Command command)
         {
-            _direction = command switch
+            Direction = command switch
             {
-                'l' => 'N',
-                'r' => 'S',
-                _ => _direction
+                Command.Left => Direction.North,
+                Command.Right => Direction.South,
             };
         }
 
-        private void TurnWhenFacingSouth(char command)
+        private void TurnWhenFacingSouth(Command command)
         {
-            _direction = command switch
+            Direction = command switch
             {
-                'l' => 'E',
-                'r' => 'W',
-                _ => _direction
+                Command.Left => Direction.East,
+                Command.Right => Direction.West,
             };
         }
 
-        private void TurnWhenFacingNorth(char command)
+        private void TurnWhenFacingNorth(Command command)
         {
-            _direction = command switch
+            Direction = command switch
             {
-                'l' => 'W',
-                'r' => 'E',
-                _ => _direction
+                Command.Left => Direction.West,
+                Command.Right => Direction.East,
             };
         }
 
-
-        public string Move(char command)
+        public void Move(Point nextPosition)
         {
-            var nextPosition = GetNextPosition(command);
-            if (_grid.HasObstacleAt(nextPosition))
+            Position = nextPosition;
+        }
+
+        public static void CheckForObstacleAt(Point nextPosition, Grid grid)
+        {
+            if (grid.HasObstacleAt(nextPosition))
             {
-                return GetObstacleInformation(nextPosition);
+                throw new ArgumentException($"There is an obstacle at ({nextPosition.X},{nextPosition.Y}). \n" +
+                                            "The Rover cannot move further. The obstacle has been reported.");
             }
-            _position = nextPosition;
-            return $"The rover has moved to {PositionToString()}";
-        }
-
-        private string GetObstacleInformation(Point nextPosition)
-        {
-            return $"There is an obstacle at ({nextPosition.X}, {nextPosition.Y}. \n" +
-                   "The Rover cannot move further. The obstacle has been reported.";
         }
     }
 }

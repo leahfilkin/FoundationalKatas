@@ -7,7 +7,7 @@ namespace MarsRover
     public class Grid
     {
         public int Size { get; }
-        public List<Point> Obstacles;
+        public readonly List<Point> Obstacles;
 
         public Grid(int x = 10)
         {

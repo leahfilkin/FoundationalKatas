@@ -10,7 +10,7 @@ namespace MarsRover.Console
         {
             if (Math.Max(point.X, point.Y) > grid.Size)
             {
-                return false;
+                throw new ArgumentException("Your coordinates cannot extend past the grid");
             }
             return true;
         }
