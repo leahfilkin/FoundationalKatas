@@ -1,7 +1,8 @@
 using System;
+using MarsRover.Console;
 using Xunit;
 
-namespace MarsRover.Console.Tests
+namespace MarsRover.Tests
 {
     public class ValidatorTests
     {
