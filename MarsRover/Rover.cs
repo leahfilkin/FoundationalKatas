@@ -1,6 +1,6 @@
-
 using System;
 using System.Collections.Generic;
+using MarsRover.Console;
 
 namespace MarsRover
 {
@@ -53,7 +53,7 @@ namespace MarsRover
                         nextPosition.X = Position.X - 1;
                     }
                     break;
-                case Command.Back:
+                case Command.Backward:
                     nextPosition.X = Position.X + 1;
                     break;
             }
@@ -76,7 +76,7 @@ namespace MarsRover
                         nextPosition.X = Position.X + 1;
                     }
                     break;
-                case Command.Back:
+                case Command.Backward:
                     nextPosition.X = Position.X - 1;
                     break;
             }
@@ -98,7 +98,7 @@ namespace MarsRover
                         nextPosition.Y = Position.Y + 1;
                     }
                     break;
-                case Command.Back:
+                case Command.Backward:
                     nextPosition.Y = Position.Y - 1;
                     break;
             }
@@ -121,7 +121,7 @@ namespace MarsRover
                         nextPosition.Y = Position.Y - 1;
                     }
                     break;
-                case Command.Back:
+                case Command.Backward:
                     nextPosition.Y = Position.Y + 1;
                     break;
             }
@@ -131,7 +131,7 @@ namespace MarsRover
 
         public void Turn(Command command)
         {
-            if (command == Command.Back || command == Command.Forward)
+            if (command == Command.Backward || command == Command.Forward)
                 throw new ArgumentException("Rover can only turn left and right.");
             switch (Direction)
             {
@@ -197,6 +197,25 @@ namespace MarsRover
             {
                 throw new ArgumentException($"There is an obstacle at ({nextPosition.X},{nextPosition.Y}). \n" +
                                             "The Rover cannot move further. The obstacle has been reported.");
+            }
+        }
+
+        public void Navigate(IEnumerable<Command> commands, Grid grid)
+        {
+            foreach (var command in commands)
+            {
+                if (command == Command.Forward || command == Command.Backward)
+                {
+                    var nextPosition = CalculateNextPosition(command);
+                    CheckForObstacleAt(nextPosition, grid);
+                    Move(nextPosition);
+                    System.Console.WriteLine(Output.PrintConfirmationOfMove(this, command));
+                }
+                else
+                {
+                    Turn(command);
+                    System.Console.WriteLine(Output.PrintConfirmationOfTurn(this, command));
+                }
             }
         }
     }

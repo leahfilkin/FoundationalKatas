@@ -2,19 +2,19 @@ namespace MarsRover.Console
 {
     public class Output
     {
-        public string PrintConfirmationOfMove(Rover rover)
+        public static string PrintConfirmationOfMove(Rover rover, Command command)
         {
-            return $"The rover has moved to {ToString(rover.Position)}";
+            return $"The rover has moved {command.ToString()} to {ToString(rover.Position)}";
         }
 
-        public string ToString(Point position)
+        public static string ToString(Point position)
         {
             return $"({position.X},{position.Y})";
         }
 
-        public string PrintConfirmationOfTurn(Rover rover)
+        public static string PrintConfirmationOfTurn(Rover rover, Command command)
         {
-            return $"The rover has turned to face {rover.Direction.ToString()}";
+            return $"The rover has turned {command.ToString()} to face {rover.Direction.ToString()}";
         }
     }
 }

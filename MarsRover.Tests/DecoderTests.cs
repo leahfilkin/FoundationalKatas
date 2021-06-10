@@ -10,7 +10,7 @@ namespace MarsRover.Console.Tests
         {
             var commandInput = new[] {'f', 'l', 'b', 'r'};
             var decoder = new Decoder();
-            var expected = new List<Command> {Command.Forward, Command.Left, Command.Back, Command.Right};
+            var expected = new List<Command> {Command.Forward, Command.Left, Command.Backward, Command.Right};
             
             var actual = decoder.GetCommands(commandInput);
             

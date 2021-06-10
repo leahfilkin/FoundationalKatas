@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO.Compression;
 using MarsRover.Console;
 
@@ -9,15 +10,7 @@ namespace MarsRover
         static void Main(string[] args)
         {
             // set up the character array
-            var commandInput = new[] {'f', 'l', 'f'};
-            var output = new Output();
-            
-            //translate character array (validates as well)
-            var decoder = new Decoder();
-            var commands = decoder.GetCommands(commandInput);
-            
-            // set up the start direction
-            var startDirection = Direction.North;
+            var commands= new List<Command> {Command.Forward, Command.Left, Command.Forward, Command.Right, Command.Backward};
             
             // set up the start position
             var startPosition = new Point(5,5);
@@ -25,24 +18,10 @@ namespace MarsRover
             Validator.IsPositionValid(startPosition, grid);
             
             // initialise the grid and rover
-            var rover = new Rover(grid, startPosition, startDirection);
+            var rover = new Rover(grid, startPosition, Direction.North);
 
             // if both are valid, check the first character in the array
-            foreach (var command in commands)
-            {
-                if (command == Command.Forward || command == Command.Back)
-                {
-                    var nextPosition = rover.CalculateNextPosition(command);
-                    Rover.CheckForObstacleAt(nextPosition, grid);
-                    rover.Move(nextPosition);
-                    output.PrintConfirmationOfMove(rover);
-                }
-                else
-                {
-                    rover.Turn(command);
-                    output.PrintConfirmationOfTurn(rover);
-                }
-            }
+            rover.Navigate(commands, grid);
         }
             
         }

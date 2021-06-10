@@ -5,6 +5,6 @@ namespace MarsRover
         Left,
         Right,
         Forward,
-        Back
+        Backward
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using MarsRover.Console;
 using Xunit;
 
@@ -6,13 +7,13 @@ namespace MarsRover.Tests
 {
     public class RoverTests
     {
-        // [Fact]
-        // public void ShouldHaveStartingCoords()
-        // {
-        //     var startingPosition = new Point(5, 3);
-        //     var rover = new Rover(new Grid(), startingPosition,  Direction.North);
-        //     Assert.Equal("(5,3)", rover.PositionToString());
-        // }
+        [Fact]
+        public void ShouldHaveStartingCoords()
+        {
+            var startingPosition = new Point(5, 3);
+            var rover = new Rover(new Grid(), startingPosition,  Direction.North);
+            Assert.Equal("(5,3)", Output.ToString(rover.Position));
+        }
 
         [Fact]
         public void ShouldHaveStartingDirection()
@@ -23,60 +24,57 @@ namespace MarsRover.Tests
         }
 
         [Theory]
-        [InlineData(Direction.North, Command.Forward, "The rover has moved to (5,4)")]
-        [InlineData(Direction.North, Command.Back, "The rover has moved to (5,6)")]
-        [InlineData(Direction.South, Command.Forward, "The rover has moved to (5,6)")]
-        [InlineData(Direction.South, Command.Back, "The rover has moved to (5,4)")]
-        [InlineData(Direction.East, Command.Forward, "The rover has moved to (6,5)")]
-        [InlineData(Direction.East, Command.Back, "The rover has moved to (4,5)")]
-        [InlineData(Direction.West, Command.Forward, "The rover has moved to (4,5)")]
-        [InlineData(Direction.West, Command.Back, "The rover has moved to (6,5)")]
+        [InlineData(Direction.North, Command.Forward, "The rover has moved Forward to (5,4)")]
+        [InlineData(Direction.North, Command.Backward, "The rover has moved Backward to (5,6)")]
+        [InlineData(Direction.South, Command.Forward, "The rover has moved Forward to (5,6)")]
+        [InlineData(Direction.South, Command.Backward, "The rover has moved Backward to (5,4)")]
+        [InlineData(Direction.East, Command.Forward, "The rover has moved Forward to (6,5)")]
+        [InlineData(Direction.East, Command.Backward, "The rover has moved Backward to (4,5)")]
+        [InlineData(Direction.West, Command.Forward, "The rover has moved Forward to (4,5)")]
+        [InlineData(Direction.West, Command.Backward, "The rover has moved Backward to (6,5)")]
 
         public void MoveToTheRightSpotFromDirectionDependingOnCommandGiven(Direction direction, Command command, string expected)
         {
             var startingPosition = new Point(5, 5);
             var rover = new Rover(new Grid(), startingPosition, direction);
             var nextPosition = rover.CalculateNextPosition(command);
-            var output = new Output();
             
             rover.Move(nextPosition);
             
-            Assert.Equal(expected, output.PrintConfirmationOfMove(rover));
+            Assert.Equal(expected, Output.PrintConfirmationOfMove(rover, command));
         }
 
         [Theory]
-        [InlineData(Direction.North, "The rover has turned to face West")]
-        [InlineData(Direction.South, "The rover has turned to face East")]
-        [InlineData(Direction.West, "The rover has turned to face South")]
-        [InlineData(Direction.East, "The rover has turned to face North")]
+        [InlineData(Direction.North, "The rover has turned Left to face West")]
+        [InlineData(Direction.South, "The rover has turned Left to face East")]
+        [InlineData(Direction.West, "The rover has turned Left to face South")]
+        [InlineData(Direction.East, "The rover has turned Left to face North")]
 
         public void TurnToLeft(Direction direction, string expected)
         {
             var startingPosition = new Point(5, 5);
             var rover = new Rover(new Grid(), startingPosition, direction);
             var command = Command.Left;
-            var output = new Output();
 
             rover.Turn(command);
             
-            Assert.Equal(expected, output.PrintConfirmationOfTurn(rover));
+            Assert.Equal(expected, Output.PrintConfirmationOfTurn(rover, command));
         }
 
         [Theory]
-        [InlineData(Direction.North, "The rover has turned to face East")]
-        [InlineData(Direction.South, "The rover has turned to face West")]
-        [InlineData(Direction.East, "The rover has turned to face South")]
-        [InlineData(Direction.West, "The rover has turned to face North")]
+        [InlineData(Direction.North, "The rover has turned Right to face East")]
+        [InlineData(Direction.South, "The rover has turned Right to face West")]
+        [InlineData(Direction.East, "The rover has turned Right to face South")]
+        [InlineData(Direction.West, "The rover has turned Right to face North")]
         public void TurnToRight(Direction direction, string expected)
         {
             var startingPosition = new Point(5, 5);
             var rover = new Rover(new Grid(), startingPosition, direction);
             var command = Command.Right;
-            var output = new Output();
 
             rover.Turn(command);
             
-            Assert.Equal(expected, output.PrintConfirmationOfTurn(rover));
+            Assert.Equal(expected, Output.PrintConfirmationOfTurn(rover, command));
         }
         
         [Theory]
@@ -89,12 +87,11 @@ namespace MarsRover.Tests
         {
             var startingPosition = new Point(x, y);
             var rover = new Rover(new Grid(), startingPosition, direction);
-            var output = new Output();
             var nextPosition = rover.CalculateNextPosition(Command.Forward);
             
             rover.Move(nextPosition);
             
-            Assert.Equal(expected, output.ToString(rover.Position));
+            Assert.Equal(expected, Output.ToString(rover.Position));
         }
 
         [Fact]
@@ -113,21 +110,24 @@ namespace MarsRover.Tests
         {
             var rover = new Rover(new Grid(), new Point(5,5), Direction.North);
             var nextPosition = rover.CalculateNextPosition(Command.Forward);
-            var output = new Output();
-            
+
             rover.Move(nextPosition);
             
-            Assert.Equal("The rover has moved to (5,4)", output.PrintConfirmationOfMove(rover));
+            Assert.Equal("The rover has moved Forward to (5,4)", Output.PrintConfirmationOfMove(rover, Command.Forward));
         }
 
-        // [Fact]
-        // public void AcceptsMultipleCommands()
-        // {
-        //     var rover = new Rover(new Grid(), new Point(5,5), Direction.North);
-        //     var actual = rover.Move(new [] {'f', 'l', 'f'});
-        //     Assert.Equal("")
-        //     
-        // }
+        [Fact]
+        public void AcceptsMultipleCommands()
+        {
+            var grid = new Grid();
+            var rover = new Rover(grid, new Point(5,5), Direction.North);
+            var commands = new List<Command> {Command.Forward, Command.Right, Command.Forward};
+            
+            rover.Navigate(commands, grid);
+            
+            Assert.Equal("(6,4)", Output.ToString(rover.Position));
+
+        }
 
         [Theory]
         [InlineData(Direction.North)]
