@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MarsRover.Interfaces;
 
 namespace MarsRover
 {
@@ -9,7 +10,7 @@ namespace MarsRover
         public int Size { get; }
         public readonly List<Point> Obstacles;
 
-        public Grid(int x = 10)
+        public Grid(IRandom random, int x = 10)
         {
             if (x < 0)
             {
@@ -23,7 +24,11 @@ namespace MarsRover
                     "You cannot have a grid that's size is 0");
             }
             Size = x;
-            Obstacles = new List<Point>() {new Point(0, 1)};
+            Obstacles = new List<Point>();
+            for(var i = 0; i < Size/2; i++) 
+            {
+                Obstacles.Add(new Point(random.Next(Size), random.Next(Size)));
+            }
         }
 
         public bool HasObstacleAt(Point nextPosition)

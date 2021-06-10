@@ -8,7 +8,7 @@ namespace MarsRover.Tests
         [Fact]
         public void ThrowsExceptionIfCoordsAreNegative()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new Point(-1, -1));
+            Assert.Throws<ArgumentException>(() => new Point(-1, -1));
         }
     }
 }

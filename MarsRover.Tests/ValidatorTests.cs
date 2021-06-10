@@ -8,18 +8,17 @@ namespace MarsRover.Console.Tests
         [Fact]
         public void ThrowsExceptionIfPositionTooBigForGrid()
         {
-            var grid = new Grid(3);
+            var grid = new Grid(new Random(), 3);
             var point = new Point(5, 2);
-            Assert.Throws<ArgumentException>( () => Validator.IsPositionValid(point, grid));
+            Assert.Throws<ArgumentException>( () => Validator.CheckIfPositionIsValid(point, grid));
         }
 
         [Fact]
         public void ReturnTrueIfPositionFitsOnGrid()
         {
-            var grid = new Grid(7);
+            var grid = new Grid(new Random(), 7);
             var point = new Point(5, 2);
-            Assert.True(Validator.IsPositionValid(point, grid));
+            Assert.True(Validator.CheckIfPositionIsValid(point, grid));
         }
-        // check char array doesnt have any characters that dont indicate directions
     }
 }

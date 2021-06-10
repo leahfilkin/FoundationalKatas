@@ -10,9 +10,14 @@ namespace MarsRover
         {
             if (x < 0 || y < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(x),
-                    "You cannot have a point that's co-ordinates are negative");
+                throw new ArgumentException("You cannot have a point that's co-ordinates are negative");
             }
+
+            if (x > 10 || y > 10)
+            {
+                throw new ArgumentException("You cannot have a point that's co-ordinates are larger than the grid.");
+            }
+            
             X = x;
             Y = y;
         }

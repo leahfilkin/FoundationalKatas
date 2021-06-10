@@ -1,8 +1,10 @@
+using MarsRover.Enums;
+
 namespace MarsRover.Console
 {
-    public class Output
+    public static class Output
     {
-        public static string PrintConfirmationOfMove(Rover rover, Command command)
+        public static string ConfirmMove(Rover rover, Command command)
         {
             return $"The rover has moved {command.ToString()} to {ToString(rover.Position)}";
         }
@@ -12,7 +14,7 @@ namespace MarsRover.Console
             return $"({position.X},{position.Y})";
         }
 
-        public static string PrintConfirmationOfTurn(Rover rover, Command command)
+        public static string ConfirmTurn(Rover rover, Command command)
         {
             return $"The rover has turned {command.ToString()} to face {rover.Direction.ToString()}";
         }

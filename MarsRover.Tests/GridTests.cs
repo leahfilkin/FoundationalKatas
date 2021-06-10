@@ -11,13 +11,13 @@ namespace MarsRover.Tests
         [InlineData(-50)]
         public void ThrowExceptionIfGridSizeIsInvalid(int gridSize)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new Grid(gridSize));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new Grid(new Random(), gridSize));
         }
 
         [Fact]
         public void HasObstacles()
         {
-            var grid = new Grid();
+            var grid = new Grid(new Random());
 
             Assert.NotEmpty(grid.Obstacles);
         }

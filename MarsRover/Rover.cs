@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using MarsRover.Console;
+using MarsRover.Enums;
 
 namespace MarsRover
 {
@@ -156,6 +157,7 @@ namespace MarsRover
             {
                 Command.Left => Direction.South,
                 Command.Right => Direction.North,
+                _ => Direction
             };
         }
 
@@ -165,6 +167,7 @@ namespace MarsRover
             {
                 Command.Left => Direction.North,
                 Command.Right => Direction.South,
+                _ => Direction
             };
         }
 
@@ -174,6 +177,7 @@ namespace MarsRover
             {
                 Command.Left => Direction.East,
                 Command.Right => Direction.West,
+                _ => Direction
             };
         }
 
@@ -183,6 +187,7 @@ namespace MarsRover
             {
                 Command.Left => Direction.West,
                 Command.Right => Direction.East,
+                _ => Direction
             };
         }
 
@@ -209,12 +214,12 @@ namespace MarsRover
                     var nextPosition = CalculateNextPosition(command);
                     CheckForObstacleAt(nextPosition, grid);
                     Move(nextPosition);
-                    System.Console.WriteLine(Output.PrintConfirmationOfMove(this, command));
+                    System.Console.WriteLine(Output.ConfirmMove(this, command));
                 }
                 else
                 {
                     Turn(command);
-                    System.Console.WriteLine(Output.PrintConfirmationOfTurn(this, command));
+                    System.Console.WriteLine(Output.ConfirmTurn(this, command));
                 }
             }
         }
