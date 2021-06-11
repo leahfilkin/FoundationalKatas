@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using MarsRover.Enums;
 
 namespace MarsRover.Console
@@ -6,17 +7,17 @@ namespace MarsRover.Console
     {
         public static string ConfirmMove(Rover rover, Command command)
         {
-            return $"The rover has moved {command.ToString()} to {ToString(rover.Position)}";
-        }
-
-        public static string ToString(Point position)
-        {
-            return $"({position.X},{position.Y})";
+            return $"The rover has moved {command.ToString()} to {rover.Position.ToString()}";
         }
 
         public static string ConfirmTurn(Rover rover, Command command)
         {
             return $"The rover has turned {command.ToString()} to face {rover.Direction.ToString()}";
+        }
+
+        public static string GetNavigationHistory(List<string> navigationHistory)
+        {
+            return string.Join('\n', navigationHistory);
         }
     }
 }

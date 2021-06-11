@@ -13,7 +13,7 @@ namespace MarsRover.Tests
         {
             var startingPosition = new Point(5, 3);
             var rover = new Rover(new Grid(new FakeRandom(new List<int> {0,0,0,0,0,0,0,0,0,0})), startingPosition,  Direction.North);
-            Assert.Equal("(5,3)", Output.ToString(rover.Position));
+            Assert.Equal("(5,3)", rover.Position.ToString());
         }
 
         [Fact]
@@ -37,10 +37,10 @@ namespace MarsRover.Tests
         public void MoveToTheRightSpotFromDirectionDependingOnCommandGiven(Direction direction, Command command, string expected)
         {
             var startingPosition = new Point(5, 5);
-            var rover = new Rover(new Grid(new FakeRandom(new List<int> {0,0,0,0,0,0,0,0,0,0})), startingPosition, direction);
-            var nextPosition = rover.CalculateNextPosition(command);
-            
-            rover.Move(nextPosition);
+            var grid = new Grid(new FakeRandom(new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));
+            var rover = new Rover(grid, startingPosition, direction);
+            var commands = new List<Command> {command};
+            rover.Navigate(commands, grid);
             
             Assert.Equal(expected, Output.ConfirmMove(rover, command));
         }
@@ -54,12 +54,13 @@ namespace MarsRover.Tests
         public void TurnToLeft(Direction direction, string expected)
         {
             var startingPosition = new Point(5, 5);
-            var rover = new Rover(new Grid(new FakeRandom(new List<int> {0,0,0,0,0,0,0,0,0,0})), startingPosition, direction);
-            var command = Command.Left;
+            var grid = new Grid(new FakeRandom(new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));
+            var rover = new Rover(grid, startingPosition, direction);
+            var commands = new List<Command> {Command.Left};
 
-            rover.Turn(command);
+            rover.Navigate(commands, grid);
             
-            Assert.Equal(expected, Output.ConfirmTurn(rover, command));
+            Assert.Equal(expected, Output.ConfirmTurn(rover, Command.Left));
         }
 
         [Theory]
@@ -70,12 +71,13 @@ namespace MarsRover.Tests
         public void TurnToRight(Direction direction, string expected)
         {
             var startingPosition = new Point(5, 5);
-            var rover = new Rover(new Grid(new FakeRandom(new List<int> {0,0,0,0,0,0,0,0,0,0})), startingPosition, direction);
-            var command = Command.Right;
+            var grid = new Grid(new FakeRandom(new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));
+            var rover = new Rover(grid, startingPosition, direction);
+            var commands = new List<Command> {Command.Right};
 
-            rover.Turn(command);
+            rover.Navigate(commands, grid);
             
-            Assert.Equal(expected, Output.ConfirmTurn(rover, command));
+            Assert.Equal(expected, Output.ConfirmTurn(rover, Command.Right));
         }
         
         [Theory]
@@ -87,12 +89,13 @@ namespace MarsRover.Tests
         public void WrapWhenRoverMovesForwardOffEdge(Direction direction, int x, int y, string expected)
         {
             var startingPosition = new Point(x, y);
-            var rover = new Rover(new Grid(new FakeRandom(new List<int> {0,0,0,0,0,0,0,0,0,0})), startingPosition, direction);
-            var nextPosition = rover.CalculateNextPosition(Command.Forward);
+            var grid = new Grid(new FakeRandom(new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));
+            var rover = new Rover(grid, startingPosition, direction);
+            var commands = new List<Command> {Command.Forward};
             
-            rover.Move(nextPosition);
+            rover.Navigate(commands, grid);
             
-            Assert.Equal(expected, Output.ToString(rover.Position));
+            Assert.Equal(expected, rover.Position.ToString());
         }
 
         [Fact]
@@ -103,16 +106,17 @@ namespace MarsRover.Tests
             var rover = new Rover(grid, startingPosition, Direction.South);
             var nextPosition = rover.CalculateNextPosition(Command.Forward);
 
-            Assert.Throws<ArgumentException>(() => Rover.CheckForObstacleAt(nextPosition, grid));
+            Assert.True(grid.HasObstacleAt(nextPosition));
         }
 
         [Fact]
         public void UpdatePositionAfterSuccessfulMove()
         {
-            var rover = new Rover(new Grid(new FakeRandom(new List<int> {0,0,0,0,0,0,0,0,0,0})), new Point(5,5), Direction.North);
-            var nextPosition = rover.CalculateNextPosition(Command.Forward);
+            var grid = new Grid(new FakeRandom(new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));
+            var rover = new Rover(grid, new Point(5,5), Direction.North);
+            var commands = new List<Command> {Command.Forward};
 
-            rover.Move(nextPosition);
+            rover.Navigate(commands, grid);
             
             Assert.Equal("The rover has moved Forward to (5,4)", Output.ConfirmMove(rover, Command.Forward));
         }
@@ -126,21 +130,8 @@ namespace MarsRover.Tests
             
             rover.Navigate(commands, grid);
             
-            Assert.Equal("(6,4)", Output.ToString(rover.Position));
+            Assert.Equal("(6,4)", rover.Position.ToString());
 
-        }
-
-        [Theory]
-        [InlineData(Direction.North)]
-        [InlineData(Direction.South)]
-        [InlineData(Direction.East)]
-        [InlineData(Direction.West)]
-        public void IfTurnArgumentNotValidThrowError(Direction direction)
-        {
-            var startingPosition = new Point(5, 5);
-            var rover = new Rover(new Grid(new FakeRandom(new List<int> {0,0,0,0,0,0,0,0,0,0})), startingPosition, direction);
-
-            Assert.Throws<ArgumentException>(() => rover.Turn(Command.Forward));
         }
     }
 }

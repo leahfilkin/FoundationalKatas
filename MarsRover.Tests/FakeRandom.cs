@@ -15,6 +15,7 @@ namespace MarsRover.Tests
         {
             var firstNext = _nexts.First();
             _nexts.RemoveAt(0);
+            _nexts.Add(firstNext);
             return firstNext;
         }
     }

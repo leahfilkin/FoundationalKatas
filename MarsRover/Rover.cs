@@ -130,7 +130,7 @@ namespace MarsRover
             return nextPosition;
         }
 
-        public void Turn(Command command)
+        private void Turn(Command command)
         {
             if (command == Command.Backward || command == Command.Forward)
                 throw new ArgumentException("Rover can only turn left and right.");
@@ -191,37 +191,39 @@ namespace MarsRover
             };
         }
 
-        public void Move(Point nextPosition)
+        private void Move(Point nextPosition)
         {
             Position = nextPosition;
         }
 
-        public static void CheckForObstacleAt(Point nextPosition, Grid grid)
+        public List<string> Navigate(IEnumerable<Command> commands, Grid grid)
         {
-            if (grid.HasObstacleAt(nextPosition))
-            {
-                throw new ArgumentException($"There is an obstacle at ({nextPosition.X},{nextPosition.Y}). \n" +
-                                            "The Rover cannot move further. The obstacle has been reported.");
-            }
-        }
-
-        public void Navigate(IEnumerable<Command> commands, Grid grid)
-        {
+            var navigationHistory = new List<string>();
             foreach (var command in commands)
             {
                 if (command == Command.Forward || command == Command.Backward)
                 {
                     var nextPosition = CalculateNextPosition(command);
-                    CheckForObstacleAt(nextPosition, grid);
+                    if (grid.HasObstacleAt(nextPosition))
+                    {
+                        System.Console.WriteLine($"There is an obstacle at ({nextPosition.X},{nextPosition.Y}). \n" +
+                                                    "The Rover cannot move further. The obstacle has been reported.");
+                        break;
+                    }                    
                     Move(nextPosition);
-                    System.Console.WriteLine(Output.ConfirmMove(this, command));
+                    navigationHistory.Add($"The rover has moved {command.ToString()} to {Position}");
+
                 }
                 else
                 {
                     Turn(command);
-                    System.Console.WriteLine(Output.ConfirmTurn(this, command));
+                    navigationHistory.Add($"The rover has turned {command.ToString()} to face {Direction.ToString()}");
                 }
+
             }
+
+            return navigationHistory;
+
         }
     }
 }
