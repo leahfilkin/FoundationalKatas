@@ -17,7 +17,7 @@ namespace MarsRover
             Direction = direction;
         }
 
-        public Point CalculateNextPosition(Command command)
+        private Point CalculateNextPosition(Command command)
         {
             var nextPosition = Position;
             

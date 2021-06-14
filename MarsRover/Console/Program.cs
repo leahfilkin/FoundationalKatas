@@ -12,8 +12,8 @@ namespace MarsRover.Console
             var grid = new Grid(new Random());
             Validator.CheckIfPositionIsValid(startPosition, grid);
             var rover = new Rover(grid, startPosition, Direction.North);
-            rover.Navigate(commands, grid);
+            var navigationHistory = rover.Navigate(commands, grid);
+            System.Console.WriteLine(Output.GetNavigationHistory(navigationHistory));
         }
-            
-        }
+    }
 }

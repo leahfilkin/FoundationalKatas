@@ -99,26 +99,13 @@ namespace MarsRover.Tests
         }
 
         [Fact]
-        public void IdentifiesObstacleWhenItIsInRoversPath()
+        public void ReturnsTrueIfObstacleInRoversNextPosition()
         {
-            var startingPosition = new Point(0, 0);
-            var grid = new Grid(new FakeRandom(new List<int> {0,1,0,0,0,0,0,0,0,0}));
-            var rover = new Rover(grid, startingPosition, Direction.South);
-            var nextPosition = rover.CalculateNextPosition(Command.Forward);
+            var grid = new Grid(new FakeRandom(new List<int> {0, 1, 0, 0, 0, 0, 0, 0, 0, 0}));
+            var nextPosition = new Point(0, 1);
 
             Assert.True(grid.HasObstacleAt(nextPosition));
-        }
 
-        [Fact]
-        public void UpdatePositionAfterSuccessfulMove()
-        {
-            var grid = new Grid(new FakeRandom(new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));
-            var rover = new Rover(grid, new Point(5,5), Direction.North);
-            var commands = new List<Command> {Command.Forward};
-
-            rover.Navigate(commands, grid);
-            
-            Assert.Equal("The rover has moved Forward to (5,4)", Output.ConfirmMove(rover, Command.Forward));
         }
 
         [Fact]
