@@ -55,5 +55,26 @@ namespace MarsRover.Tests
 
             Assert.Equal(testData.Result, outputHistory);
         }
+        
+        [Fact]
+        public void GivesObstacleInformationAtEndOfNavigationIfObstacleIsPresent()
+        {
+            var grid = new Grid(new FakeRandom(new List<int> {2, 1, 3}));
+            var startingPosition = new Point(0, 0);
+            var rover = new Rover(grid, startingPosition, Direction.South);
+            var commands = new List<Command> {Command.Forward, Command.Left, Command.Forward, Command.Forward};
+            var navigationHistory = rover.Navigate(commands, grid);
+            var expectedResult =
+                "The rover has moved Forward to (0,1)" +
+                "\nThe rover has turned Left to face East" +
+                "\nThe rover has moved Forward to (1,1)" +
+                "\nThere is an obstacle at (2,1). " +
+                "\nThe Rover cannot move further. The obstacle has been reported.";
+            var outputHistory = Output.GetNavigationHistory(navigationHistory);
+
+            Assert.Equal(expectedResult, outputHistory);
+        }
+        
+        
     }
 }
