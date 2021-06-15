@@ -206,7 +206,7 @@ namespace MarsRover
                     var nextPosition = CalculateNextPosition(command);
                     if (grid.HasObstacleAt(nextPosition))
                     {
-                        System.Console.WriteLine($"There is an obstacle at ({nextPosition.X},{nextPosition.Y}). \n" +
+                        navigationHistory.Add($"There is an obstacle at ({nextPosition.X},{nextPosition.Y}). \n" +
                                                     "The Rover cannot move further. The obstacle has been reported.");
                         break;
                     }                    
