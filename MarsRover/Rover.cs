@@ -20,7 +20,8 @@ namespace MarsRover
         private Point CalculateNextPosition(Command command)
         {
             var nextPosition = Position;
-            
+
+            if (command != Command.Forward && command != Command.Backward) return Position;
             switch (Direction)
             {
                 case Direction.North:
@@ -201,28 +202,46 @@ namespace MarsRover
             var navigationHistory = new List<string>();
             foreach (var command in commands)
             {
-                if (command == Command.Forward || command == Command.Backward)
+                var nextPosition = CalculateNextPosition(command);
+                if (grid.HasObstacleAt(nextPosition))
                 {
-                    var nextPosition = CalculateNextPosition(command);
-                    if (grid.HasObstacleAt(nextPosition))
-                    {
-                        navigationHistory.Add($"There is an obstacle at ({nextPosition.X},{nextPosition.Y}). \n" +
-                                                    "The Rover cannot move further. The obstacle has been reported.");
-                        break;
-                    }                    
-                    Move(nextPosition);
-                    navigationHistory.Add($"The rover has moved {command.ToString()} to {Position}");
-
+                    navigationHistory.Add(GetNavigationSummary(command, grid, nextPosition));
+                    return navigationHistory;
                 }
-                else
-                {
-                    Turn(command);
-                    navigationHistory.Add($"The rover has turned {command.ToString()} to face {Direction.ToString()}");
-                }
+                FollowCommand(command, nextPosition);
+                navigationHistory.Add(GetNavigationSummary(command, grid, nextPosition));
 
             }
 
             return navigationHistory;
+
+        }
+
+        private string GetNavigationSummary(Command command, Grid grid, Point nextPosition)
+        {
+            if (grid.HasObstacleAt(nextPosition))
+            {
+                return $"There is an obstacle at ({nextPosition.X},{nextPosition.Y}). \n" +
+                                      "The Rover cannot move further. The obstacle has been reported.";
+            }
+            if (command == Command.Forward || command == Command.Backward)
+            {
+                return $"The rover has moved {command.ToString()} to {Position}";
+            }
+
+            return $"The rover has turned {command.ToString()} to face {Direction.ToString()}";
+        }
+
+        private void FollowCommand(Command command, Point nextPosition)
+        {
+            if (command == Command.Left || command == Command.Right)
+            {
+                Turn(command);
+            }
+            else
+            {
+                Move(nextPosition);
+            }
 
         }
     }

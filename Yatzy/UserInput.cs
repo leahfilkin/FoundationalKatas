@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Yatzy
 {
-    public class UserInput : IUserInput
+    public class UserInput
     {
         public string GetDieToReroll()
         {

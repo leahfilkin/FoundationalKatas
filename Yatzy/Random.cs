@@ -5,7 +5,7 @@ namespace Yatzy
         public int Next(int range)
         {
             var random = new System.Random();
-            return random.Next(6) + 1;
+            return random.Next(range) + 1;
         }
     }
 }
