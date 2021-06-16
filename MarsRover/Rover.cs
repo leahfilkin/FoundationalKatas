@@ -9,6 +9,7 @@ namespace MarsRover
         public Point Position { get; private set; }
         public Direction Direction { get; private set; }
         private readonly Grid _grid;
+
         public Rover(Grid grid, Point position, Direction direction)
         {
             _grid = grid;
@@ -20,7 +21,7 @@ namespace MarsRover
         {
             var nextPosition = Position;
 
-            if (command != Command.Forward && command != Command.Backward) return Position;
+            if (!IsForwardOrBackwardMovement(command)) return Position;
             switch (Direction)
             {
                 case Direction.North:
@@ -132,7 +133,7 @@ namespace MarsRover
 
         private void Turn(Command command)
         {
-            if (command == Command.Backward || command == Command.Forward)
+            if (IsForwardOrBackwardMovement(command))
                 throw new ArgumentException("Rover can only turn left and right.");
             switch (Direction)
             {
@@ -222,25 +223,26 @@ namespace MarsRover
                 return $"There is an obstacle at ({nextPosition.X},{nextPosition.Y}). \n" +
                                       "The Rover cannot move further. The obstacle has been reported.";
             }
-            if (command == Command.Forward || command == Command.Backward)
-            {
-                return $"The rover has moved {command.ToString()} to {Position}";
-            }
+            return IsForwardOrBackwardMovement(command) 
+                ? $"The rover has moved {command.ToString()} to {Position}" 
+                : $"The rover has turned {command.ToString()} to face {Direction.ToString()}";
+        }
 
-            return $"The rover has turned {command.ToString()} to face {Direction.ToString()}";
+        private bool IsForwardOrBackwardMovement(Command command)
+        {
+            return command == Command.Backward || command == Command.Forward;
         }
 
         private void FollowCommand(Command command, Point nextPosition)
         {
-            if (command == Command.Left || command == Command.Right)
-            {
-                Turn(command);
-            }
-            else
+            if (IsForwardOrBackwardMovement(command))
             {
                 Move(nextPosition);
             }
-
+            else
+            {
+                Turn(command);
+            }
         }
     }
 }
