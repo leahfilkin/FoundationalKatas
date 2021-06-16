@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using MarsRover.Console;
 using MarsRover.Enums;
 
 namespace MarsRover
@@ -210,7 +209,6 @@ namespace MarsRover
                 }
                 FollowCommand(command, nextPosition);
                 navigationHistory.Add(GetNavigationSummary(command, grid, nextPosition));
-
             }
 
             return navigationHistory;

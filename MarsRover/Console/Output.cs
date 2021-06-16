@@ -7,7 +7,7 @@ namespace MarsRover.Console
     {
         public static string ConfirmMove(Rover rover, Command command)
         {
-            return $"The rover has moved {command.ToString()} to {rover.Position.ToString()}";
+            return $"The rover has moved {command.ToString()} to {rover.Position}";
         }
 
         public static string ConfirmTurn(Rover rover, Command command)
