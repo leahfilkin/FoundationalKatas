@@ -31,6 +31,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarsRover", "MarsRover\Mars
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarsRover.Tests", "MarsRover.Tests\MarsRover.Tests.csproj", "{3D14E6DB-6131-4DEA-BBF6-A752CA694E31}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minesweeper", "Minesweeper\Minesweeper.csproj", "{EEED0A72-5804-4A91-81F4-D76385D4A878}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minesweeper.Tests", "Minesweeper.Tests\Minesweeper.Tests.csproj", "{D32BE309-122C-48AA-809E-0F6B6400632B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,5 +101,13 @@ Global
 		{3D14E6DB-6131-4DEA-BBF6-A752CA694E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D14E6DB-6131-4DEA-BBF6-A752CA694E31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D14E6DB-6131-4DEA-BBF6-A752CA694E31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEED0A72-5804-4A91-81F4-D76385D4A878}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEED0A72-5804-4A91-81F4-D76385D4A878}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEED0A72-5804-4A91-81F4-D76385D4A878}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEED0A72-5804-4A91-81F4-D76385D4A878}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D32BE309-122C-48AA-809E-0F6B6400632B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D32BE309-122C-48AA-809E-0F6B6400632B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D32BE309-122C-48AA-809E-0F6B6400632B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D32BE309-122C-48AA-809E-0F6B6400632B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
