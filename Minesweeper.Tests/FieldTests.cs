@@ -1,4 +1,5 @@
 using System;
+using Minesweeper.Enums;
 using Xunit;
 
 namespace Minesweeper.Tests
@@ -6,8 +7,10 @@ namespace Minesweeper.Tests
     public class UnitTest1
     {
         [Fact]
-        public void Test1()
+        public void FieldIsMadeUpOfPieces()
         {
+            var field = new Field();
+            Assert.IsType<Piece[,]>(field.Squares);
         }
     }
 }
