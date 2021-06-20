@@ -9,8 +9,16 @@ namespace Minesweeper.Tests
         [Fact]
         public void FieldIsMadeUpOfPieces()
         {
-            var field = new Field();
+            var field = new Field(1,1);
             Assert.IsType<Piece[,]>(field.Squares);
+        }
+
+        [Fact]
+        public void DimensionsOfFieldAreBasedOnLinesAndColumnsInput()
+        {
+            var field = new Field(4, 4);
+            Assert.Equal(4, field.Squares.GetLength(0));
+            Assert.Equal(4, field.Squares.GetLength(1));
         }
     }
 }
