@@ -46,6 +46,13 @@ namespace Minesweeper.Tests
             }
             Assert.True(squaresToCheckInField.All(piece => piece == Piece.Mine));
         }
+
+        [Fact]
+        public void FieldPutsNoMineIfSquareIsNotInListOfMineCoordinatesPassed()
+        {
+            var field = new Field(2, 2, new List<Point> {new Point(0,0)});
+            Assert.Equal(Piece.NoMine, field.Squares[1][1]);
+        }
         
         public class MineCoordsData
         {
