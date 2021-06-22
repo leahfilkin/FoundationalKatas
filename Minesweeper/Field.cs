@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Minesweeper.Enums;
 
 namespace Minesweeper
@@ -7,22 +9,18 @@ namespace Minesweeper
     {
         public List<List<Piece>> Squares { get; }
 
-        public Field(int lines, int columns, Point minePoint)
+        public Field(int lines, int columns, List<Point> mineCoords)
         {
             Squares = new List<List<Piece>>();
-            for (var yCoord = 0; yCoord < lines; yCoord++)
+            for (var line = 0; line < lines; line++)
             {
                 Squares.Add(new List<Piece>());
-                for (var xCoord = 0; xCoord < columns; xCoord++)
+                for (var column = 0; column < columns; column++)
                 {
-                    if (yCoord == minePoint.Y && xCoord == minePoint.X)
-                    {
-                        Squares[yCoord].Add(Piece.Mine);
-                    }
-                    else
-                    {
-                        Squares[yCoord].Add(Piece.NoMine);
-                    }
+                    
+                    Squares[line].Add(mineCoords.Any(mineCoord => mineCoord.Equals(new Point(line, column)))
+                        ? Piece.Mine
+                        : Piece.NoMine);
                 }
             }
         }

@@ -26,5 +26,13 @@ namespace Minesweeper
         {
             return $"({X},{Y})";
         }
+        
+        public bool Equals(Point givenPoint)
+        {
+            return X == givenPoint.X && Y == givenPoint.Y;
+
+        }
     }
+    
+    
 }
