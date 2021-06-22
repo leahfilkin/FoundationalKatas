@@ -10,7 +10,7 @@ namespace Minesweeper.Tests
     public class FieldTests
     {
         [Fact]
-        public void FieldIsMadeUpOfPieces()
+        public void IsMadeUpOfPieces()
         {
             var field = new Field(1,1, new List<Point> {new Point(0,0)});
             Assert.Equal(typeof(List<List<Piece>>), field.Squares.GetType());
@@ -36,7 +36,7 @@ namespace Minesweeper.Tests
 
         [Theory]
         [MemberData(nameof(MineCoords))]
-        public void FieldPutsMinesInCoordinatesGivenToIt(MineCoordsData mineCoordsData)
+        public void PutsMinesInCoordinatesGivenToIt(MineCoordsData mineCoordsData)
         {
             var field = new Field(4, 4, mineCoordsData.minesPassedToField);
             var squaresToCheckInField = new List<Piece>();
@@ -48,9 +48,10 @@ namespace Minesweeper.Tests
         }
 
         [Fact]
-        public void FieldPutsNoMineIfSquareIsNotInListOfMineCoordinatesPassed()
+        public void ContainsBothMinesAndNonMinesInTheCorrectPlacesInOneField()
         {
             var field = new Field(2, 2, new List<Point> {new Point(0,0)});
+            Assert.Equal(Piece.Mine, field.Squares[0][0]);
             Assert.Equal(Piece.NoMine, field.Squares[1][1]);
         }
         
