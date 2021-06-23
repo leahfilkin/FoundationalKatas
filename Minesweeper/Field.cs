@@ -17,7 +17,7 @@ namespace Minesweeper
                 Squares.Add(new List<Square>());
                 for (var column = 0; column < columns; column++)
                 {
-                    
+
                     Squares[line].Add(mineCoords.Any(mineCoord => mineCoord.Equals(new Point(line, column)))
                         ? new Square(Piece.Mine, line, column)
                         : new Square(Piece.NoMine, line, column));
@@ -27,20 +27,48 @@ namespace Minesweeper
 
         public List<Square> GetAdjacentSquares(Square square)
         {
-            var topLeft = Squares[square.Line - 1][square.Column - 1];
-            var topMiddle = Squares[square.Line - 1][square.Column];
-            var topRight = Squares[square.Line - 1][square.Column + 1];
-            var middleLeft = Squares[square.Line][square.Column - 1];
-            var middleRight = Squares[square.Line][square.Column + 1];
-            var bottomLeft = Squares[square.Line + 1][square.Column - 1];
-            var bottomMiddle = Squares[square.Line + 1][square.Column];
-            var bottomRight = Squares[square.Line + 1][square.Column + 1];
-            return new List<Square>
+
+            var lineAbove = square.Line - 1;
+            var lineBelow = square.Line + 1;
+            var sameLine = square.Line;
+            var columnToTheLeft = square.Column - 1;
+            var columnToTheRight = square.Column + 1;
+            var sameColumn = square.Column;
+
+            var linesToCheck = new List<int>();
+            var adjacentSquares = new List<Square>();
+            
+            if (square.Line > 0)
             {
-                topLeft, topMiddle, topRight,
-                middleLeft, middleRight,
-                bottomLeft, bottomMiddle, bottomRight
-            };
+                linesToCheck.Add(lineAbove);
+            }
+            
+            linesToCheck.Add(sameLine);
+            
+            if (square.Line < Squares.Count - 1)
+            {
+                linesToCheck.Add(lineBelow);
+            }
+
+            foreach (var line in linesToCheck)
+            {
+                if (columnToTheLeft >= 0)
+                {
+                    adjacentSquares.Add(Squares[line][columnToTheLeft]);
+                }
+                if (line != sameLine)
+                {
+                    adjacentSquares.Add(Squares[line][sameColumn]);
+                }
+                if (columnToTheRight <= Squares[0].Count - 1)
+                {
+                    adjacentSquares.Add(Squares[line][columnToTheRight]);
+                }
+            }
+
+            return adjacentSquares;
+
+
         }
     }
 }

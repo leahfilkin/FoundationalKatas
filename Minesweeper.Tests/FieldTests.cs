@@ -51,22 +51,85 @@ namespace Minesweeper.Tests
         [MemberData(nameof(AdjacentSquares))]
         public void CanFindAdjacentSquaresToAGivenSquare(AdjacentSquaresData adjacentSquaresData)
         {
-            var field = new Field(3, 3, new List<Point> {new Point(0,0)});
+            var field = 
+                new Field(adjacentSquaresData.NumberOfRows, adjacentSquaresData.NumberOfColumns,
+                new List<Point> {new Point(0,0)});
             var adjacentSquares = 
                 field.GetAdjacentSquares(field.Squares[adjacentSquaresData.SquareXCoord][adjacentSquaresData.SquareYCoord]);
-            Assert.Equal(adjacentSquaresData.ExpectedSquares, adjacentSquares);
+            Assert.Equal(adjacentSquaresData.ExpectedSquares,adjacentSquares);
         }
 
         public class AdjacentSquaresData
         {
+            public List<Square> ExpectedSquares;
+            public int NumberOfRows;
+            public int NumberOfColumns;
             public int SquareXCoord;
             public int SquareYCoord;
-            public List<Square> ExpectedSquares;
+            
         }
         
         public static IEnumerable<object[]> AdjacentSquares =>
             new TheoryData<AdjacentSquaresData>
             {
+                new AdjacentSquaresData
+                {   //top left corner
+                    ExpectedSquares = new List<Square>
+                    {
+                        new Square(Piece.NoMine, 0,1),
+                        new Square(Piece.NoMine, 1,0),
+                        new Square(Piece.NoMine, 1,1),
+                    },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 3,
+                    SquareXCoord = 0,
+                    SquareYCoord = 0
+                },
+                new AdjacentSquaresData
+                {   
+                    ExpectedSquares = new List<Square>
+                    {
+                        new Square(Piece.Mine, 0,0),
+                        new Square(Piece.NoMine, 0,2),
+                        new Square(Piece.NoMine, 1,0),
+                        new Square(Piece.NoMine, 1,1),
+                        new Square(Piece.NoMine, 1,2),
+
+                    },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 3,
+                    SquareXCoord = 0,
+                    SquareYCoord = 1
+                },
+                new AdjacentSquaresData
+                {   
+                    ExpectedSquares = new List<Square>
+                    {
+                        new Square(Piece.NoMine, 0,1),
+                        new Square(Piece.NoMine, 1,1),
+                        new Square(Piece.NoMine, 1,2),
+
+                    },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 3,
+                    SquareXCoord = 0,
+                    SquareYCoord = 2
+                },
+                new AdjacentSquaresData
+                {  
+                    ExpectedSquares = new List<Square>
+                    {
+                        new Square(Piece.Mine, 0,0),
+                        new Square(Piece.NoMine, 0,1),
+                        new Square(Piece.NoMine, 1,1),
+                        new Square(Piece.NoMine, 2,0),
+                        new Square(Piece.NoMine, 2,1),
+                    },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 3,
+                    SquareXCoord = 1,
+                    SquareYCoord = 0
+                },
                 new AdjacentSquaresData
                 {
                     ExpectedSquares = new List<Square>
@@ -80,20 +143,86 @@ namespace Minesweeper.Tests
                         new Square(Piece.NoMine, 2,1),
                         new Square(Piece.NoMine, 2,2),
                     },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 3,
                     SquareXCoord = 1,
                     SquareYCoord = 1
                 },
-                // new AdjacentSquaresData
-                // {
-                //     ExpectedSquares = new List<Square>
-                //     {
-                //         new Square(Piece.NoMine, 0,1),
-                //         new Square(Piece.NoMine, 1,0),
-                //         new Square(Piece.NoMine, 1,1),
-                //     },
-                //     SquareXCoord = 0,
-                //     SquareYCoord = 0
-                // }
+                new AdjacentSquaresData
+                {
+                    ExpectedSquares = new List<Square>
+                    {
+                        new Square(Piece.NoMine, 1,2),
+                        new Square(Piece.NoMine, 1,3),
+                        new Square(Piece.NoMine, 2,2),
+                        new Square(Piece.NoMine, 3,2),
+                        new Square(Piece.NoMine, 3,3),
+                    },
+                    NumberOfRows = 5,
+                    NumberOfColumns = 4,
+                    SquareXCoord = 2,
+                    SquareYCoord = 3
+                },
+                
+                new AdjacentSquaresData
+                {
+                    ExpectedSquares = new List<Square>
+                    {
+                        new Square(Piece.NoMine, 3,0),
+                        new Square(Piece.NoMine, 3,1),
+                        new Square(Piece.NoMine, 4,1),
+                    },
+                    NumberOfRows = 5,
+                    NumberOfColumns = 4,
+                    SquareXCoord = 4,
+                    SquareYCoord = 0
+                },
+                new AdjacentSquaresData
+                {
+                    ExpectedSquares = new List<Square>
+                    {
+                        new Square(Piece.NoMine, 8,7),
+                        new Square(Piece.NoMine, 8,8),
+                        new Square(Piece.NoMine, 8,9),
+                        new Square(Piece.NoMine, 9,7),
+                        new Square(Piece.NoMine, 9,9),
+                    },
+                    NumberOfRows = 10,
+                    NumberOfColumns = 13,
+                    SquareXCoord = 9,
+                    SquareYCoord = 8
+                },
+                new AdjacentSquaresData
+                {
+                    ExpectedSquares = new List<Square>
+                    {
+                        new Square(Piece.NoMine, 13,16),
+                        new Square(Piece.NoMine, 13,17),
+                        new Square(Piece.NoMine, 14,16),
+                    },
+                    NumberOfRows = 15,
+                    NumberOfColumns = 18,
+                    SquareXCoord = 14,
+                    SquareYCoord = 17
+                },
+                new AdjacentSquaresData
+                {
+                    ExpectedSquares = new List<Square>
+                    {
+                        new Square(Piece.NoMine, 174,45),
+                        new Square(Piece.NoMine, 174,46),
+                        new Square(Piece.NoMine, 174,47),
+                        new Square(Piece.NoMine, 175,45),
+                        new Square(Piece.NoMine, 175,47),
+                        new Square(Piece.NoMine, 176,45),
+                        new Square(Piece.NoMine, 176,46),
+                        new Square(Piece.NoMine, 176,47),
+                    },
+                    NumberOfRows = 180,
+                    NumberOfColumns = 200,
+                    SquareXCoord = 175,
+                    SquareYCoord = 46
+                },
             };
 
 

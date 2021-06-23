@@ -37,7 +37,7 @@ namespace MarsRover.Tests
         public void MoveToTheRightSpotFromDirectionDependingOnCommandGiven(Direction direction, Command command, string expected)
         {
             var startingPosition = new Point(5, 5);
-            var grid = new Grid(new FakeRandom(new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));
+            var grid = new Grid(new FakeRandom(new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}), 10);
             var rover = new Rover(grid, startingPosition, direction);
             var commands = new List<Command> {command};
             rover.Navigate(commands, grid);
