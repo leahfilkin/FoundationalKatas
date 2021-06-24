@@ -59,6 +59,15 @@ namespace Minesweeper.Tests
             Assert.Equal(adjacentSquaresData.ExpectedSquares,adjacentSquares);
         }
 
+        [Fact]
+        public void GetsListOfMines()
+        {
+            var expectedMines = new List<Square> {new Square(Piece.Mine, new Point(0, 0))};
+            var field = new Field(3,3, new List<Point> {new Point(0, 0)});
+            var mines = field.GetMines();
+            Assert.Equal(expectedMines, mines);
+        }
+
         public class AdjacentSquaresData
         {
             public List<Square> ExpectedSquares;
@@ -76,9 +85,9 @@ namespace Minesweeper.Tests
                 {   //top left corner
                     ExpectedSquares = new List<Square>
                     {
-                        new Square(Piece.NoMine, 0,1),
-                        new Square(Piece.NoMine, 1,0),
-                        new Square(Piece.NoMine, 1,1),
+                        new Square(Piece.NoMine, new Point(0,1)),
+                        new Square(Piece.NoMine, new Point(1,0)),
+                        new Square(Piece.NoMine, new Point(1,1)),
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
@@ -89,11 +98,11 @@ namespace Minesweeper.Tests
                 {   
                     ExpectedSquares = new List<Square>
                     {
-                        new Square(Piece.Mine, 0,0),
-                        new Square(Piece.NoMine, 0,2),
-                        new Square(Piece.NoMine, 1,0),
-                        new Square(Piece.NoMine, 1,1),
-                        new Square(Piece.NoMine, 1,2),
+                        new Square(Piece.Mine, new Point(0,0)),
+                        new Square(Piece.NoMine, new Point(0,2)),
+                        new Square(Piece.NoMine, new Point(1,0)),
+                        new Square(Piece.NoMine, new Point(1,1)),
+                        new Square(Piece.NoMine, new Point(1,2)),
 
                     },
                     NumberOfRows = 3,
@@ -105,9 +114,9 @@ namespace Minesweeper.Tests
                 {   
                     ExpectedSquares = new List<Square>
                     {
-                        new Square(Piece.NoMine, 0,1),
-                        new Square(Piece.NoMine, 1,1),
-                        new Square(Piece.NoMine, 1,2),
+                        new Square(Piece.NoMine, new Point(0,1)),
+                        new Square(Piece.NoMine, new Point(1,1)),
+                        new Square(Piece.NoMine, new Point(1,2)),
 
                     },
                     NumberOfRows = 3,
@@ -119,11 +128,11 @@ namespace Minesweeper.Tests
                 {  
                     ExpectedSquares = new List<Square>
                     {
-                        new Square(Piece.Mine, 0,0),
-                        new Square(Piece.NoMine, 0,1),
-                        new Square(Piece.NoMine, 1,1),
-                        new Square(Piece.NoMine, 2,0),
-                        new Square(Piece.NoMine, 2,1),
+                        new Square(Piece.Mine, new Point(0,0)),
+                        new Square(Piece.NoMine, new Point(0,1)),
+                        new Square(Piece.NoMine, new Point(1,1)),
+                        new Square(Piece.NoMine, new Point(2,0)),
+                        new Square(Piece.NoMine, new Point(2,1)),
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
@@ -134,14 +143,14 @@ namespace Minesweeper.Tests
                 {
                     ExpectedSquares = new List<Square>
                     {
-                        new Square(Piece.Mine, 0,0),
-                        new Square(Piece.NoMine, 0,1),
-                        new Square(Piece.NoMine, 0,2),
-                        new Square(Piece.NoMine, 1,0),
-                        new Square(Piece.NoMine, 1,2),
-                        new Square(Piece.NoMine, 2,0),
-                        new Square(Piece.NoMine, 2,1),
-                        new Square(Piece.NoMine, 2,2),
+                        new Square(Piece.Mine, new Point(0,0)),
+                        new Square(Piece.NoMine, new Point(0,1)),
+                        new Square(Piece.NoMine, new Point(0,2)),
+                        new Square(Piece.NoMine, new Point(1,0)),
+                        new Square(Piece.NoMine, new Point(1,2)),
+                        new Square(Piece.NoMine, new Point(2,0)),
+                        new Square(Piece.NoMine, new Point(2,1)),
+                        new Square(Piece.NoMine, new Point(2,2)),
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
@@ -152,11 +161,11 @@ namespace Minesweeper.Tests
                 {
                     ExpectedSquares = new List<Square>
                     {
-                        new Square(Piece.NoMine, 1,2),
-                        new Square(Piece.NoMine, 1,3),
-                        new Square(Piece.NoMine, 2,2),
-                        new Square(Piece.NoMine, 3,2),
-                        new Square(Piece.NoMine, 3,3),
+                        new Square(Piece.NoMine, new Point(1,2)),
+                        new Square(Piece.NoMine, new Point(1,3)),
+                        new Square(Piece.NoMine, new Point(2,2)),
+                        new Square(Piece.NoMine, new Point(3,2)),
+                        new Square(Piece.NoMine, new Point(3,3)),
                     },
                     NumberOfRows = 5,
                     NumberOfColumns = 4,
@@ -168,9 +177,9 @@ namespace Minesweeper.Tests
                 {
                     ExpectedSquares = new List<Square>
                     {
-                        new Square(Piece.NoMine, 3,0),
-                        new Square(Piece.NoMine, 3,1),
-                        new Square(Piece.NoMine, 4,1),
+                        new Square(Piece.NoMine, new Point(3,0)),
+                        new Square(Piece.NoMine, new Point(3,1)),
+                        new Square(Piece.NoMine, new Point(4,1)),
                     },
                     NumberOfRows = 5,
                     NumberOfColumns = 4,
@@ -181,11 +190,11 @@ namespace Minesweeper.Tests
                 {
                     ExpectedSquares = new List<Square>
                     {
-                        new Square(Piece.NoMine, 8,7),
-                        new Square(Piece.NoMine, 8,8),
-                        new Square(Piece.NoMine, 8,9),
-                        new Square(Piece.NoMine, 9,7),
-                        new Square(Piece.NoMine, 9,9),
+                        new Square(Piece.NoMine, new Point(8,7)),
+                        new Square(Piece.NoMine, new Point(8,8)),
+                        new Square(Piece.NoMine, new Point(8,9)),
+                        new Square(Piece.NoMine, new Point(9,7)),
+                        new Square(Piece.NoMine, new Point(9,9)),
                     },
                     NumberOfRows = 10,
                     NumberOfColumns = 13,
@@ -196,9 +205,9 @@ namespace Minesweeper.Tests
                 {
                     ExpectedSquares = new List<Square>
                     {
-                        new Square(Piece.NoMine, 13,16),
-                        new Square(Piece.NoMine, 13,17),
-                        new Square(Piece.NoMine, 14,16),
+                        new Square(Piece.NoMine, new Point(13,16)),
+                        new Square(Piece.NoMine, new Point(13,17)),
+                        new Square(Piece.NoMine, new Point(14,16)),
                     },
                     NumberOfRows = 15,
                     NumberOfColumns = 18,
@@ -209,14 +218,14 @@ namespace Minesweeper.Tests
                 {
                     ExpectedSquares = new List<Square>
                     {
-                        new Square(Piece.NoMine, 174,45),
-                        new Square(Piece.NoMine, 174,46),
-                        new Square(Piece.NoMine, 174,47),
-                        new Square(Piece.NoMine, 175,45),
-                        new Square(Piece.NoMine, 175,47),
-                        new Square(Piece.NoMine, 176,45),
-                        new Square(Piece.NoMine, 176,46),
-                        new Square(Piece.NoMine, 176,47),
+                        new Square(Piece.NoMine, new Point(174,45)),
+                        new Square(Piece.NoMine, new Point(174,46)),
+                        new Square(Piece.NoMine, new Point(174,47)),
+                        new Square(Piece.NoMine, new Point(175,45)),
+                        new Square(Piece.NoMine, new Point(175,47)),
+                        new Square(Piece.NoMine, new Point(176,45)),
+                        new Square(Piece.NoMine, new Point(176,46)),
+                        new Square(Piece.NoMine, new Point(176,47)),
                     },
                     NumberOfRows = 180,
                     NumberOfColumns = 200,

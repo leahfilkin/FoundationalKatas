@@ -19,8 +19,8 @@ namespace Minesweeper
                 {
 
                     Squares[line].Add(mineCoords.Any(mineCoord => mineCoord.Equals(new Point(line, column)))
-                        ? new Square(Piece.Mine, line, column)
-                        : new Square(Piece.NoMine, line, column));
+                        ? new Square(Piece.Mine, new Point(line, column))
+                        : new Square(Piece.NoMine, new Point(line, column)));
                 }
             }
         }
@@ -28,24 +28,24 @@ namespace Minesweeper
         public List<Square> GetAdjacentSquares(Square square)
         {
 
-            var lineAbove = square.Line - 1;
-            var lineBelow = square.Line + 1;
-            var sameLine = square.Line;
-            var columnToTheLeft = square.Column - 1;
-            var columnToTheRight = square.Column + 1;
-            var sameColumn = square.Column;
+            var lineAbove = square.Coords.X - 1;
+            var lineBelow = square.Coords.X + 1;
+            var sameLine = square.Coords.X;
+            var columnToTheLeft = square.Coords.Y - 1;
+            var columnToTheRight = square.Coords.Y + 1;
+            var sameColumn = square.Coords.Y;
 
             var linesToCheck = new List<int>();
             var adjacentSquares = new List<Square>();
             
-            if (square.Line > 0)
+            if (square.Coords.X > 0)
             {
                 linesToCheck.Add(lineAbove);
             }
             
             linesToCheck.Add(sameLine);
             
-            if (square.Line < Squares.Count - 1)
+            if (square.Coords.X < Squares.Count - 1)
             {
                 linesToCheck.Add(lineBelow);
             }
@@ -69,6 +69,17 @@ namespace Minesweeper
             return adjacentSquares;
 
 
+        }
+
+        public List<Square> GetMines()
+        {
+            var mines = new List<Square>();
+            foreach (var line in Squares)
+            {
+                mines.AddRange(line.Where(square => square.Piece == Piece.Mine));
+            }
+
+            return mines;
         }
     }
 }
