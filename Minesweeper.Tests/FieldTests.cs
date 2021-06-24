@@ -80,6 +80,13 @@ namespace Minesweeper.Tests
             Assert.Equal(replacingNoMinesData.ExpectedSquares, field.Squares);
 
         }
+
+        [Fact]
+        public void FieldShouldThrowErrorIfLinesBiggerThan100()
+        {
+            Assert.Throws<ArgumentException>(
+                () => new Field(101, 3, new List<Point> {new Point(0, 0)}));
+        }
         
         public class ReplacingNoMinesData
         {
@@ -348,18 +355,18 @@ namespace Minesweeper.Tests
                 {
                     ExpectedSquares = new List<Square>
                     {
-                        new Square(Piece.NoMine, new Point(174,45)),
-                        new Square(Piece.NoMine, new Point(174,46)),
-                        new Square(Piece.NoMine, new Point(174,47)),
-                        new Square(Piece.NoMine, new Point(175,45)),
-                        new Square(Piece.NoMine, new Point(175,47)),
-                        new Square(Piece.NoMine, new Point(176,45)),
-                        new Square(Piece.NoMine, new Point(176,46)),
-                        new Square(Piece.NoMine, new Point(176,47)),
+                        new Square(Piece.NoMine, new Point(74,45)),
+                        new Square(Piece.NoMine, new Point(74,46)),
+                        new Square(Piece.NoMine, new Point(74,47)),
+                        new Square(Piece.NoMine, new Point(75,45)),
+                        new Square(Piece.NoMine, new Point(75,47)),
+                        new Square(Piece.NoMine, new Point(76,45)),
+                        new Square(Piece.NoMine, new Point(76,46)),
+                        new Square(Piece.NoMine, new Point(76,47)),
                     },
-                    NumberOfRows = 180,
-                    NumberOfColumns = 200,
-                    SquareXCoord = 175,
+                    NumberOfRows = 80,
+                    NumberOfColumns = 100,
+                    SquareXCoord = 75,
                     SquareYCoord = 46
                 },
             };

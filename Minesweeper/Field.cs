@@ -7,10 +7,14 @@ namespace Minesweeper
 {
     public class Field
     {
-        public List<List<Square>> Squares { get; set; }
+        public List<List<Square>> Squares { get; }
 
         public Field(int lines, int columns, List<Point> mineCoords)
         {
+            if (lines > 100 || columns > 100)
+            {
+                throw new ArgumentException("You cannot have a field with lines or columns greater than 100");
+            }
             Squares = new List<List<Square>>();
             for (var line = 0; line < lines; line++)
             {
