@@ -68,37 +68,135 @@ namespace Minesweeper.Tests
             Assert.Equal(expectedMines, mines);
         }
 
-        [Fact]
-        public void PopulateNoMinesWithNumberOfSurroundingMinesForWholeField()
+        [Theory]
+        [MemberData(nameof(ReplacingNoMines))]
+        public void PopulateNoMinesWithNumberOfSurroundingMinesForWholeField(ReplacingNoMinesData replacingNoMinesData)
         {
-            var field = new Field(3, 3, new List<Point> {new Point(0, 0)});
-            var expectedSquares = new List<List<Square>>
-            {
-                new List<Square>
-                {
-                    new Square(Piece.Mine, new Point(0, 0)),
-                    new Square(Piece.One, new Point(0, 1)),
-                    new Square(Piece.Zero, new Point(0, 2)),  
-                },
-                new List<Square>
-                {
-                    new Square(Piece.One, new Point(1, 0)),
-                    new Square(Piece.One, new Point(1, 1)),
-                    new Square(Piece.Zero, new Point(1, 2)),
-                },
-                new List<Square>
-                {
-                    new Square(Piece.Zero, new Point(2, 0)),
-                    new Square(Piece.Zero, new Point(2, 1)),
-                    new Square(Piece.Zero, new Point(2, 2)),
-                }
-            };
-            
+            var field = new Field(replacingNoMinesData.NumberOfRows, replacingNoMinesData.NumberOfColumns, 
+                replacingNoMinesData.ExpectedMinePoints);
+
             field.PopulateWithAdjacentMineNumbers();
 
-            Assert.Equal(expectedSquares, field.Squares);
+            Assert.Equal(replacingNoMinesData.ExpectedSquares, field.Squares);
 
         }
+        
+        public class ReplacingNoMinesData
+        {
+            public List<Point> ExpectedMinePoints;
+            public int NumberOfRows;
+            public int NumberOfColumns;
+            public List<List<Square>> ExpectedSquares;
+
+        }
+
+        public static IEnumerable<object[]> ReplacingNoMines =>
+            new TheoryData<ReplacingNoMinesData>
+            {
+                new ReplacingNoMinesData
+                {
+                    ExpectedMinePoints = new List<Point>
+                    {
+                        new Point(0, 0),
+                    },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 3,
+                    
+                    ExpectedSquares = new List<List<Square>>
+                    {
+                        new List<Square> 
+                        {
+                            new Square(Piece.Mine, new Point(0, 0)),
+                            new Square(Piece.One, new Point(0, 1)),
+                            new Square(Piece.Zero, new Point(0, 2)),  
+                        },
+                        new List<Square>
+                        {
+                            new Square(Piece.One, new Point(1, 0)),
+                            new Square(Piece.One, new Point(1, 1)),
+                            new Square(Piece.Zero, new Point(1, 2)),
+                        },
+                        new List<Square>
+                        {
+                            new Square(Piece.Zero, new Point(2, 0)),
+                            new Square(Piece.Zero, new Point(2, 1)),
+                            new Square(Piece.Zero, new Point(2, 2)),
+                        }
+                    }
+                },
+                new ReplacingNoMinesData
+                {
+                    ExpectedMinePoints = new List<Point>
+                    {
+                        new Point(0, 0),
+                        new Point(0,1),
+                        new Point(0,2),
+                        new Point(1,0),
+                        new Point(1,2),
+                        new Point(2,0),
+                        new Point(2,1),
+                        new Point(2,2)
+                    },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 3,
+                    
+                    ExpectedSquares = new List<List<Square>>
+                    {
+                        new List<Square> 
+                        {
+                            new Square(Piece.Mine, new Point(0, 0)),
+                            new Square(Piece.Mine, new Point(0, 1)),
+                            new Square(Piece.Mine, new Point(0, 2)),  
+                        },
+                        new List<Square>
+                        {
+                            new Square(Piece.Mine, new Point(1, 0)),
+                            new Square(Piece.Eight, new Point(1, 1)),
+                            new Square(Piece.Mine, new Point(1, 2)),
+                        },
+                        new List<Square>
+                        {
+                            new Square(Piece.Mine, new Point(2, 0)),
+                            new Square(Piece.Mine, new Point(2, 1)),
+                            new Square(Piece.Mine, new Point(2, 2)),
+                        }
+                    }
+                },
+                new ReplacingNoMinesData
+                {
+                    ExpectedMinePoints = new List<Point>
+                    {
+                        new Point(0, 0),
+                        new Point(1,2),
+                        new Point(2,0),
+                        new Point(2,1)
+                    },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 3,
+                    
+                    ExpectedSquares = new List<List<Square>>
+                    {
+                        new List<Square> 
+                        {
+                            new Square(Piece.Mine, new Point(0, 0)),
+                            new Square(Piece.Two, new Point(0, 1)),
+                            new Square(Piece.One, new Point(0, 2)),  
+                        },
+                        new List<Square>
+                        {
+                            new Square(Piece.Three, new Point(1, 0)),
+                            new Square(Piece.Four, new Point(1, 1)),
+                            new Square(Piece.Mine, new Point(1, 2)),
+                        },
+                        new List<Square>
+                        {
+                            new Square(Piece.Mine, new Point(2, 0)),
+                            new Square(Piece.Mine, new Point(2, 1)),
+                            new Square(Piece.Two, new Point(2, 2)),
+                        }
+                    }
+                },
+            };
 
         public class AdjacentSquaresData
         {
