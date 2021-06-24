@@ -63,9 +63,41 @@ namespace Minesweeper.Tests
         public void GetsListOfMines()
         {
             var expectedMines = new List<Square> {new Square(Piece.Mine, new Point(0, 0))};
-            var field = new Field(3,3, new List<Point> {new Point(0, 0)});
+            var field = new Field(3, 3, new List<Point> {new Point(0, 0)});
             var mines = field.GetMines();
             Assert.Equal(expectedMines, mines);
+        }
+
+        [Fact]
+        public void PopulateNoMinesWithNumberOfSurroundingMinesForWholeField()
+        {
+            var field = new Field(3, 3, new List<Point> {new Point(0, 0)});
+            var expectedSquares = new List<List<Square>>
+            {
+                new List<Square>
+                {
+                    new Square(Piece.Mine, new Point(0, 0)),
+                    new Square(Piece.One, new Point(0, 1)),
+                    new Square(Piece.Zero, new Point(0, 2)),  
+                },
+                new List<Square>
+                {
+                    new Square(Piece.One, new Point(1, 0)),
+                    new Square(Piece.One, new Point(1, 1)),
+                    new Square(Piece.Zero, new Point(1, 2)),
+                },
+                new List<Square>
+                {
+                    new Square(Piece.Zero, new Point(2, 0)),
+                    new Square(Piece.Zero, new Point(2, 1)),
+                    new Square(Piece.Zero, new Point(2, 2)),
+                }
+            };
+            
+            field.PopulateWithAdjacentMineNumbers();
+
+            Assert.Equal(expectedSquares, field.Squares);
+
         }
 
         public class AdjacentSquaresData
@@ -82,7 +114,7 @@ namespace Minesweeper.Tests
             new TheoryData<AdjacentSquaresData>
             {
                 new AdjacentSquaresData
-                {   //top left corner
+                {   
                     ExpectedSquares = new List<Square>
                     {
                         new Square(Piece.NoMine, new Point(0,1)),

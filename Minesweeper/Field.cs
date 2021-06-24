@@ -7,7 +7,7 @@ namespace Minesweeper
 {
     public class Field
     {
-        public List<List<Square>> Squares { get; }
+        public List<List<Square>> Squares { get; set; }
 
         public Field(int lines, int columns, List<Point> mineCoords)
         {
@@ -80,6 +80,22 @@ namespace Minesweeper
             }
 
             return mines;
+        }
+
+        public void PopulateWithAdjacentMineNumbers()
+        {
+            var mines = GetMines();
+            var adjacentMineCalculator = new AdjacentMineCalculator();
+
+            foreach (var line in Squares)
+            {
+                foreach (var square in line)
+                {
+                    if (mines.Contains(square)) continue;
+                    var adjacentMines = adjacentMineCalculator.GetNumberOfAdjacentMines(square, mines, this);
+                    adjacentMineCalculator.Replace(square, adjacentMines, this);
+                }
+            }
         }
     }
 }
