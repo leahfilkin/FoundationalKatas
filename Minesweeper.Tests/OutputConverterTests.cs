@@ -89,6 +89,84 @@ namespace Minesweeper.Tests
                     MinePoints = new List<Point>
                     {
                         new Point(0, 0),
+                        new Point(0, 2),
+                        new Point(1, 0),
+                        new Point(2, 1),
+                    },
+                    NumberOfRows = 4,
+                    NumberOfColumns = 4,
+                    ExpectedOutput = new List<string>
+                    {
+                        "*", "3", "*", "1",
+                        "*", "4", "1", "0",
+                        "2", "*", "2", "0"
+                    }
+                },
+                new OutputConverterData
+                {
+                    MinePoints = new List<Point>
+                    {
+                        new Point(0, 0),
+                        new Point(0, 2),
+                        new Point(1, 0),
+                        new Point(1, 2),
+                        new Point(2, 1),
+                    },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 3,
+                    ExpectedOutput = new List<string>
+                    {
+                        "*", "4", "*",
+                        "*", "5", "*",
+                        "2", "*", "2",
+                    }
+                },
+                new OutputConverterData
+                {
+                    MinePoints = new List<Point>
+                    {
+                        new Point(0, 0),
+                        new Point(0, 2),
+                        new Point(1, 0),
+                        new Point(1, 2),
+                        new Point(2, 0),
+                        new Point(2, 1),
+                    },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 3,
+                    ExpectedOutput = new List<string>
+                    {
+                        "*", "4", "*",
+                        "*", "6", "*",
+                        "*", "*", "2",
+                    }
+                },
+                new OutputConverterData
+                {
+                    MinePoints = new List<Point>
+                    {
+                        new Point(0, 0),
+                        new Point(0, 2),
+                        new Point(1, 0),
+                        new Point(1, 2),
+                        new Point(2, 0),
+                        new Point(2, 1),
+                        new Point(2, 2)
+                    },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 3,
+                    ExpectedOutput = new List<string>
+                    {
+                        "*", "4", "*",
+                        "*", "7", "*",
+                        "*", "*", "*",
+                    }
+                },
+                new OutputConverterData
+                {
+                    MinePoints = new List<Point>
+                    {
+                        new Point(0, 0),
                         new Point(0, 1),
                         new Point(0, 2),
                         new Point(1, 0),
