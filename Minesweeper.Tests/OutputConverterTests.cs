@@ -11,11 +11,11 @@ namespace Minesweeper.Tests
         {
             var field = new Field(3, 3, new List<Point> {new Point(0, 0)});
             field.PopulateWithAdjacentMineNumbers();
-            var output = new OutputConverter();
+            var output = new StringOutput();
 
-            var convertedOutput = output.ConvertFieldToCharacters(field);
+            var convertedOutput = output.ConvertField(field);
             
-            Assert.Equal("*", convertedOutput[0]);
+            Assert.Equal('*', convertedOutput[0]);
         }
         
         [Fact]
@@ -23,11 +23,11 @@ namespace Minesweeper.Tests
         {
             var field = new Field(3, 3, new List<Point> {new Point(0, 0)});
             field.PopulateWithAdjacentMineNumbers();
-            var output = new OutputConverter();
+            var output = new StringOutput();
 
-            var convertedOutput = output.ConvertFieldToCharacters(field);
+            var convertedOutput = output.ConvertField(field);
             
-            Assert.Equal("0", convertedOutput[2]);
+            Assert.Equal('0', convertedOutput[2]);
         }
         
         [Fact]
@@ -35,11 +35,11 @@ namespace Minesweeper.Tests
         {
             var field = new Field(3, 3, new List<Point> {new Point(0, 0)});
             field.PopulateWithAdjacentMineNumbers();
-            var output = new OutputConverter();
+            var output = new StringOutput();
 
-            var convertedOutput = output.ConvertFieldToCharacters(field);
+            var convertedOutput = output.ConvertField(field);
             
-            Assert.Equal("1", convertedOutput[1]);
+            Assert.Equal('1', convertedOutput[1]);
         }
 
         [Theory]
@@ -49,19 +49,33 @@ namespace Minesweeper.Tests
             var field = new Field(outputConverterData.NumberOfRows, outputConverterData.NumberOfColumns, 
                 outputConverterData.MinePoints);
             field.PopulateWithAdjacentMineNumbers();
-            var output = new OutputConverter();
+            var output = new StringOutput();
 
-            var convertedOutput = output.ConvertFieldToCharacters(field);
+            var convertedOutput = output.ConvertField(field);
             
             Assert.Equal(outputConverterData.ExpectedOutput, convertedOutput);
         }
-        
+
+        [Theory]
+        [MemberData(nameof(OutputConverter))]
+        public void PutsNewlineCharacterAtEndOfEachLine(OutputConverterData outputConverterData)
+        {
+            var field = new Field(outputConverterData.NumberOfRows, outputConverterData.NumberOfColumns, 
+                outputConverterData.MinePoints);
+            field.PopulateWithAdjacentMineNumbers();
+            var output = new StringOutput();
+
+            var convertedOutput = output.ConvertField(field);
+            
+            Assert.Equal(outputConverterData.ExpectedOutput, convertedOutput);
+        }
+
         public class OutputConverterData
         {
             public List<Point> MinePoints;
             public int NumberOfRows;
             public int NumberOfColumns;
-            public List<string> ExpectedOutput;
+            public string ExpectedOutput;
         }
 
         public static IEnumerable<object[]> OutputConverter =>
@@ -76,13 +90,20 @@ namespace Minesweeper.Tests
                         new Point(2, 1),
                     },
                     NumberOfRows = 3,
-                    NumberOfColumns = 5,
-                    ExpectedOutput = new List<string>
+                    NumberOfColumns = 3,
+                    ExpectedOutput = "**1\n332\n1*1\n"
+                },
+                new OutputConverterData
+                {
+                    MinePoints = new List<Point>
                     {
-                        "*", "*", "1", "0", "0",
-                        "3", "3", "2", "0", "0", 
-                        "1", "*", "1", "0", "0"
-                    }
+                        new Point(0, 0),
+                        new Point(0, 1),
+                        new Point(2, 1)
+                    },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 5,
+                    ExpectedOutput = "**100\n33200\n1*100\n"
                 },
                 new OutputConverterData
                 {
@@ -95,12 +116,7 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 4,
                     NumberOfColumns = 4,
-                    ExpectedOutput = new List<string>
-                    {
-                        "*", "3", "*", "1",
-                        "*", "4", "1", "0",
-                        "2", "*", "2", "0"
-                    }
+                    ExpectedOutput = "*3*1\n*421\n2*10\n1110\n"
                 },
                 new OutputConverterData
                 {
@@ -114,12 +130,7 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
-                    ExpectedOutput = new List<string>
-                    {
-                        "*", "4", "*",
-                        "*", "5", "*",
-                        "2", "*", "2",
-                    }
+                    ExpectedOutput = "*4*\n*5*\n2*2\n"
                 },
                 new OutputConverterData
                 {
@@ -134,12 +145,7 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
-                    ExpectedOutput = new List<string>
-                    {
-                        "*", "4", "*",
-                        "*", "6", "*",
-                        "*", "*", "2",
-                    }
+                    ExpectedOutput = "*4*\n*6*\n**2\n"
                 },
                 new OutputConverterData
                 {
@@ -155,12 +161,7 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
-                    ExpectedOutput = new List<string>
-                    {
-                        "*", "4", "*",
-                        "*", "7", "*",
-                        "*", "*", "*",
-                    }
+                    ExpectedOutput = "*4*\n*7*\n***\n"
                 },
                 new OutputConverterData
                 {
@@ -177,12 +178,7 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
-                    ExpectedOutput = new List<string>
-                    {
-                        "*", "*", "*",
-                        "*", "8", "*",
-                        "*", "*", "*",
-                    }
+                    ExpectedOutput = "***\n*8*\n***\n"
                 },
             };
     }

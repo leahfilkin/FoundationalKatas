@@ -17,5 +17,6 @@ namespace Minesweeper
         {
             return Piece == (obj as Square).Piece && Coords.X == (obj as Square).Coords.X && Coords.Y== (obj as Square).Coords.Y;
         }
+        
     }
 }

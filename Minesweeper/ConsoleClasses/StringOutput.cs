@@ -5,9 +5,9 @@ using Minesweeper.Enums;
 
 namespace Minesweeper.ConsoleClasses
 {
-    public class OutputConverter
+    public class StringOutput
     {
-        public List<string> ConvertFieldToCharacters(Field field)
+        public string ConvertField(Field field)
         {
             var outputField = new List<string>();
             foreach (var square in field.Squares.SelectMany(line => line))
@@ -47,8 +47,13 @@ namespace Minesweeper.ConsoleClasses
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+                if (square.Coords.Y == field.Squares[0].Count - 1)
+                {
+                    outputField.Add("\n");
+                }
+                
             }
-            return outputField;
+            return string.Join("",outputField);
         }
     }
 }

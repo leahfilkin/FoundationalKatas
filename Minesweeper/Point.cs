@@ -13,11 +13,6 @@ namespace Minesweeper
                 throw new ArgumentException("You cannot have a point that's co-ordinates are negative");
             }
 
-            // if (x > 10 || y > 10)
-            // {
-            //     throw new ArgumentException("You cannot have a point that's co-ordinates are larger than the field.");
-            // }
-            
             X = x;
             Y = y;
         }
@@ -27,10 +22,20 @@ namespace Minesweeper
             return $"({X},{Y})";
         }
         
-        public bool Equals(Point givenPoint)
+        public override bool Equals(object o)
         {
-            return X == givenPoint.X && Y == givenPoint.Y;
-
+            if (o == null || GetType() != o.GetType())
+            {
+                return false;
+            }
+            var otherPoint = o as Point;
+            
+            return otherPoint != null && X == otherPoint.X && Y == otherPoint.Y;
+        }
+        
+        public override int GetHashCode()
+        {
+            return (X << 2) ^ Y;
         }
     }
     

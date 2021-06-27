@@ -101,5 +101,16 @@ namespace Minesweeper
                 }
             }
         }
+        
+        public override bool Equals(object o)
+        {
+            if (o == null || GetType() != o.GetType())
+            {
+                return false;
+            }
+            var otherField = o as Field;
+            
+            return otherField != null && Squares == otherField.Squares;
+        }
     }
 }
