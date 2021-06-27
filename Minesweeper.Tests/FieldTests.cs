@@ -60,7 +60,7 @@ namespace Minesweeper.Tests
         }
 
         [Fact]
-        public void GetsListOfMines()
+        public void ShouldGetListOfMines()
         {
             var expectedMines = new List<Square> {new Square(Piece.Mine, new Point(0, 0))};
             var field = new Field(3, 3, new List<Point> {new Point(0, 0)});
@@ -70,7 +70,7 @@ namespace Minesweeper.Tests
 
         [Theory]
         [MemberData(nameof(ReplacingNoMines))]
-        public void PopulateNoMinesWithNumberOfSurroundingMinesForWholeField(ReplacingNoMinesData replacingNoMinesData)
+        public void ShouldReplaceNoMinesWithNumberOfSurroundingMinesForWholeField(ReplacingNoMinesData replacingNoMinesData)
         {
             var field = new Field(replacingNoMinesData.NumberOfRows, replacingNoMinesData.NumberOfColumns, 
                 replacingNoMinesData.ExpectedMinePoints);
@@ -82,7 +82,7 @@ namespace Minesweeper.Tests
         }
 
         [Fact]
-        public void FieldShouldThrowErrorIfLinesBiggerThan100()
+        public void ShouldThrowErrorIfLinesBiggerThan100()
         {
             Assert.Throws<ArgumentException>(
                 () => new Field(101, 3, new List<Point> {new Point(0, 0)}));
@@ -95,6 +95,46 @@ namespace Minesweeper.Tests
             public int NumberOfColumns;
             public List<List<Square>> ExpectedSquares;
 
+        }
+        [Theory]
+        [MemberData(nameof(AdjacentMines))]
+        public void ShouldReplaceSquareWithNumberOfAdjacentMines(AdjacentMineData adjacentMineData)
+        {
+            var field = new Field(adjacentMineData.NumberOfRows, adjacentMineData.NumberOfColumns, 
+                adjacentMineData.ExpectedMinePoints);
+            var mines = field.GetMines();
+            var squareToReplace = field.Squares[adjacentMineData.SquareXCoord][adjacentMineData.SquareYCoord];
+            var adjacentMines = AdjacentMineCalculator.GetNumberOfAdjacentMines(squareToReplace, mines, field);
+            
+            field.Replace(squareToReplace, adjacentMines);
+            
+            Assert.Equal(adjacentMineData.ExpectedPiece, field.Squares[adjacentMineData.SquareXCoord][adjacentMineData.SquareYCoord].Piece);
+        }
+
+        [Fact]
+        public void IfNumberOfAdjacentMinesOutsideOfExpectedValuesThrowError()
+        {
+            var field = new Field(3, 3, 
+                new List<Point> {new Point(0,0)});
+            var squareToReplace = field.Squares[0][1];
+
+            Assert.Throws<ArgumentException>
+                ( () => field.Replace(squareToReplace, 9));
+        }
+        
+        [Theory]
+        [MemberData(nameof(AdjacentMines))]
+        public void ReplacesSquareWithNumberOfAdjacentMines(AdjacentMineData adjacentMineData)
+        {
+            var field = new Field(adjacentMineData.NumberOfRows, adjacentMineData.NumberOfColumns, 
+                adjacentMineData.ExpectedMinePoints);
+            var mines = field.GetMines();
+            var squareToReplace = field.Squares[adjacentMineData.SquareXCoord][adjacentMineData.SquareYCoord];
+            var adjacentMines = AdjacentMineCalculator.GetNumberOfAdjacentMines(squareToReplace, mines, field);
+            
+            field.Replace(squareToReplace, adjacentMines);
+            
+            Assert.Equal(adjacentMineData.ExpectedPiece, field.Squares[adjacentMineData.SquareXCoord][adjacentMineData.SquareYCoord].Piece);
         }
 
         public static IEnumerable<object[]> ReplacingNoMines =>
@@ -402,6 +442,118 @@ namespace Minesweeper.Tests
                     squaresXIndexes = new List<int> {0,3,3},
                     squaresYIndexes = new List<int> {0,3,1}
                 },
+            };
+        
+        public class AdjacentMineData
+        {
+            public List<Point> ExpectedMinePoints;
+            public int NumberOfRows;
+            public int NumberOfColumns;
+            public int SquareXCoord;
+            public int SquareYCoord;
+            public int ExpectedMineCount;
+            public Piece ExpectedPiece;
+
+        }
+
+        public static IEnumerable<object[]> AdjacentMines =>
+            new TheoryData<AdjacentMineData>
+            {
+                new AdjacentMineData
+                {
+                    ExpectedMinePoints = new List<Point>
+                    {
+                        new Point(1, 2),
+                    },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 3,
+                    SquareXCoord = 0,
+                    SquareYCoord = 0,
+                    ExpectedMineCount = 0,
+                    ExpectedPiece = Piece.Zero
+                },
+                new AdjacentMineData
+                {
+                    ExpectedMinePoints = new List<Point>
+                    {
+                        new Point(0, 0),
+                    },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 3,
+                    SquareXCoord = 0,
+                    SquareYCoord = 1,
+                    ExpectedMineCount = 1,
+                    ExpectedPiece = Piece.One
+
+                },
+                new AdjacentMineData
+                {
+                    ExpectedMinePoints = new List<Point>
+                    {
+                        new Point(0, 0),
+                        new Point(0,1)
+                    },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 3,
+                    SquareXCoord = 1,
+                    SquareYCoord = 0,
+                    ExpectedMineCount = 2,
+                    ExpectedPiece = Piece.Two
+
+                },
+                new AdjacentMineData
+                {
+                    ExpectedMinePoints = new List<Point>
+                    {
+                        new Point(0, 0),
+                        new Point(0,1),
+                        new Point(0,2),
+                        new Point(1,0),
+                        new Point(1,2),
+                        new Point(2,0),
+                        new Point(2,1),
+                        new Point(2,2)
+                    },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 3,
+                    SquareXCoord = 1,
+                    SquareYCoord = 1,
+                    ExpectedMineCount = 8,
+                    ExpectedPiece = Piece.Eight
+
+                },
+                new AdjacentMineData
+                {
+                    ExpectedMinePoints = new List<Point>
+                    {
+                        new Point(0,1),
+                        new Point(1,0),
+                    },
+                    NumberOfRows = 3,
+                    NumberOfColumns = 3,
+                    SquareXCoord = 0,
+                    SquareYCoord = 0,
+                    ExpectedMineCount = 2,
+                    ExpectedPiece = Piece.Two
+
+                },
+                new AdjacentMineData
+                {
+                    ExpectedMinePoints = new List<Point>
+                    {
+                        new Point(15,27),
+                        new Point(13,25),
+                        new Point(1,1),
+                    },
+                    NumberOfRows = 30,
+                    NumberOfColumns = 46,
+                    SquareXCoord = 14,
+                    SquareYCoord = 26,
+                    ExpectedMineCount = 2,
+                    ExpectedPiece = Piece.Two
+
+                },
+                
             };
     }
 }

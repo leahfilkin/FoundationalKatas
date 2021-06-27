@@ -89,17 +89,21 @@ namespace Minesweeper
         public void PopulateWithAdjacentMineNumbers()
         {
             var mines = GetMines();
-            var adjacentMineCalculator = new AdjacentMineCalculator();
 
             foreach (var line in Squares)
             {
                 foreach (var square in line)
                 {
                     if (mines.Contains(square)) continue;
-                    var adjacentMines = adjacentMineCalculator.GetNumberOfAdjacentMines(square, mines, this);
-                    adjacentMineCalculator.Replace(square, adjacentMines, this);
+                    var adjacentMines = AdjacentMineCalculator.GetNumberOfAdjacentMines(square, mines, this);
+                    Replace(square, adjacentMines);
                 }
             }
+        }
+        
+        public void Replace(Square squareToReplace, int adjacentMines)
+        {
+            Squares[squareToReplace.Coords.X][squareToReplace.Coords.Y].Piece = AdjacentMineCalculator.PieceNameOf(adjacentMines);
         }
         
         public override bool Equals(object o)

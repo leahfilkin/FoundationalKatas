@@ -16,41 +16,12 @@ namespace Minesweeper.Tests
                 adjacentMineData.ExpectedMinePoints);
             var mines = field.GetMines();
             var squareToCheck = field.Squares[adjacentMineData.SquareXCoord][adjacentMineData.SquareYCoord];
-            var adjacentMineCalculator = new AdjacentMineCalculator();
             
-            var adjacentMines = adjacentMineCalculator.GetNumberOfAdjacentMines(squareToCheck, mines, field);
+            var adjacentMines = AdjacentMineCalculator.GetNumberOfAdjacentMines(squareToCheck, mines, field);
             
             Assert.Equal(adjacentMineData.ExpectedMineCount, adjacentMines);
         }
-
-        [Theory]
-        [MemberData(nameof(AdjacentMines))]
-        public void ReplacesSquareWithNumberOfAdjacentMines(AdjacentMineData adjacentMineData)
-        {
-            var field = new Field(adjacentMineData.NumberOfRows, adjacentMineData.NumberOfColumns, 
-                adjacentMineData.ExpectedMinePoints);
-            var mines = field.GetMines();
-            var squareToReplace = field.Squares[adjacentMineData.SquareXCoord][adjacentMineData.SquareYCoord];
-            var adjacentMineCalculator = new AdjacentMineCalculator();
-            var adjacentMines = adjacentMineCalculator.GetNumberOfAdjacentMines(squareToReplace, mines, field);
-            
-            adjacentMineCalculator.Replace(squareToReplace, adjacentMines, field);
-            
-            Assert.Equal(adjacentMineData.ExpectedPiece, field.Squares[adjacentMineData.SquareXCoord][adjacentMineData.SquareYCoord].Piece);
-        }
-
-        [Fact]
-        public void IfNumberOfAdjacentMinesOutsideOfExpectedValuesThrowError()
-        {
-            var field = new Field(3, 3, 
-                new List<Point> {new Point(0,0)});
-            var squareToReplace = field.Squares[0][1];
-            var adjacentMineCalculator = new AdjacentMineCalculator();
-
-            Assert.Throws<ArgumentException>
-                ( () => adjacentMineCalculator.Replace(squareToReplace, 9, field));
-        }
-
+        
         public class AdjacentMineData
         {
             public List<Point> ExpectedMinePoints;
@@ -59,7 +30,6 @@ namespace Minesweeper.Tests
             public int SquareXCoord;
             public int SquareYCoord;
             public int ExpectedMineCount;
-            public Piece ExpectedPiece;
 
         }
 
@@ -77,7 +47,6 @@ namespace Minesweeper.Tests
                     SquareXCoord = 0,
                     SquareYCoord = 0,
                     ExpectedMineCount = 0,
-                    ExpectedPiece = Piece.Zero
                 },
                 new AdjacentMineData
                 {
@@ -90,8 +59,6 @@ namespace Minesweeper.Tests
                     SquareXCoord = 0,
                     SquareYCoord = 1,
                     ExpectedMineCount = 1,
-                    ExpectedPiece = Piece.One
-
                 },
                 new AdjacentMineData
                 {
@@ -105,8 +72,6 @@ namespace Minesweeper.Tests
                     SquareXCoord = 1,
                     SquareYCoord = 0,
                     ExpectedMineCount = 2,
-                    ExpectedPiece = Piece.Two
-
                 },
                 new AdjacentMineData
                 {
@@ -126,8 +91,6 @@ namespace Minesweeper.Tests
                     SquareXCoord = 1,
                     SquareYCoord = 1,
                     ExpectedMineCount = 8,
-                    ExpectedPiece = Piece.Eight
-
                 },
                 new AdjacentMineData
                 {
@@ -141,8 +104,6 @@ namespace Minesweeper.Tests
                     SquareXCoord = 0,
                     SquareYCoord = 0,
                     ExpectedMineCount = 2,
-                    ExpectedPiece = Piece.Two
-
                 },
                 new AdjacentMineData
                 {
@@ -157,8 +118,6 @@ namespace Minesweeper.Tests
                     SquareXCoord = 14,
                     SquareYCoord = 26,
                     ExpectedMineCount = 2,
-                    ExpectedPiece = Piece.Two
-
                 },
                 
             };
