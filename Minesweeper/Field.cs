@@ -7,7 +7,7 @@ namespace Minesweeper
 {
     public class Field
     {
-        public List<List<Square>> Squares { get; }
+        public List<List<Piece>> Squares { get; }
 
         public Field(int lines, int columns, List<Point> mineCoords)
         {
@@ -15,41 +15,41 @@ namespace Minesweeper
             {
                 throw new ArgumentException("You cannot have a field with lines or columns greater than 100");
             }
-            Squares = new List<List<Square>>();
+            Squares = new List<List<Piece>>();
             for (var line = 0; line < lines; line++)
             {
-                Squares.Add(new List<Square>());
+                Squares.Add(new List<Piece>());
                 for (var column = 0; column < columns; column++)
                 {
 
                     Squares[line].Add(mineCoords.Any(mineCoord => mineCoord.Equals(new Point(line, column)))
-                        ? new Square(Piece.Mine, new Point(line, column))
-                        : new Square(Piece.NoMine, new Point(line, column)));
+                        ? Piece.Mine
+                        : Piece.NoMine);
                 }
             }
         }
 
-        public List<Square> GetAdjacentSquares(Square square)
+        public List<Piece> GetAdjacentSquares(int x, int y)
         {
 
-            var lineAbove = square.Coords.X - 1;
-            var lineBelow = square.Coords.X + 1;
-            var sameLine = square.Coords.X;
-            var columnToTheLeft = square.Coords.Y - 1;
-            var columnToTheRight = square.Coords.Y + 1;
-            var sameColumn = square.Coords.Y;
+            var lineAbove = x - 1;
+            var lineBelow = x + 1;
+            var sameLine = x;
+            var columnToTheLeft = y - 1;
+            var columnToTheRight = y + 1;
+            var sameColumn = y;
 
             var linesToCheck = new List<int>();
-            var adjacentSquares = new List<Square>();
+            var adjacentSquares = new List<Piece>();
             
-            if (square.Coords.X > 0)
+            if (x > 0)
             {
                 linesToCheck.Add(lineAbove);
             }
             
             linesToCheck.Add(sameLine);
             
-            if (square.Coords.X < Squares.Count - 1)
+            if (x < Squares.Count - 1)
             {
                 linesToCheck.Add(lineBelow);
             }
@@ -75,12 +75,18 @@ namespace Minesweeper
 
         }
 
-        public List<Square> GetMines()
+        public List<List<int>> GetMines()
         {
-            var mines = new List<Square>();
-            foreach (var line in Squares)
+            var mines = new List<List<int>>();
+            for (var i = 0; i < Squares.Count; i++)
             {
-                mines.AddRange(line.Where(square => square.Piece == Piece.Mine));
+                for (var j = 0; j < Squares[0].Count; j++)
+                {
+                    if (Squares[i][j] == Piece.Mine)
+                    {
+                        mines.Add(new List<int> {i,j});
+                    }
+                }
             }
 
             return mines;
@@ -90,20 +96,20 @@ namespace Minesweeper
         {
             var mines = GetMines();
 
-            foreach (var line in Squares)
+            for (var i = 0; i < Squares.Count; i++)
             {
-                foreach (var square in line)
+                for (var j = 0; j < Squares[0].Count; j++)
                 {
-                    if (mines.Contains(square)) continue;
-                    var adjacentMines = AdjacentMineCalculator.GetNumberOfAdjacentMines(square, mines, this);
-                    Replace(square, adjacentMines);
+                    if (Squares[i][j] == Piece.Mine) continue;
+                    var adjacentMines = AdjacentMineCalculator.GetNumberOfAdjacentMines(i, j, this);
+                    Replace(i, j, adjacentMines);
                 }
             }
         }
         
-        public void Replace(Square squareToReplace, int adjacentMines)
+        public void Replace(int xToReplace, int yToReplace, int adjacentMines)
         {
-            Squares[squareToReplace.Coords.X][squareToReplace.Coords.Y].Piece = AdjacentMineCalculator.PieceNameOf(adjacentMines);
+            Squares[xToReplace][yToReplace] = AdjacentMineCalculator.PieceNameOf(adjacentMines);
         }
         
         public override bool Equals(object o)

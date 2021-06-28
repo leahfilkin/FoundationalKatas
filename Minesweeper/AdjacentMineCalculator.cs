@@ -8,9 +8,9 @@ namespace Minesweeper
 {
     public class AdjacentMineCalculator
     {
-        public static int GetNumberOfAdjacentMines(Square square, List<Square> mines, Field field)
+        public static int GetNumberOfAdjacentMines(int x, int y, Field field)
         {
-            return field.GetAdjacentSquares(square).Count(adjacentSquare => adjacentSquare.Piece == Piece.Mine);
+            return field.GetAdjacentSquares(x, y).Count(adjacentSquare => adjacentSquare == Piece.Mine);
         }
 
         public static Piece PieceNameOf(int value)

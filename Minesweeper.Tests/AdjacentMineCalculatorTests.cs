@@ -14,7 +14,7 @@ namespace Minesweeper.Tests
             var mines = field.GetMines();
             var squareToCheck = field.Squares[adjacentMineData.SquareXCoord][adjacentMineData.SquareYCoord];
             
-            var adjacentMines = AdjacentMineCalculator.GetNumberOfAdjacentMines(squareToCheck, mines, field);
+            var adjacentMines = AdjacentMineCalculator.GetNumberOfAdjacentMines(adjacentMineData.SquareXCoord, adjacentMineData.SquareYCoord, field);
             
             Assert.Equal(adjacentMineData.ExpectedMineCount, adjacentMines);
         }

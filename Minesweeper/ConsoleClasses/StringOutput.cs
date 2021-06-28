@@ -11,7 +11,7 @@ namespace Minesweeper.ConsoleClasses
         {
            return string.Join("\n",field.Squares.Select(
                    line => string.Join("",line.Select(
-                    square => square.Piece switch
+                    square => square switch
                         {
                             Piece.Zero => "0",
                             Piece.One => "1",
