@@ -73,7 +73,7 @@ namespace Minesweeper.Tests
         public void ShouldReplaceNoMinesWithNumberOfSurroundingMinesForWholeField(ReplacingNoMinesData replacingNoMinesData)
         {
             var field = new Field(replacingNoMinesData.NumberOfRows, replacingNoMinesData.NumberOfColumns, 
-                replacingNoMinesData.ExpectedMinePoints);
+                replacingNoMinesData.MinePoints);
 
             field.PopulateWithAdjacentMineNumbers();
 
@@ -90,7 +90,7 @@ namespace Minesweeper.Tests
         
         public class ReplacingNoMinesData
         {
-            public List<Point> ExpectedMinePoints;
+            public List<Point> MinePoints;
             public int NumberOfRows;
             public int NumberOfColumns;
             public List<List<Square>> ExpectedSquares;
@@ -101,7 +101,7 @@ namespace Minesweeper.Tests
         public void ShouldReplaceSquareWithNumberOfAdjacentMines(AdjacentMineData adjacentMineData)
         {
             var field = new Field(adjacentMineData.NumberOfRows, adjacentMineData.NumberOfColumns, 
-                adjacentMineData.ExpectedMinePoints);
+                adjacentMineData.MinePoints);
             var mines = field.GetMines();
             var squareToReplace = field.Squares[adjacentMineData.SquareXCoord][adjacentMineData.SquareYCoord];
             var adjacentMines = AdjacentMineCalculator.GetNumberOfAdjacentMines(squareToReplace, mines, field);
@@ -127,7 +127,7 @@ namespace Minesweeper.Tests
         public void ReplacesSquareWithNumberOfAdjacentMines(AdjacentMineData adjacentMineData)
         {
             var field = new Field(adjacentMineData.NumberOfRows, adjacentMineData.NumberOfColumns, 
-                adjacentMineData.ExpectedMinePoints);
+                adjacentMineData.MinePoints);
             var mines = field.GetMines();
             var squareToReplace = field.Squares[adjacentMineData.SquareXCoord][adjacentMineData.SquareYCoord];
             var adjacentMines = AdjacentMineCalculator.GetNumberOfAdjacentMines(squareToReplace, mines, field);
@@ -142,7 +142,7 @@ namespace Minesweeper.Tests
             {
                 new ReplacingNoMinesData
                 {
-                    ExpectedMinePoints = new List<Point>
+                    MinePoints = new List<Point>
                     {
                         new Point(0, 0),
                     },
@@ -173,7 +173,7 @@ namespace Minesweeper.Tests
                 },
                 new ReplacingNoMinesData
                 {
-                    ExpectedMinePoints = new List<Point>
+                    MinePoints = new List<Point>
                     {
                         new Point(0, 0),
                         new Point(0,1),
@@ -211,7 +211,7 @@ namespace Minesweeper.Tests
                 },
                 new ReplacingNoMinesData
                 {
-                    ExpectedMinePoints = new List<Point>
+                    MinePoints = new List<Point>
                     {
                         new Point(0, 0),
                         new Point(1,2),
@@ -446,13 +446,13 @@ namespace Minesweeper.Tests
         
         public class AdjacentMineData
         {
-            public List<Point> ExpectedMinePoints;
+            public List<Point> MinePoints;
             public int NumberOfRows;
             public int NumberOfColumns;
             public int SquareXCoord;
             public int SquareYCoord;
-            public int ExpectedMineCount;
             public Piece ExpectedPiece;
+            public int MineCount;
 
         }
 
@@ -461,7 +461,7 @@ namespace Minesweeper.Tests
             {
                 new AdjacentMineData
                 {
-                    ExpectedMinePoints = new List<Point>
+                    MinePoints = new List<Point>
                     {
                         new Point(1, 2),
                     },
@@ -469,12 +469,12 @@ namespace Minesweeper.Tests
                     NumberOfColumns = 3,
                     SquareXCoord = 0,
                     SquareYCoord = 0,
-                    ExpectedMineCount = 0,
+                    MineCount = 0,
                     ExpectedPiece = Piece.Zero
                 },
                 new AdjacentMineData
                 {
-                    ExpectedMinePoints = new List<Point>
+                    MinePoints = new List<Point>
                     {
                         new Point(0, 0),
                     },
@@ -482,13 +482,13 @@ namespace Minesweeper.Tests
                     NumberOfColumns = 3,
                     SquareXCoord = 0,
                     SquareYCoord = 1,
-                    ExpectedMineCount = 1,
+                    MineCount = 1,
                     ExpectedPiece = Piece.One
 
                 },
                 new AdjacentMineData
                 {
-                    ExpectedMinePoints = new List<Point>
+                    MinePoints = new List<Point>
                     {
                         new Point(0, 0),
                         new Point(0,1)
@@ -497,13 +497,13 @@ namespace Minesweeper.Tests
                     NumberOfColumns = 3,
                     SquareXCoord = 1,
                     SquareYCoord = 0,
-                    ExpectedMineCount = 2,
+                    MineCount = 2,
                     ExpectedPiece = Piece.Two
 
                 },
                 new AdjacentMineData
                 {
-                    ExpectedMinePoints = new List<Point>
+                    MinePoints = new List<Point>
                     {
                         new Point(0, 0),
                         new Point(0,1),
@@ -518,13 +518,13 @@ namespace Minesweeper.Tests
                     NumberOfColumns = 3,
                     SquareXCoord = 1,
                     SquareYCoord = 1,
-                    ExpectedMineCount = 8,
+                    MineCount = 8,
                     ExpectedPiece = Piece.Eight
 
                 },
                 new AdjacentMineData
                 {
-                    ExpectedMinePoints = new List<Point>
+                    MinePoints = new List<Point>
                     {
                         new Point(0,1),
                         new Point(1,0),
@@ -533,13 +533,13 @@ namespace Minesweeper.Tests
                     NumberOfColumns = 3,
                     SquareXCoord = 0,
                     SquareYCoord = 0,
-                    ExpectedMineCount = 2,
+                    MineCount = 2,
                     ExpectedPiece = Piece.Two
 
                 },
                 new AdjacentMineData
                 {
-                    ExpectedMinePoints = new List<Point>
+                    MinePoints = new List<Point>
                     {
                         new Point(15,27),
                         new Point(13,25),
@@ -549,7 +549,7 @@ namespace Minesweeper.Tests
                     NumberOfColumns = 46,
                     SquareXCoord = 14,
                     SquareYCoord = 26,
-                    ExpectedMineCount = 2,
+                    MineCount = 2,
                     ExpectedPiece = Piece.Two
 
                 },

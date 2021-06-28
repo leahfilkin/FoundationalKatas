@@ -91,7 +91,7 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
-                    ExpectedOutput = "**1\n332\n1*1\n"
+                    ExpectedOutput = "**1\n332\n1*1"
                 },
                 new OutputConverterData
                 {
@@ -103,7 +103,7 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 5,
-                    ExpectedOutput = "**100\n33200\n1*100\n"
+                    ExpectedOutput = "**100\n33200\n1*100"
                 },
                 new OutputConverterData
                 {
@@ -116,7 +116,7 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 4,
                     NumberOfColumns = 4,
-                    ExpectedOutput = "*3*1\n*421\n2*10\n1110\n"
+                    ExpectedOutput = "*3*1\n*421\n2*10\n1110"
                 },
                 new OutputConverterData
                 {
@@ -130,7 +130,7 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
-                    ExpectedOutput = "*4*\n*5*\n2*2\n"
+                    ExpectedOutput = "*4*\n*5*\n2*2"
                 },
                 new OutputConverterData
                 {
@@ -145,7 +145,7 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
-                    ExpectedOutput = "*4*\n*6*\n**2\n"
+                    ExpectedOutput = "*4*\n*6*\n**2"
                 },
                 new OutputConverterData
                 {
@@ -161,7 +161,7 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
-                    ExpectedOutput = "*4*\n*7*\n***\n"
+                    ExpectedOutput = "*4*\n*7*\n***"
                 },
                 new OutputConverterData
                 {
@@ -178,7 +178,7 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
-                    ExpectedOutput = "***\n*8*\n***\n"
+                    ExpectedOutput = "***\n*8*\n***"
                 },
             };
     }

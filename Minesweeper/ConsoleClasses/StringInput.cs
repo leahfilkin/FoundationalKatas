@@ -72,9 +72,16 @@ namespace Minesweeper.ConsoleClasses
 
         public List<Field> SeperateIntoFields(string input)
         {
-
+            for (var i = 0; i < input.Length; i++)
+            {
+                if (i > 0
+                    && input[i] == '.' || input[i] == '*'
+                    && Char.IsDigit(input[i +1]))
+                {
+                    
+                }
+            }
             return new List<Field>();
-            // String.Split(new Regex([0-9]), input);
         }
     }
 }

@@ -9,51 +9,23 @@ namespace Minesweeper.ConsoleClasses
     {
         public string ConvertField(Field field)
         {
-            var outputField = new List<string>();
-            foreach (var square in field.Squares.SelectMany(line => line))
-            {
-                switch (square.Piece)
-                {
-                    case Piece.Zero:
-                        outputField.Add("0");
-                        break;
-                    case Piece.One:
-                        outputField.Add("1");
-                        break;
-                    case Piece.Two:
-                        outputField.Add("2");
-                        break;
-                    case Piece.Three:
-                        outputField.Add("3");
-                        break;
-                    case Piece.Four:
-                        outputField.Add("4");
-                        break;
-                    case Piece.Five:
-                        outputField.Add("5");
-                        break;
-                    case Piece.Six:
-                        outputField.Add("6");
-                        break;
-                    case Piece.Seven:
-                        outputField.Add("7");
-                        break;
-                    case Piece.Eight:
-                        outputField.Add("8");
-                        break;
-                    case Piece.Mine:
-                        outputField.Add("*");
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-                if (square.Coords.Y == field.Squares[0].Count - 1)
-                {
-                    outputField.Add("\n");
-                }
-                
-            }
-            return string.Join("",outputField);
+           return string.Join("\n",field.Squares.Select(
+                   line => string.Join("",line.Select(
+                    square => square.Piece switch
+                        {
+                            Piece.Zero => "0",
+                            Piece.One => "1",
+                            Piece.Two => "2",
+                            Piece.Three => "3",
+                            Piece.Four => "4",
+                            Piece.Five => "5",
+                            Piece.Six => "6",
+                            Piece.Seven => "7",
+                            Piece.Eight => "8",
+                            Piece.Mine => "*",
+                            _ => throw new ArgumentOutOfRangeException()
+                        })))
+                );
         }
     }
 }

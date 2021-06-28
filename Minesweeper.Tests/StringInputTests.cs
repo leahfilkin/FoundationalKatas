@@ -101,29 +101,29 @@ namespace Minesweeper.Tests
             Assert.Equal(expectedField.Squares, actualField.Squares);
         }
 
-        // [Fact]
-        // public void SplitFieldsInputIntoListOfFields()
-        // {
-        //     var stringInput = new StringInput();
-        //     var input = "4x4\n*...\n....\n.*..\n....\n3x5\n**...\n..... \n.*...";
-        //     var expectedFields = new List<Field>
-        //     {
-        //         new Field(4, 4, new List<Point>
-        //         {
-        //             new Point(0,0),
-        //             new Point(2,1)
-        //         }),
-        //         new Field(3,5, new List<Point>
-        //         {
-        //             new Point(0,0),
-        //             new Point(0,1),
-        //             new Point(2,1)
-        //         })
-        //     };
-        //     
-        //     var fields = stringInput.SeperateIntoFields(input);
-        //     
-        //     Assert.Equal(expectedFields, fields);
-        // }
+        [Fact]
+        public void SplitFieldsInputIntoListOfFields()
+        {
+            var stringInput = new StringInput();
+            var input = "4x4\n*...\n....\n.*..\n....\n3x5\n**...\n..... \n.*...";
+            var expectedFields = new List<Field>
+            {
+                new Field(4, 4, new List<Point>
+                {
+                    new Point(0,0),
+                    new Point(2,1)
+                }),
+                new Field(3,5, new List<Point>
+                {
+                    new Point(0,0),
+                    new Point(0,1),
+                    new Point(2,1)
+                })
+            };
+            
+            var fields = stringInput.SeperateIntoFields(input);
+            
+            Assert.Equal(expectedFields, fields);
+        }
     }
 }
