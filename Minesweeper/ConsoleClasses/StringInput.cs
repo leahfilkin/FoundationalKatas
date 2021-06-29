@@ -39,13 +39,10 @@ namespace Minesweeper.ConsoleClasses
 
         public static List<Point> GetMines(List<string> input)
         {
-            var lines = GetLines(input);
-            var columns = GetColumns(input);
-
             var mines = new List<Point>();
-            for (var i = 1; i < lines; i++)
+            for (var i = 1; i < input.Count; i++)
             {
-                for (var j = 0; j < columns; j++)
+                for (var j = 0; j < input[1].Length; j++)
                 {
                     if (input[i][j] == '*')
                     {
