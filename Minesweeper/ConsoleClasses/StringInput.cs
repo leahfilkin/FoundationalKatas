@@ -39,7 +39,11 @@ namespace Minesweeper.ConsoleClasses
                 throw new ArgumentException("You must specify LINESxCOLUMNS in the first line, with an x between");
             }
 
-            if (!int.TryParse(input[0].Substring(input[0].IndexOf('x') + 1), out var columns)) return columns;
+            if (!int.TryParse(input[0].Substring(input[0].IndexOf('x') + 1), out var columns))
+            {
+                throw new ArgumentException(
+                    "You must write the amount of columns you want in integer format");
+            }
             if (columns > 100)
             {
                 throw new ArgumentOutOfRangeException(nameof(columns), "You cannot have a field that has more than 100 columns");

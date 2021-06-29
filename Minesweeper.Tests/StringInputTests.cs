@@ -18,6 +18,21 @@ namespace Minesweeper.Tests
         }
 
         [Fact]
+        public void LinesConverterThrowsErrorIfLineInputIsNotInteger()
+        {
+            var input = new List<string>
+            {
+                "fourx4",
+                "*...",
+                "....",
+                ".*..",
+                "...."
+            };
+
+            Assert.Throws<ArgumentException>(() => StringInput.GetLines(input));
+        }
+
+        [Fact]
         public void LinesConverterThrowErrorIfNoXToSeperateLinesAndColumns()
         {
             var input = new List<string>
@@ -190,6 +205,21 @@ namespace Minesweeper.Tests
             };
 
             Assert.Throws<ArgumentOutOfRangeException>(() => StringInput.GetColumns(input));
+        }
+
+        [Fact]
+        public void ColumnsConverterThrowsErrorIfColumnInputIsNotInteger()
+        {
+            var input = new List<string>
+            {
+                "4xfour",
+                "*...",
+                "....",
+                ".*..",
+                "...."
+            };
+
+            Assert.Throws<ArgumentException>(() => StringInput.GetColumns(input));
         }
 
         [Fact]
