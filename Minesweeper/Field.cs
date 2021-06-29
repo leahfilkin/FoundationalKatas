@@ -94,8 +94,6 @@ namespace Minesweeper
 
         public void PopulateWithAdjacentMineNumbers()
         {
-            var mines = GetMines();
-
             for (var i = 0; i < Squares.Count; i++)
             {
                 for (var j = 0; j < Squares[0].Count; j++)

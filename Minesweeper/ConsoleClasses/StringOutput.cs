@@ -7,7 +7,7 @@ namespace Minesweeper.ConsoleClasses
 {
     public class StringOutput
     {
-        public string ConvertField(Field field)
+        public static string ConvertPiecesToOutputNumbers(Field field)
         {
            return string.Join("\n",field.Squares.Select(
                    line => string.Join("",line.Select(

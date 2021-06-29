@@ -13,7 +13,7 @@ namespace Minesweeper.Tests
             field.PopulateWithAdjacentMineNumbers();
             var output = new StringOutput();
 
-            var convertedOutput = output.ConvertField(field);
+            var convertedOutput = StringOutput.ConvertPiecesToOutputNumbers(field);
             
             Assert.Equal('*', convertedOutput[0]);
         }
@@ -25,7 +25,7 @@ namespace Minesweeper.Tests
             field.PopulateWithAdjacentMineNumbers();
             var output = new StringOutput();
 
-            var convertedOutput = output.ConvertField(field);
+            var convertedOutput = StringOutput.ConvertPiecesToOutputNumbers(field);
             
             Assert.Equal('0', convertedOutput[2]);
         }
@@ -37,7 +37,7 @@ namespace Minesweeper.Tests
             field.PopulateWithAdjacentMineNumbers();
             var output = new StringOutput();
 
-            var convertedOutput = output.ConvertField(field);
+            var convertedOutput = StringOutput.ConvertPiecesToOutputNumbers(field);
             
             Assert.Equal('1', convertedOutput[1]);
         }
@@ -51,7 +51,7 @@ namespace Minesweeper.Tests
             field.PopulateWithAdjacentMineNumbers();
             var output = new StringOutput();
 
-            var convertedOutput = output.ConvertField(field);
+            var convertedOutput = StringOutput.ConvertPiecesToOutputNumbers(field);
             
             Assert.Equal(outputConverterData.ExpectedOutput, convertedOutput);
         }
@@ -65,7 +65,7 @@ namespace Minesweeper.Tests
             field.PopulateWithAdjacentMineNumbers();
             var output = new StringOutput();
 
-            var convertedOutput = output.ConvertField(field);
+            var convertedOutput = StringOutput.ConvertPiecesToOutputNumbers(field);
             
             Assert.Equal(outputConverterData.ExpectedOutput, convertedOutput);
         }

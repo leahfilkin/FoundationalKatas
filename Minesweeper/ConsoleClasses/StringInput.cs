@@ -6,9 +6,9 @@ using Microsoft.VisualBasic;
 
 namespace Minesweeper.ConsoleClasses
 {
-    public class StringInput
+    public static class StringInput
     {
-        public int GetLines(string input)
+        public static int GetLines(string input)
         {
             if (input.IndexOf('x') == -1)
             {
@@ -24,7 +24,7 @@ namespace Minesweeper.ConsoleClasses
             return lines;
         }
 
-        public int GetColumns(string input)
+        public static int GetColumns(string input)
         {
             if (input.IndexOf('x') == -1)
             {
@@ -43,7 +43,7 @@ namespace Minesweeper.ConsoleClasses
             return columns;
         }
 
-        public List<Point> GetMines(string input)
+        public static List<Point> GetMines(string input)
         {
             var mines = new List<Point>();
             var inputWithoutDimensions = input.Substring(input.IndexOf('\n') + 1);
@@ -62,26 +62,12 @@ namespace Minesweeper.ConsoleClasses
             return mines;
         }
 
-        public Field ConvertToField(string input)
+        public static Field ConvertToField(string input)
         {
             var lines = GetLines(input);
             var columns = GetColumns(input);
             var mines = GetMines(input);
             return new Field(lines, columns, mines);
-        }
-
-        public List<Field> SeperateIntoFields(string input)
-        {
-            for (var i = 0; i < input.Length; i++)
-            {
-                if (i > 0
-                    && input[i] == '.' || input[i] == '*'
-                    && Char.IsDigit(input[i +1]))
-                {
-                    
-                }
-            }
-            return new List<Field>();
         }
     }
 }
