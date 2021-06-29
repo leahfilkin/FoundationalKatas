@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Minesweeper.Tests
 {
-    public class UserInterfaceTests
+    public class GameTests
     {
         [Fact]
         public void ReturnsFieldInputsAsCompletedFieldsWithAdjacentMineNumbers()
@@ -32,7 +32,7 @@ namespace Minesweeper.Tests
                 "Field #1:\n*210\n2*21\n12*2\n012*",
                 "Field #2:\n***\n*8*\n***"
             };
-            var fieldsFilledOut = UserInterface.CompleteGame(fieldInputs);
+            var fieldsFilledOut = Game.Complete(fieldInputs);
             Assert.Equal(expectedResult, fieldsFilledOut);
 
         }

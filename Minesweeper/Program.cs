@@ -14,7 +14,7 @@ namespace Minesweeper
                               "AxB = your field width and height, followed by \n" +
                               "The field, with * for mines and . for safe spots");
             var input = UserInterface.CollectFieldInputs();
-            Console.WriteLine(string.Join("\n", UserInterface.CompleteGame(input)));
+            Console.WriteLine(string.Join("\n", Game.Complete(input)));
         }
     }
 }
