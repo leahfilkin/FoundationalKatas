@@ -17,18 +17,18 @@ namespace Minesweeper.ConsoleClasses
                 throw new ArgumentException(
                     "You must write the amount of lines you want in integer format");
             }
-            
-            if (input.Count - 1 != Convert.ToInt32(input[0].Substring(0, input[0].IndexOf('x'))))
-            {
-                throw new ArgumentException(
-                    "The field you entered must be the same dimensions as the lines you specified");
-            }
-            
+                        
             if (lines > 100)
             {
                 throw new ArgumentOutOfRangeException(nameof(lines), "You cannot have a field that has more than 100 lines");
             }
             
+            if (input.Count - 1 != lines)
+            {
+                throw new ArgumentException(
+                    "The field you entered must be the same dimensions as the lines you specified");
+            }
+
             return lines;
         }
 
@@ -44,9 +44,16 @@ namespace Minesweeper.ConsoleClasses
                 throw new ArgumentException(
                     "You must write the amount of columns you want in integer format");
             }
+            
             if (columns > 100)
             {
                 throw new ArgumentOutOfRangeException(nameof(columns), "You cannot have a field that has more than 100 columns");
+            }
+            
+            if (input[^1].Length != columns)
+            {
+                throw new ArgumentException(
+                    "The field you entered must be the same dimensions as the columns you specified");
             }
 
             return columns;

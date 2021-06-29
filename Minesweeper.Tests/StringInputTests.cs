@@ -160,7 +160,7 @@ namespace Minesweeper.Tests
         }
         
         [Fact]
-        public void ThrowsErrorIfInputFieldIsNotSameHeightAsInputLines()
+        public void LineConverterThrowsErrorIfInputFieldIsNotSameHeightAsInputLines()
         {
             var input = new List<string>
             {
@@ -201,7 +201,11 @@ namespace Minesweeper.Tests
         {
             var input = new List<string>
             {
-                "4x104"
+                "4x104",
+                ".....*........*........*........*........*........*........*........*........*........*...****..*...****",
+                ".....*........*........*........*........*........*........*........*........*........*...****..*...****",
+                ".....*........*........*........*........*........*........*........*........*........*...****..*...****",
+                ".....*........*........*........*........*........*........*........*........*........*...****..*...****",
             };
 
             Assert.Throws<ArgumentOutOfRangeException>(() => StringInput.GetColumns(input));
@@ -217,6 +221,19 @@ namespace Minesweeper.Tests
                 "....",
                 ".*..",
                 "...."
+            };
+
+            Assert.Throws<ArgumentException>(() => StringInput.GetColumns(input));
+        }
+
+        [Fact]
+        public void ColumnsConverterThrowsErrorIfInputFieldIsNotSameWidthAsInputColumns()
+        {
+            var input = new List<string>
+            {
+                "9x9",
+                "*...",
+
             };
 
             Assert.Throws<ArgumentException>(() => StringInput.GetColumns(input));
