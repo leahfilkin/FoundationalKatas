@@ -6,14 +6,14 @@ namespace Minesweeper
     public class Game
     {
 
-        public static List<string> Complete(List<List<string>> input)
+        public static List<string> Complete(List<List<string>> multipleFieldsInput)
         {
             var output = new List<string>();
-            for (var i = 0; i < input.Count; i++)
+            for (var fieldInput = 0; fieldInput < multipleFieldsInput.Count; fieldInput++)
             {
-                var field = StringInput.ConvertToField(string.Join("\n", input[i]));
+                var field = StringInput.ConvertToField(multipleFieldsInput[fieldInput]);
                 field.PopulateWithAdjacentMineNumbers();
-                output.Add($"Field #{i+1}:\n" + StringOutput.ConvertPiecesToOutputNumbers(field));
+                output.Add($"Field #{fieldInput+1}:\n" + StringOutput.ConvertPiecesToOutputNumbers(field));
             }
             return output;
         }

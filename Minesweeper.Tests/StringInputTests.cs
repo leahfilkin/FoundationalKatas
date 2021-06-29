@@ -7,89 +7,196 @@ namespace Minesweeper.Tests
 {
     public class StringInputTests
     {
+
         [Theory]
-        [InlineData("4x4\n*...\n....\n.*..\n....", 4)]
-        [InlineData("3x5\n**...\n..... \n.*...", 3)]
-        [InlineData("13x5\n**...\n..... \n.*...\n....." +
-                    "\n.....\n.....\n.....\n.....\n....." +
-                    "\n.....\n.....\n.....\n.....", 13)]
-        public void ConvertInputToFieldLines(string input, int expectedLines)
+        [MemberData(nameof(InputFields))]
+        public void ConvertInputToFieldLines(InputFieldsData inputFieldsData)
         {
-            var lines = StringInput.GetLines(input);
-            
-            Assert.Equal(expectedLines, lines);
+            var lines = StringInput.GetLines(inputFieldsData.FieldInput);
+
+            Assert.Equal(inputFieldsData.NumberOfLines, lines);
         }
 
         [Fact]
         public void LinesConverterThrowErrorIfNoXToSeperateLinesAndColumns()
         {
-            var input = "44\n*...\n....\n.*..\n....";
-            
+            var input = new List<string>
+            {
+                "44",
+                "*...",
+                "....",
+                ".*..",
+                "...."
+            };
+
             Assert.Throws<ArgumentException>(() => StringInput.GetLines(input));
         }
 
         [Fact]
         public void LinesConverterThrowErrorIfLinesGreaterThan100()
         {
-            var input = "101x4\n*...";
-            
+            var input = new List<string>
+            {
+                "101x4",
+                "*...",
+            };
+
             Assert.Throws<ArgumentOutOfRangeException>(() => StringInput.GetLines(input));
         }
 
         [Fact]
         public void ConvertInputToFieldColumns()
         {
-            var input = "4x4\n*...\n....\n.*..\n....";
-            
+            var input = new List<string>
+            {
+                "4x4",
+                "*...",
+                "....",
+                ".*..",
+                "...."
+            };
+
             var lines = StringInput.GetColumns(input);
-            
+
             Assert.Equal(4, lines);
         }
-        
+
         [Fact]
         public void ColumnsConverterThrowErrorIfNoXToSeperateLinesAndColumns()
         {
-            var input = "44\n*...\n....\n.*..\n....";
-            
+            var input = new List<string>
+            {
+                "44",
+                "*...",
+                "....",
+                ".*..",
+                "...."
+            };
+
             Assert.Throws<ArgumentException>(() => StringInput.GetColumns(input));
         }
 
         [Fact]
         public void ColumnsConverterThrowErrorIfLinesGreaterThan100()
         {
-            var input = "4x104\n*...";
-            
+            var input = new List<string>
+            {
+                "4x104",
+                "*...",
+                "....",
+                ".*..",
+                "...."
+            };
+
             Assert.Throws<ArgumentOutOfRangeException>(() => StringInput.GetColumns(input));
         }
 
         [Fact]
         public void ConvertsAsterisksToMines()
         {
-            var input = "4x4\n*...\n....\n.*..\n....";
+            var input = new List<string>
+            {
+                "4x4",
+                "*...",
+                "....",
+                ".*..",
+                "...."
+
+            };
+
             var expectedMines = new List<Point>
             {
                 new Point(0, 0),
                 new Point(2, 1)
             };
-            
+
             var mines = StringInput.GetMines(input);
-            
+
             Assert.Equal(expectedMines, mines);
         }
 
         [Fact]
         public void CreatesFieldObjectFromMinesLinesAndColumnsGivenByOtherConvertingMethods()
         {
-            var input = "4x4\n*...\n....\n.*..\n....";
-            var expectedField = new Field(4,4, new List<Point>
+            var input = new List<string>
+            {
+                "4x4",
+                "*...",
+                "....",
+                ".*..",
+                "...."
+
+            };
+            var expectedField = new Field(4, 4, new List<Point>
             {
                 new Point(0, 0),
                 new Point(2, 1)
             });
 
-            var actualField = StringInput.ConvertToField(input);
-            
+            var actualField =
+                StringInput.ConvertToField(input);
+
             Assert.Equal(expectedField.Squares, actualField.Squares);
         }
+
+        public class InputFieldsData
+        {
+            public List<string> FieldInput;
+            public int NumberOfLines;
+            public int NumberOfColumns;
+
+        }
+
+        public static IEnumerable<object[]> InputFields =>
+            new TheoryData<InputFieldsData>
+            {
+                new InputFieldsData
+                {
+                    FieldInput = new List<string>
+                    {
+                        "4x4",
+                        "*...",
+                        "....",
+                        ".*..",
+                        "...."
+                    },
+                    NumberOfLines = 4,
+                    NumberOfColumns = 4,
+                },
+                new InputFieldsData
+                {
+                    FieldInput = new List<string>
+                    {
+                        "3x5",
+                        "**...",
+                        ".....",
+                        ".*..."
+                    },
+                    NumberOfLines = 3,
+                    NumberOfColumns = 5,
+                },
+                new InputFieldsData
+                {
+                    FieldInput = new List<string>
+                    {
+                        "13x5",
+                        "**...",
+                        ".....",
+                        ".*...",
+                        ".....",
+                        ".....",
+                        ".....",
+                        ".....",
+                        ".....",
+                        ".....",
+                        ".....",
+                        ".....",
+                        ".....",
+                        "....."
+                    },
+                    NumberOfLines = 13,
+                    NumberOfColumns = 5,
+                }
+            };
     }
 }

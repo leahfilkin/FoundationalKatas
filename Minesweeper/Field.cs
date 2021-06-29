@@ -21,11 +21,12 @@ namespace Minesweeper
                 Squares.Add(new List<Piece>());
                 for (var column = 0; column < columns; column++)
                 {
-
-                    Squares[line].Add(mineCoords.Any(mineCoord => mineCoord.Equals(new Point(line, column)))
-                        ? Piece.Mine
-                        : Piece.NoMine);
+                    Squares[line].Add(Piece.NoMine);
                 }
+            }
+            foreach (var mine in mineCoords)
+            {
+                Squares[mine.X][mine.Y] = Piece.Mine;
             }
         }
 
@@ -71,25 +72,6 @@ namespace Minesweeper
             }
 
             return adjacentSquares;
-
-
-        }
-
-        public List<List<int>> GetMines()
-        {
-            var mines = new List<List<int>>();
-            for (var i = 0; i < Squares.Count; i++)
-            {
-                for (var j = 0; j < Squares[0].Count; j++)
-                {
-                    if (Squares[i][j] == Piece.Mine)
-                    {
-                        mines.Add(new List<int> {i,j});
-                    }
-                }
-            }
-
-            return mines;
         }
 
         public void PopulateWithAdjacentMineNumbers()
@@ -119,6 +101,11 @@ namespace Minesweeper
             var otherField = o as Field;
             
             return otherField != null && Squares == otherField.Squares;
+        }
+
+        public override int GetHashCode()
+        {
+            return (Squares != null ? Squares.GetHashCode() : 0);
         }
     }
 }

@@ -63,18 +63,6 @@ namespace Minesweeper.Tests
             Assert.Equal(adjacentSquaresData.ExpectedSquares,adjacentSquares);
         }
 
-        [Fact]
-        public void ShouldGetListOfMines()
-        {
-            var expectedMines = new List<List<int>>
-            {
-                new List<int>() {0,0}
-            };
-            var field = new Field(3, 3, new List<Point> {new Point(0, 0)});
-            var mines = field.GetMines();
-            Assert.Equal(expectedMines, mines);
-        }
-
         [Theory]
         [MemberData(nameof(ReplacingNoMines))]
         public void ShouldReplaceNoMinesWithNumberOfSurroundingMinesForWholeField(ReplacingNoMinesData replacingNoMinesData)
