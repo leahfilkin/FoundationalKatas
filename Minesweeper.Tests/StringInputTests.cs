@@ -38,27 +38,132 @@ namespace Minesweeper.Tests
             var input = new List<string>
             {
                 "101x4",
-                "*...",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",                
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",                
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",                
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",                
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",                
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",                
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",                
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",                
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",                
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",                
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
+                "....",
             };
 
             Assert.Throws<ArgumentOutOfRangeException>(() => StringInput.GetLines(input));
         }
-
+        
         [Fact]
-        public void ConvertInputToFieldColumns()
+        public void ThrowsErrorIfInputFieldIsNotSameHeightAsInputLines()
         {
             var input = new List<string>
             {
                 "4x4",
-                "*...",
-                "....",
-                ".*..",
-                "...."
+                "*..."
             };
+            
+            Assert.Throws<ArgumentException>(() => StringInput.GetLines(input));
 
-            var lines = StringInput.GetColumns(input);
+        }
 
-            Assert.Equal(4, lines);
+        [Theory]
+        [MemberData(nameof(InputFields))]
+        public void ConvertInputToFieldColumns(InputFieldsData inputFieldsData)
+        {
+            var lines = StringInput.GetColumns(inputFieldsData.FieldInput);
+
+            Assert.Equal(inputFieldsData.NumberOfColumns, lines);
         }
 
         [Fact]
@@ -81,11 +186,7 @@ namespace Minesweeper.Tests
         {
             var input = new List<string>
             {
-                "4x104",
-                "*...",
-                "....",
-                ".*..",
-                "...."
+                "4x104"
             };
 
             Assert.Throws<ArgumentOutOfRangeException>(() => StringInput.GetColumns(input));
@@ -125,7 +226,6 @@ namespace Minesweeper.Tests
                 "....",
                 ".*..",
                 "...."
-
             };
             var expectedField = new Field(4, 4, new List<Point>
             {
