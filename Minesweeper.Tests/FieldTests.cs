@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Minesweeper.Enums;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Minesweeper.Tests
 {
@@ -30,14 +29,14 @@ namespace Minesweeper.Tests
         [MemberData(nameof(MineCoords))]
         public void PutsMinesInCoordinatesGivenToIt(MineCoordsData mineCoordsData)
         {
-            var field = new Field(4, 4, mineCoordsData.minesPassedToField);
+            var field = new Field(4, 4, mineCoordsData.MinesPassedToField);
             var squaresToCheckInField = new List<List<int>>();
-            for (var i = 0; i < mineCoordsData.squaresXIndexes.Count; i++)
+            for (var i = 0; i < mineCoordsData.SquaresXIndexes.Count; i++)
             {
                 squaresToCheckInField.Add(new List<int>
                 {
-                    mineCoordsData.squaresXIndexes[i], 
-                    mineCoordsData.squaresYIndexes[i]
+                    mineCoordsData.SquaresXIndexes[i], 
+                    mineCoordsData.SquaresYIndexes[i]
                 });
             }
             Assert.True(squaresToCheckInField.All(piece => field.Squares[piece[0]][piece[1]] == Piece.Mine));
@@ -406,9 +405,9 @@ namespace Minesweeper.Tests
 
         public class MineCoordsData
         {
-            public List<Point> minesPassedToField;
-            public List<int> squaresXIndexes;
-            public List<int> squaresYIndexes;
+            public List<Point> MinesPassedToField;
+            public List<int> SquaresXIndexes;
+            public List<int> SquaresYIndexes;
         }
         
         public static IEnumerable<object[]> MineCoords =>
@@ -416,22 +415,22 @@ namespace Minesweeper.Tests
             {
                 new MineCoordsData
                 {
-                    minesPassedToField = new List<Point> {new Point(0,0)},
-                    squaresXIndexes = new List<int> {0},
-                    squaresYIndexes = new List<int> {0}
+                    MinesPassedToField = new List<Point> {new Point(0,0)},
+                    SquaresXIndexes = new List<int> {0},
+                    SquaresYIndexes = new List<int> {0}
 
                 },
                 new MineCoordsData
                 {
-                    minesPassedToField = new List<Point> {new Point(1,2), new Point(3,2)},
-                    squaresXIndexes = new List<int> {1,3},
-                    squaresYIndexes = new List<int> {2,2}
+                    MinesPassedToField = new List<Point> {new Point(1,2), new Point(3,2)},
+                    SquaresXIndexes = new List<int> {1,3},
+                    SquaresYIndexes = new List<int> {2,2}
                 },
                 new MineCoordsData
                 {
-                    minesPassedToField = new List<Point> {new Point(0,0), new Point(3,3), new Point(3,1)},
-                    squaresXIndexes = new List<int> {0,3,3},
-                    squaresYIndexes = new List<int> {0,3,1}
+                    MinesPassedToField = new List<Point> {new Point(0,0), new Point(3,3), new Point(3,1)},
+                    SquaresXIndexes = new List<int> {0,3,3},
+                    SquaresYIndexes = new List<int> {0,3,1}
                 },
             };
         

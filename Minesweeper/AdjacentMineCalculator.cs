@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Minesweeper.Enums;
-using Xunit;
 
 namespace Minesweeper
 {
-    public class AdjacentMineCalculator
+    public static class AdjacentMineCalculator
     {
         public static int GetNumberOfAdjacentMines(int x, int y, Field field)
         {

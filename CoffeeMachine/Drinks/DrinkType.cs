@@ -6,5 +6,6 @@ namespace CoffeeMachine.Drinks
         Tea,
         Chocolate,
         OrangeJuice,
+
     }
 }

@@ -11,7 +11,6 @@ namespace Minesweeper.Tests
         {
             var field = new Field(3, 3, new List<Point> {new Point(0, 0)});
             field.PopulateWithAdjacentMineNumbers();
-            var output = new StringOutput();
 
             var convertedOutput = StringOutput.ConvertPiecesToOutputNumbers(field);
             
@@ -23,7 +22,6 @@ namespace Minesweeper.Tests
         {
             var field = new Field(3, 3, new List<Point> {new Point(0, 0)});
             field.PopulateWithAdjacentMineNumbers();
-            var output = new StringOutput();
 
             var convertedOutput = StringOutput.ConvertPiecesToOutputNumbers(field);
             
@@ -35,7 +33,6 @@ namespace Minesweeper.Tests
         {
             var field = new Field(3, 3, new List<Point> {new Point(0, 0)});
             field.PopulateWithAdjacentMineNumbers();
-            var output = new StringOutput();
 
             var convertedOutput = StringOutput.ConvertPiecesToOutputNumbers(field);
             
@@ -49,7 +46,6 @@ namespace Minesweeper.Tests
             var field = new Field(outputConverterData.NumberOfRows, outputConverterData.NumberOfColumns, 
                 outputConverterData.MinePoints);
             field.PopulateWithAdjacentMineNumbers();
-            var output = new StringOutput();
 
             var convertedOutput = StringOutput.ConvertPiecesToOutputNumbers(field);
             
@@ -63,7 +59,6 @@ namespace Minesweeper.Tests
             var field = new Field(outputConverterData.NumberOfRows, outputConverterData.NumberOfColumns, 
                 outputConverterData.MinePoints);
             field.PopulateWithAdjacentMineNumbers();
-            var output = new StringOutput();
 
             var convertedOutput = StringOutput.ConvertPiecesToOutputNumbers(field);
             

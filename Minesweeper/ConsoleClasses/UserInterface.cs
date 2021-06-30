@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Minesweeper.ConsoleClasses
 {
-    public class UserInterface
+    public static class UserInterface
     {
         public static List<List<string>> CollectFieldInputs()
         {

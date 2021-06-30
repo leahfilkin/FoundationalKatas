@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Minesweeper.Enums;
 
 namespace Minesweeper
@@ -9,7 +8,7 @@ namespace Minesweeper
     {
         public List<List<Piece>> Squares { get; }
 
-        public Field(int lines, int columns, List<Point> mineCoords)
+        public Field(int lines, int columns, IEnumerable<Point> mineCoords)
         {
             if (lines > 100 || columns > 100)
             {
@@ -98,9 +97,8 @@ namespace Minesweeper
             {
                 return false;
             }
-            var otherField = o as Field;
-            
-            return otherField != null && Squares == otherField.Squares;
+
+            return o is Field otherField && Squares == otherField.Squares;
         }
 
         public override int GetHashCode()

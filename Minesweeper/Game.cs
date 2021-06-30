@@ -3,7 +3,7 @@ using Minesweeper.ConsoleClasses;
 
 namespace Minesweeper
 {
-    public class Game
+    public static class Game
     {
 
         public static List<string> Complete(List<List<string>> multipleFieldsInput)

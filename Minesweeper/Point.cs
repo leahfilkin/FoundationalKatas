@@ -4,8 +4,8 @@ namespace Minesweeper
 {
     public class Point
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int X { get; }
+        public int Y { get; }
         public Point(int x, int y)
         {
             if (x < 0 || y < 0)
@@ -28,9 +28,8 @@ namespace Minesweeper
             {
                 return false;
             }
-            var otherPoint = o as Point;
-            
-            return otherPoint != null && X == otherPoint.X && Y == otherPoint.Y;
+
+            return o is Point otherPoint && X == otherPoint.X && Y == otherPoint.Y;
         }
         
         public override int GetHashCode()

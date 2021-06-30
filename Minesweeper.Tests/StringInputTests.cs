@@ -17,23 +17,25 @@ namespace Minesweeper.Tests
             Assert.Equal(inputFieldsData.NumberOfLines, lines);
         }
 
-        [Fact]
-        public void LinesConverterThrowsErrorIfLineInputIsNotInteger()
+        [Theory]
+        [InlineData("fourx4")]
+        [InlineData("4xfour")]
+        public void ThrowsErrorIfDimensionsInputsAreNotIntegers(string dimensions)
         {
             var input = new List<string>
             {
-                "fourx4",
+                dimensions,
                 "*...",
                 "....",
                 ".*..",
                 "...."
             };
 
-            Assert.Throws<ArgumentException>(() => StringInput.GetLines(input));
+            Assert.Throws<ArgumentException>(() => StringInput.ConvertToField(input));
         }
 
         [Fact]
-        public void LinesConverterThrowErrorIfNoXToSeperateLinesAndColumns()
+        public void ThrowErrorsIfNoXToSeparateLinesAndColumns()
         {
             var input = new List<string>
             {
@@ -44,199 +46,30 @@ namespace Minesweeper.Tests
                 "...."
             };
 
-            Assert.Throws<ArgumentException>(() => StringInput.GetLines(input));
+            Assert.Throws<ArgumentException>(() => StringInput.ConvertToField(input));
         }
 
-        [Fact]
-        public void LinesConverterThrowErrorIfLinesGreaterThan100()
+        [Theory]
+        [MemberData(nameof(GreaterThan100InputFields))]
+        public void ThrowsErrorIfDimensionsGreaterThan100(GreaterThan100InputFieldsData greaterThan100InputFieldsData)
         {
-            var input = new List<string>
-            {
-                "101x4",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",                
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",                
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",                
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",                
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",                
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",                
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",                
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",                
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",                
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",                
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-                "....",
-            };
-
-            Assert.Throws<ArgumentOutOfRangeException>(() => StringInput.GetLines(input));
+            Assert.Throws<ArgumentOutOfRangeException>(() => StringInput.ConvertToField(greaterThan100InputFieldsData.FieldInput));
         }
         
-        [Fact]
-        public void LineConverterThrowsErrorIfInputFieldIsNotSameHeightAsInputLines()
+        [Theory]
+        [MemberData(nameof(MismatchedDimensionsInput))]
+        public void ThrowsErrorIfInputFieldIsNotSameDimensionsAsInputtedDimensions(MismatchedDimensionsInputData mismatchedDimensionsInputData)
         {
-            var input = new List<string>
-            {
-                "4x4",
-                "*..."
-            };
-            
-            Assert.Throws<ArgumentException>(() => StringInput.GetLines(input));
-
+            Assert.Throws<ArgumentException>(() => StringInput.ConvertToField(mismatchedDimensionsInputData.FieldInput));
         }
 
         [Theory]
         [MemberData(nameof(InputFields))]
         public void ConvertInputToFieldColumns(InputFieldsData inputFieldsData)
         {
-            var lines = StringInput.GetColumns(inputFieldsData.FieldInput);
+            var columns = StringInput.GetColumns(inputFieldsData.FieldInput);
 
-            Assert.Equal(inputFieldsData.NumberOfColumns, lines);
-        }
-
-        [Fact]
-        public void ColumnsConverterThrowErrorIfNoXToSeperateLinesAndColumns()
-        {
-            var input = new List<string>
-            {
-                "44",
-                "*...",
-                "....",
-                ".*..",
-                "...."
-            };
-
-            Assert.Throws<ArgumentException>(() => StringInput.GetColumns(input));
-        }
-
-        [Fact]
-        public void ColumnsConverterThrowErrorIfLinesGreaterThan100()
-        {
-            var input = new List<string>
-            {
-                "4x104",
-                ".....*........*........*........*........*........*........*........*........*........*...****..*...****",
-                ".....*........*........*........*........*........*........*........*........*........*...****..*...****",
-                ".....*........*........*........*........*........*........*........*........*........*...****..*...****",
-                ".....*........*........*........*........*........*........*........*........*........*...****..*...****",
-            };
-
-            Assert.Throws<ArgumentOutOfRangeException>(() => StringInput.GetColumns(input));
-        }
-
-        [Fact]
-        public void ColumnsConverterThrowsErrorIfColumnInputIsNotInteger()
-        {
-            var input = new List<string>
-            {
-                "4xfour",
-                "*...",
-                "....",
-                ".*..",
-                "...."
-            };
-
-            Assert.Throws<ArgumentException>(() => StringInput.GetColumns(input));
-        }
-
-        [Fact]
-        public void ColumnsConverterThrowsErrorIfInputFieldIsNotSameWidthAsInputColumns()
-        {
-            var input = new List<string>
-            {
-                "9x9",
-                "*...",
-
-            };
-
-            Assert.Throws<ArgumentException>(() => StringInput.GetColumns(input));
+            Assert.Equal(inputFieldsData.NumberOfColumns, columns);
         }
 
         [Fact]
@@ -249,7 +82,6 @@ namespace Minesweeper.Tests
                 "....",
                 ".*..",
                 "...."
-
             };
 
             var expectedMines = new List<Point>
@@ -285,6 +117,173 @@ namespace Minesweeper.Tests
 
             Assert.Equal(expectedField.Squares, actualField.Squares);
         }
+
+        public class MismatchedDimensionsInputData
+        {
+            public List<string> FieldInput;
+        }
+
+        public static IEnumerable<object[]> MismatchedDimensionsInput =>
+            new TheoryData<MismatchedDimensionsInputData>
+            {
+                new MismatchedDimensionsInputData
+                {
+                    FieldInput = new List<string>
+                    {
+                        "9x9",
+                        "*...***.*",
+                        "*...***.*",
+                        "*...***.*",
+                    }
+                },
+                new MismatchedDimensionsInputData
+                {
+                    FieldInput = new List<string>
+                    {
+                        "5x5",
+                        "***.",
+                        "***.",
+                        "***.",
+                        "***.",
+                        "***."
+                    }
+                }
+            };
+
+        public class GreaterThan100InputFieldsData
+        {
+            public List<string> FieldInput;
+        }
+
+        public static IEnumerable<object[]> GreaterThan100InputFields =>
+            new TheoryData<GreaterThan100InputFieldsData>
+            {
+                new GreaterThan100InputFieldsData
+                {
+                    FieldInput =  new List<string>
+                    {
+                        "101x4",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",                
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",                
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",                
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",                
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",                
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",                
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",                
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",                
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",                
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",                
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                        "....",
+                    }
+                },
+                new GreaterThan100InputFieldsData
+                {
+                    FieldInput = new List<string>
+                    {
+                        "4x104",
+                        ".....*........*........*........*........*........*........*........*........*........*...****..*...****",
+                        ".....*........*........*........*........*........*........*........*........*........*...****..*...****",
+                        ".....*........*........*........*........*........*........*........*........*........*...****..*...****",
+                        ".....*........*........*........*........*........*........*........*........*........*...****..*...****",
+                    }
+                }
+                
+
+            };
+        
+        
+        
+        
 
         public class InputFieldsData
         {
@@ -345,5 +344,5 @@ namespace Minesweeper.Tests
                     NumberOfColumns = 5,
                 }
             };
+        }
     }
-}
