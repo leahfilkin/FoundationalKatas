@@ -10,10 +10,6 @@ namespace Minesweeper
 
         public Field(int lines, int columns, IEnumerable<Point> mineCoords)
         {
-            if (lines > 100 || columns > 100)
-            {
-                throw new ArgumentException("You cannot have a field with lines or columns greater than 100");
-            }
             Squares = new List<List<Piece>>();
             for (var line = 0; line < lines; line++)
             {

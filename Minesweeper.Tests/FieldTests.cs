@@ -75,13 +75,6 @@ namespace Minesweeper.Tests
 
         }
 
-        [Fact]
-        public void ShouldThrowErrorIfLinesBiggerThan100()
-        {
-            Assert.Throws<ArgumentException>(
-                () => new Field(101, 3, new List<Point> {new Point(0, 0)}));
-        }
-        
         [Theory]
         [MemberData(nameof(AdjacentMines))]
         public void ShouldReplaceSquareWithNumberOfAdjacentMines(AdjacentMineData adjacentMineData)

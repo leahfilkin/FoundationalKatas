@@ -50,7 +50,7 @@ namespace Minesweeper.ConsoleClasses
             CheckDimensionsAreNotOver100(linesInput, columnsInput);
             CheckDimensionsMatchField(input, linesInput, columnsInput);
         }
-
+        
         private static string GetColumnsInput(List<string> input)
         {
             return input[0].Substring(0, input[0].IndexOf('x'));
