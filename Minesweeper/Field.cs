@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Minesweeper.Enums;
 
 namespace Minesweeper
@@ -27,46 +28,23 @@ namespace Minesweeper
 
         public List<Piece> GetAdjacentSquares(int x, int y)
         {
-
-            var lineAbove = x - 1;
-            var lineBelow = x + 1;
-            var sameLine = x;
-            var columnToTheLeft = y - 1;
-            var columnToTheRight = y + 1;
-            var sameColumn = y;
-
-            var linesToCheck = new List<int>();
-            var adjacentSquares = new List<Piece>();
-            
-            if (x > 0)
+            var rows = new List<int>
             {
-                linesToCheck.Add(lineAbove);
-            }
-            
-            linesToCheck.Add(sameLine);
-            
-            if (x < Squares.Count - 1)
+                x - 1,
+                x,
+                x + 1
+            };
+            var columns = new List<int>
             {
-                linesToCheck.Add(lineBelow);
-            }
+                y - 1,
+                y,
+                y + 1
+            };
 
-            foreach (var line in linesToCheck)
-            {
-                if (columnToTheLeft >= 0)
-                {
-                    adjacentSquares.Add(Squares[line][columnToTheLeft]);
-                }
-                if (line != sameLine)
-                {
-                    adjacentSquares.Add(Squares[line][sameColumn]);
-                }
-                if (columnToTheRight <= Squares[0].Count - 1)
-                {
-                    adjacentSquares.Add(Squares[line][columnToTheRight]);
-                }
-            }
-
-            return adjacentSquares;
+            return (
+                from row in rows.Where(row => row >= 0 && row <= Squares.Count - 1) 
+                from column in columns.Where(column => column >= 0 && column <= Squares[0].Count - 1) 
+                where row != x || column != y select Squares[row][column]).ToList();
         }
 
         public void PopulateWithAdjacentMineNumbers()

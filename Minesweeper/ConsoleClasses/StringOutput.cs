@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Minesweeper.Enums;
 
@@ -25,6 +26,14 @@ namespace Minesweeper.ConsoleClasses
                             _ => throw new ArgumentOutOfRangeException()
                         })))
                 );
+        }
+        
+        public static List<string> DisplayFields(List<Field> fields)
+        {
+            return fields
+                .Select((t, fieldInput) => $"Field #{fieldInput + 1}:\n" + 
+                ConvertPiecesToOutputNumbers(t))
+                .ToList();
         }
     }
 }

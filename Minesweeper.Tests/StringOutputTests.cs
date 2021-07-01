@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Minesweeper.Tests
 {
-    public class OutputConverterTests
+    public class StringOutputTests
     {
         [Fact]
         public void ConvertsMineToAsterisk()
@@ -63,6 +63,39 @@ namespace Minesweeper.Tests
             var convertedOutput = StringOutput.ConvertPiecesToOutputNumbers(field);
             
             Assert.Equal(outputConverterData.ExpectedOutput, convertedOutput);
+        }
+        
+        [Fact]
+        public void ReturnsFieldInputsAsCompletedFieldsWithAdjacentMineNumbers()
+        {
+            var fieldInputs = new List<List<string>>
+            {
+                new List<string>
+                {
+                    "4x4",
+                    "*...",
+                    ".*..",
+                    "..*.",
+                    "...*"
+                },
+                new List<string>
+                {
+                    "3x3",
+                    "***",
+                    "*.*",
+                    "***"
+                }
+            };
+            var expectedResult = new List<string>
+            {
+                "Field #1:\n*210\n2*21\n12*2\n012*",
+                "Field #2:\n***\n*8*\n***"
+            };
+            var fields = Minesweeper.BuildFields(fieldInputs);
+            
+            var fieldsFilledOut = StringOutput.DisplayFields(fields);
+            
+            Assert.Equal(expectedResult, fieldsFilledOut);
         }
 
         public class OutputConverterData
