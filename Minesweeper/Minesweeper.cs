@@ -10,9 +10,8 @@ namespace Minesweeper
         public static List<Field> BuildFields(List<List<string>> multipleFieldsInput)
         {
             var fields = new List<Field>();
-            foreach (var t in multipleFieldsInput)
+            foreach (var field in multipleFieldsInput.Select(StringInput.ConvertToField))
             {
-                var field = StringInput.ConvertToField(t);
                 field.PopulateWithAdjacentMineNumbers();
                 fields.Add(field);
             }

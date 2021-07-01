@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using Minesweeper.Enums;
 
 namespace Minesweeper
 {
     public class Field
     {
-        public List<List<Piece>> Squares { get; }
+        public List<List<Piece>> Squares { get; set; }
 
         public Field(int lines, int columns, IEnumerable<Point> mineCoords)
         {
@@ -41,14 +42,19 @@ namespace Minesweeper
                 y + 1
             };
 
-            return (
-                from row in rows.Where(row => row >= 0 && row <= Squares.Count - 1) 
+            return (from row in rows.Where(row => row >= 0 && row <= Squares.Count - 1) 
                 from column in columns.Where(column => column >= 0 && column <= Squares[0].Count - 1) 
                 where row != x || column != y select Squares[row][column]).ToList();
         }
 
         public void PopulateWithAdjacentMineNumbers()
         {
+            // Squares = Squares.SelectMany(row => row)
+            //     .Select(square => square == Piece.Mine ? 
+            //         Piece.Mine :
+            //         AdjacentMineCalculator.PieceNameOf(AdjacentMineCalculator.GetNumberOfAdjacentMines(
+            //               Squares.IndexOf(square), j, this)));
+            //
             for (var i = 0; i < Squares.Count; i++)
             {
                 for (var j = 0; j < Squares[0].Count; j++)

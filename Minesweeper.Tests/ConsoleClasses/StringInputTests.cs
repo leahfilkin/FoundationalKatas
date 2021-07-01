@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Minesweeper.ConsoleClasses;
 using Xunit;
 
-namespace Minesweeper.Tests
+namespace Minesweeper.Tests.ConsoleClasses
 {
     public class StringInputTests
     {
