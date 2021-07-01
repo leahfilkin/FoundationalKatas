@@ -49,21 +49,21 @@ namespace Minesweeper
 
         public void PopulateWithAdjacentMineNumbers()
         {
-            // Squares = Squares.SelectMany(row => row)
-            //     .Select(square => square == Piece.Mine ? 
-            //         Piece.Mine :
-            //         AdjacentMineCalculator.PieceNameOf(AdjacentMineCalculator.GetNumberOfAdjacentMines(
-            //               Squares.IndexOf(square), j, this)));
-            //
-            for (var i = 0; i < Squares.Count; i++)
-            {
-                for (var j = 0; j < Squares[0].Count; j++)
-                {
-                    if (Squares[i][j] == Piece.Mine) continue;
-                    var adjacentMines = AdjacentMineCalculator.GetNumberOfAdjacentMines(i, j, this);
-                    Replace(i, j, adjacentMines);
-                }
-            }
+            Squares = (<List<Piece>) Squares
+                .Select((row, i) => row
+                    .Select((square, j) => square == Piece.Mine ? Piece.Mine :
+                        AdjacentMineCalculator.PieceNameOf(AdjacentMineCalculator.GetNumberOfAdjacentMines(
+                            i, j, this)))).ToList();
+            
+            // for (var i = 0; i < Squares.Count; i++)
+            // {
+            //     for (var j = 0; j < Squares[0].Count; j++)
+            //     {
+            //         if (Squares[i][j] == Piece.Mine) continue;
+            //         var adjacentMines = AdjacentMineCalculator.GetNumberOfAdjacentMines(i, j, this);
+            //         Replace(i, j, adjacentMines);
+            //     }
+            // }
         }
         
         public void Replace(int xToReplace, int yToReplace, int adjacentMines)
