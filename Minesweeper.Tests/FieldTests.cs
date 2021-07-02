@@ -83,19 +83,9 @@ namespace Minesweeper.Tests
                 adjacentMineData.MinePoints);
             var adjacentMines = AdjacentMineCalculator.GetNumberOfAdjacentMines(adjacentMineData.SquareXCoord, adjacentMineData.SquareYCoord, field);
             
-            field.Replace(adjacentMineData.SquareXCoord, adjacentMineData.SquareYCoord, adjacentMines);
+            field.PopulateWithAdjacentMineNumbers();
             
             Assert.Equal(adjacentMineData.ExpectedPiece, field.Squares[adjacentMineData.SquareXCoord][adjacentMineData.SquareYCoord]);
-        }
-
-        [Fact]
-        public void IfNumberOfAdjacentMinesOutsideOfExpectedValuesThrowError()
-        {
-            var field = new Field(3, 3, 
-                new List<Point> {new Point(0,0)});
-            
-            Assert.Throws<ArgumentException>
-                ( () => field.Replace(0, 1, 9));
         }
         
         [Theory]
@@ -104,9 +94,8 @@ namespace Minesweeper.Tests
         {
             var field = new Field(adjacentMineData.NumberOfRows, adjacentMineData.NumberOfColumns, 
                 adjacentMineData.MinePoints);
-            var adjacentMines = AdjacentMineCalculator.GetNumberOfAdjacentMines(adjacentMineData.SquareXCoord, adjacentMineData.SquareYCoord, field);
             
-            field.Replace(adjacentMineData.SquareXCoord, adjacentMineData.SquareYCoord, adjacentMines);
+            field.PopulateWithAdjacentMineNumbers();
             
             Assert.Equal(adjacentMineData.ExpectedPiece, field.Squares[adjacentMineData.SquareXCoord][adjacentMineData.SquareYCoord]);
         }
