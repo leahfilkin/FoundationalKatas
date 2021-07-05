@@ -63,7 +63,7 @@ namespace Minesweeper.ConsoleClasses
                     "The field you entered must be the same dimensions as the lines you specified");
             }
             
-            if (input[^1].Length != Convert.ToInt32(columnsInput))
+            if (input.Any(inputString => inputString.Length != Convert.ToInt32(columnsInput) && inputString != input[0]))
             {
                 throw new ArgumentException(
                     "The field you entered must be the same dimensions as the columns you specified");
@@ -74,11 +74,11 @@ namespace Minesweeper.ConsoleClasses
         {
             if (Convert.ToInt32(linesInput) > 100)
             {
-                throw new ArgumentOutOfRangeException(nameof(linesInput), "You cannot have a field that has more than 100 lines");
+                throw new ArgumentException( "You cannot have a field that has more than 100 lines");
             }
             if (Convert.ToInt32(columnsInput) > 100)
             {
-                throw new ArgumentOutOfRangeException(nameof(columnsInput), "You cannot have a field that has more than 100 columns");
+                throw new ArgumentException("You cannot have a field that has more than 100 columns");
             }
         }
 

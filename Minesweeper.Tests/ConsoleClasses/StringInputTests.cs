@@ -17,50 +17,12 @@ namespace Minesweeper.Tests.ConsoleClasses
             Assert.Equal(inputFieldsData.NumberOfLines, lines);
         }
 
-        [Theory]
-        [InlineData("fourx4")]
-        [InlineData("4xfour")]
-        public void ThrowsErrorIfDimensionsInputsAreNotIntegers(string dimensions)
-        {
-            var input = new List<string>
-            {
-                dimensions,
-                "*...",
-                "....",
-                ".*..",
-                "...."
-            };
-
-            Assert.Throws<ArgumentException>(() => StringInput.ConvertToField(input));
-        }
-
-        [Fact]
-        public void ThrowErrorsIfNoXToSeparateLinesAndColumns()
-        {
-            var input = new List<string>
-            {
-                "44",
-                "*...",
-                "....",
-                ".*..",
-                "...."
-            };
-
-            Assert.Throws<ArgumentException>(() => StringInput.ConvertToField(input));
-        }
 
         [Theory]
-        [MemberData(nameof(GreaterThan100InputFields))]
-        public void ThrowsErrorIfDimensionsGreaterThan100(GreaterThan100InputFieldsData greaterThan100InputFieldsData)
+        [MemberData(nameof(IncorrectInputFields))]
+        public void ThrowErrorsIfInvalidInputGiven(IncorrectInputFieldsData incorrectInputFieldsData)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => StringInput.ConvertToField(greaterThan100InputFieldsData.FieldInput));
-        }
-        
-        [Theory]
-        [MemberData(nameof(MismatchedDimensionsInput))]
-        public void ThrowsErrorIfInputFieldIsNotSameDimensionsAsInputtedDimensions(MismatchedDimensionsInputData mismatchedDimensionsInputData)
-        {
-            Assert.Throws<ArgumentException>(() => StringInput.ConvertToField(mismatchedDimensionsInputData.FieldInput));
+            Assert.Throws<ArgumentException>(() => StringInput.ConvertToField(incorrectInputFieldsData.FieldInput));
         }
 
         [Theory]
@@ -117,48 +79,18 @@ namespace Minesweeper.Tests.ConsoleClasses
 
             Assert.Equal(expectedField.Squares, actualField.Squares);
         }
+        
+        
 
-        public class MismatchedDimensionsInputData
+        public class IncorrectInputFieldsData
         {
             public List<string> FieldInput;
         }
 
-        public static IEnumerable<object[]> MismatchedDimensionsInput =>
-            new TheoryData<MismatchedDimensionsInputData>
+        public static IEnumerable<object[]> IncorrectInputFields =>
+            new TheoryData<IncorrectInputFieldsData>
             {
-                new MismatchedDimensionsInputData
-                {
-                    FieldInput = new List<string>
-                    {
-                        "9x9",
-                        "*...***.*",
-                        "*...***.*",
-                        "*...***.*",
-                    }
-                },
-                new MismatchedDimensionsInputData
-                {
-                    FieldInput = new List<string>
-                    {
-                        "5x5",
-                        "***.",
-                        "***.",
-                        "***.",
-                        "***.",
-                        "***."
-                    }
-                }
-            };
-
-        public class GreaterThan100InputFieldsData
-        {
-            public List<string> FieldInput;
-        }
-
-        public static IEnumerable<object[]> GreaterThan100InputFields =>
-            new TheoryData<GreaterThan100InputFieldsData>
-            {
-                new GreaterThan100InputFieldsData
+                new IncorrectInputFieldsData
                 {
                     FieldInput =  new List<string>
                     {
@@ -266,7 +198,7 @@ namespace Minesweeper.Tests.ConsoleClasses
                         "....",
                     }
                 },
-                new GreaterThan100InputFieldsData
+                new IncorrectInputFieldsData
                 {
                     FieldInput = new List<string>
                     {
@@ -276,8 +208,52 @@ namespace Minesweeper.Tests.ConsoleClasses
                         ".....*........*........*........*........*........*........*........*........*........*...****..*...****",
                         ".....*........*........*........*........*........*........*........*........*........*...****..*...****",
                     }
+                },
+                new IncorrectInputFieldsData
+                {
+                    FieldInput = new List<string>
+                    {
+                        "5x5",
+                        "***..",
+                        "***..",
+                        "***.",
+                        "***..",
+                        "***.."
+                    }
+                },
+                new IncorrectInputFieldsData
+                {
+                    FieldInput = new List<string>
+                    {
+                        "9x9",
+                        "*...***.*",
+                        "*...***.*",
+                        "*...***.*",
+                    }
+                },
+                new IncorrectInputFieldsData
+                {
+                    FieldInput = new List<string>
+                    {
+                        "fourx4",
+                        "*...",
+                        "....",
+                        ".*..",
+                        "...."
+                    }
+                },
+                new IncorrectInputFieldsData
+                {
+                    FieldInput = new List<string>
+                    {
+                        "4xfour",
+                        "*...",
+                        "....",
+                        ".*..",
+                        "...."
+                    }
                 }
-                
+
 
             };
         
