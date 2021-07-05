@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Minesweeper.Enums;
 using Xunit;
 
@@ -58,18 +56,6 @@ namespace Minesweeper.Tests
 
         }
 
-        [Theory]
-        [MemberData(nameof(AdjacentMines))]
-        public void ReplacesSquareWithNumberOfAdjacentMines(AdjacentMineData adjacentMineData)
-        {
-            var field = new Field(adjacentMineData.NumberOfRows, adjacentMineData.NumberOfColumns, 
-                adjacentMineData.MinePoints);
-            
-            field.PopulateWithAdjacentMineNumbers();
-            
-            Assert.Equal(adjacentMineData.ExpectedPiece, field.Squares[adjacentMineData.SquareXCoord][adjacentMineData.SquareYCoord]);
-        }
-        
         public class ReplacingNoMinesData
         {
             public List<Point> MinePoints;
@@ -350,152 +336,7 @@ namespace Minesweeper.Tests
                     NumberOfColumns = 100,
                     Line = 75,
                     Column = 46
-                },
-            };
-
-
-
-        public class MineCoordsData
-        {
-            public List<Point> MinesPassedToField;
-            public List<int> SquaresXIndexes;
-            public List<int> SquaresYIndexes;
-        }
-        
-        public static IEnumerable<object[]> MineCoords =>
-            new TheoryData<MineCoordsData>
-            {
-                new MineCoordsData
-                {
-                    MinesPassedToField = new List<Point> {new Point(0,0)},
-                    SquaresXIndexes = new List<int> {0},
-                    SquaresYIndexes = new List<int> {0}
-
-                },
-                new MineCoordsData
-                {
-                    MinesPassedToField = new List<Point> {new Point(1,2), new Point(3,2)},
-                    SquaresXIndexes = new List<int> {1,3},
-                    SquaresYIndexes = new List<int> {2,2}
-                },
-                new MineCoordsData
-                {
-                    MinesPassedToField = new List<Point> {new Point(0,0), new Point(3,3), new Point(3,1)},
-                    SquaresXIndexes = new List<int> {0,3,3},
-                    SquaresYIndexes = new List<int> {0,3,1}
-                },
-            };
-        
-        public class AdjacentMineData
-        {
-            public List<Point> MinePoints;
-            public int NumberOfRows;
-            public int NumberOfColumns;
-            public int SquareXCoord;
-            public int SquareYCoord;
-            public Piece ExpectedPiece;
-            public int MineCount;
-
-        }
-
-        public static IEnumerable<object[]> AdjacentMines =>
-            new TheoryData<AdjacentMineData>
-            {
-                new AdjacentMineData
-                {
-                    MinePoints = new List<Point>
-                    {
-                        new Point(1, 2),
-                    },
-                    NumberOfRows = 3,
-                    NumberOfColumns = 3,
-                    SquareXCoord = 0,
-                    SquareYCoord = 0,
-                    MineCount = 0,
-                    ExpectedPiece = Piece.Zero
-                },
-                new AdjacentMineData
-                {
-                    MinePoints = new List<Point>
-                    {
-                        new Point(0, 0),
-                    },
-                    NumberOfRows = 3,
-                    NumberOfColumns = 3,
-                    SquareXCoord = 0,
-                    SquareYCoord = 1,
-                    MineCount = 1,
-                    ExpectedPiece = Piece.One
-
-                },
-                new AdjacentMineData
-                {
-                    MinePoints = new List<Point>
-                    {
-                        new Point(0, 0),
-                        new Point(0,1)
-                    },
-                    NumberOfRows = 3,
-                    NumberOfColumns = 3,
-                    SquareXCoord = 1,
-                    SquareYCoord = 0,
-                    MineCount = 2,
-                    ExpectedPiece = Piece.Two
-
-                },
-                new AdjacentMineData
-                {
-                    MinePoints = new List<Point>
-                    {
-                        new Point(0, 0),
-                        new Point(0,1),
-                        new Point(0,2),
-                        new Point(1,0),
-                        new Point(1,2),
-                        new Point(2,0),
-                        new Point(2,1),
-                        new Point(2,2)
-                    },
-                    NumberOfRows = 3,
-                    NumberOfColumns = 3,
-                    SquareXCoord = 1,
-                    SquareYCoord = 1,
-                    MineCount = 8,
-                    ExpectedPiece = Piece.Eight
-
-                },
-                new AdjacentMineData
-                {
-                    MinePoints = new List<Point>
-                    {
-                        new Point(0,1),
-                        new Point(1,0),
-                    },
-                    NumberOfRows = 3,
-                    NumberOfColumns = 3,
-                    SquareXCoord = 0,
-                    SquareYCoord = 0,
-                    MineCount = 2,
-                    ExpectedPiece = Piece.Two
-
-                },
-                new AdjacentMineData
-                {
-                    MinePoints = new List<Point>
-                    {
-                        new Point(15,27),
-                        new Point(13,25),
-                        new Point(1,1),
-                    },
-                    NumberOfRows = 30,
-                    NumberOfColumns = 46,
-                    SquareXCoord = 14,
-                    SquareYCoord = 26,
-                    MineCount = 2,
-                    ExpectedPiece = Piece.Two
-
-                },
-                
+                }
             };
     }
 }
