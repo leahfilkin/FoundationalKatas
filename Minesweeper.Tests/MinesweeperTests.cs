@@ -82,7 +82,7 @@ namespace Minesweeper.Tests
                 }
             };
 
-            var fields = Minesweeper.BuildFields(fieldInputs);
+            var fields = FieldBuilder.BuildFields(fieldInputs);
             
             Assert.Equal(expectedResult[0], fields[0].Squares);
             Assert.Equal(expectedResult[1], fields[1].Squares);

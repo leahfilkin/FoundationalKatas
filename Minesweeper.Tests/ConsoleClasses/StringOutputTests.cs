@@ -58,7 +58,7 @@ namespace Minesweeper.Tests.ConsoleClasses
                 "Field #1:\n*210\n2*21\n12*2\n012*",
                 "Field #2:\n***\n*8*\n***"
             };
-            var fields = Minesweeper.BuildFields(fieldInputs);
+            var fields = FieldBuilder.BuildFields(fieldInputs);
             
             var fieldsFilledOut = StringOutput.DisplayFields(fields);
             

@@ -14,7 +14,7 @@ namespace Minesweeper
                               "Please make sure the field dimensions match what you put at the top.\n" +
                               "You can put as many fields as you like. To finish, press 00 and enter. ");
             var input = UserInterface.CollectFieldInputs();
-            var inputFields = Minesweeper.BuildFields(input);
+            var inputFields = FieldBuilder.BuildFields(input);
             var filledOutFields = StringOutput.DisplayFields(inputFields);
             Console.WriteLine(string.Join("\n", filledOutFields));
         }

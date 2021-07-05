@@ -4,7 +4,7 @@ using Minesweeper.ConsoleClasses;
 
 namespace Minesweeper
 {
-    public static class Minesweeper
+    public static class FieldBuilder
     {
 
         public static List<Field> BuildFields(List<List<string>> multipleFieldsInput)
