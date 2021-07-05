@@ -10,11 +10,14 @@ namespace Minesweeper.Tests.ConsoleClasses
 
         [Theory]
         [MemberData(nameof(InputFields))]
-        public void ConvertInputToFieldLines(InputFieldsData inputFieldsData)
+        public void ConvertInputToFieldDimensions(InputFieldsData inputFieldsData)
         {
             var lines = StringInput.GetLines(inputFieldsData.FieldInput);
+            var columns = StringInput.GetColumns(inputFieldsData.FieldInput);
 
             Assert.Equal(inputFieldsData.NumberOfLines, lines);
+            Assert.Equal(inputFieldsData.NumberOfColumns, columns);
+
         }
 
 
@@ -23,38 +26,6 @@ namespace Minesweeper.Tests.ConsoleClasses
         public void ThrowErrorsIfInvalidInputGiven(IncorrectInputFieldsData incorrectInputFieldsData)
         {
             Assert.Throws<ArgumentException>(() => StringInput.ConvertToField(incorrectInputFieldsData.FieldInput));
-        }
-
-        [Theory]
-        [MemberData(nameof(InputFields))]
-        public void ConvertInputToFieldColumns(InputFieldsData inputFieldsData)
-        {
-            var columns = StringInput.GetColumns(inputFieldsData.FieldInput);
-
-            Assert.Equal(inputFieldsData.NumberOfColumns, columns);
-        }
-
-        [Fact]
-        public void ConvertsAsterisksToMines()
-        {
-            var input = new List<string>
-            {
-                "4x4",
-                "*...",
-                "....",
-                ".*..",
-                "...."
-            };
-
-            var expectedMines = new List<Point>
-            {
-                new Point(0, 0),
-                new Point(2, 1)
-            };
-
-            var mines = StringInput.GetMines(input);
-
-            Assert.Equal(expectedMines, mines);
         }
 
         [Fact]
@@ -256,10 +227,6 @@ namespace Minesweeper.Tests.ConsoleClasses
 
 
             };
-        
-        
-        
-        
 
         public class InputFieldsData
         {
