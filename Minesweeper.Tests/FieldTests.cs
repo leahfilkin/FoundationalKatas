@@ -25,25 +25,8 @@ namespace Minesweeper.Tests
             Assert.Equal(columns, field.Squares[0].Count);
         }
 
-        [Theory]
-        [MemberData(nameof(MineCoords))]
-        public void PutsMinesInCoordinatesGivenToIt(MineCoordsData mineCoordsData)
-        {
-            var field = new Field(4, 4, mineCoordsData.MinesPassedToField);
-            var squaresToCheckInField = new List<List<int>>();
-            for (var i = 0; i < mineCoordsData.SquaresXIndexes.Count; i++)
-            {
-                squaresToCheckInField.Add(new List<int>
-                {
-                    mineCoordsData.SquaresXIndexes[i], 
-                    mineCoordsData.SquaresYIndexes[i]
-                });
-            }
-            Assert.True(squaresToCheckInField.All(piece => field.Squares[piece[0]][piece[1]] == Piece.Mine));
-        }
-
         [Fact]
-        public void ContainsBothMinesAndNonMinesInTheCorrectPlacesInOneField()
+        public void ContainsMinesAndNonMinesInTheCorrectPlacesInOneField()
         {
             var field = new Field(2, 2, new List<Point> {new Point(0,0)});
             Assert.Equal(Piece.Mine, field.Squares[0][0]);
@@ -58,13 +41,13 @@ namespace Minesweeper.Tests
                 new Field(adjacentSquaresData.NumberOfRows, adjacentSquaresData.NumberOfColumns,
                 new List<Point> {new Point(0,0)});
             var adjacentSquares = 
-                field.GetAdjacentSquares(adjacentSquaresData.SquareXCoord,adjacentSquaresData.SquareYCoord);
+                field.GetAdjacentSquares(adjacentSquaresData.Line,adjacentSquaresData.Column);
             Assert.Equal(adjacentSquaresData.ExpectedSquares,adjacentSquares);
         }
 
         [Theory]
         [MemberData(nameof(ReplacingNoMines))]
-        public void ShouldReplaceNoMinesWithNumberOfSurroundingMinesForWholeField(ReplacingNoMinesData replacingNoMinesData)
+        public void ReplaceNoMinesWithNumberOfSurroundingMinesForWholeField(ReplacingNoMinesData replacingNoMinesData)
         {
             var field = new Field(replacingNoMinesData.NumberOfRows, replacingNoMinesData.NumberOfColumns, 
                 replacingNoMinesData.MinePoints);
@@ -75,19 +58,6 @@ namespace Minesweeper.Tests
 
         }
 
-        [Theory]
-        [MemberData(nameof(AdjacentMines))]
-        public void ShouldReplaceSquareWithNumberOfAdjacentMines(AdjacentMineData adjacentMineData)
-        {
-            var field = new Field(adjacentMineData.NumberOfRows, adjacentMineData.NumberOfColumns, 
-                adjacentMineData.MinePoints);
-            var adjacentMines = AdjacentMineCalculator.GetNumberOfAdjacentMines(adjacentMineData.SquareXCoord, adjacentMineData.SquareYCoord, field);
-            
-            field.PopulateWithAdjacentMineNumbers();
-            
-            Assert.Equal(adjacentMineData.ExpectedPiece, field.Squares[adjacentMineData.SquareXCoord][adjacentMineData.SquareYCoord]);
-        }
-        
         [Theory]
         [MemberData(nameof(AdjacentMines))]
         public void ReplacesSquareWithNumberOfAdjacentMines(AdjacentMineData adjacentMineData)
@@ -222,8 +192,8 @@ namespace Minesweeper.Tests
             public List<Piece> ExpectedSquares;
             public int NumberOfRows;
             public int NumberOfColumns;
-            public int SquareXCoord;
-            public int SquareYCoord;
+            public int Line;
+            public int Column;
             
         }
         
@@ -240,8 +210,8 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
-                    SquareXCoord = 0,
-                    SquareYCoord = 0
+                    Line = 0,
+                    Column = 0
                 },
                 new AdjacentSquaresData
                 {   
@@ -256,8 +226,8 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
-                    SquareXCoord = 0,
-                    SquareYCoord = 1
+                    Line = 0,
+                    Column = 1
                 },
                 new AdjacentSquaresData
                 {   
@@ -270,8 +240,8 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
-                    SquareXCoord = 0,
-                    SquareYCoord = 2
+                    Line = 0,
+                    Column = 2
                 },
                 new AdjacentSquaresData
                 {  
@@ -285,8 +255,8 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
-                    SquareXCoord = 1,
-                    SquareYCoord = 0
+                    Line = 1,
+                    Column = 0
                 },
                 new AdjacentSquaresData
                 {
@@ -303,8 +273,8 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 3,
                     NumberOfColumns = 3,
-                    SquareXCoord = 1,
-                    SquareYCoord = 1
+                    Line = 1,
+                    Column = 1
                 },
                 new AdjacentSquaresData
                 {
@@ -318,8 +288,8 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 5,
                     NumberOfColumns = 4,
-                    SquareXCoord = 2,
-                    SquareYCoord = 3
+                    Line = 2,
+                    Column = 3
                 },
                 
                 new AdjacentSquaresData
@@ -332,8 +302,8 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 5,
                     NumberOfColumns = 4,
-                    SquareXCoord = 4,
-                    SquareYCoord = 0
+                    Line = 4,
+                    Column = 0
                 },
                 new AdjacentSquaresData
                 {
@@ -347,8 +317,8 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 10,
                     NumberOfColumns = 13,
-                    SquareXCoord = 9,
-                    SquareYCoord = 8
+                    Line = 9,
+                    Column = 8
                 },
                 new AdjacentSquaresData
                 {
@@ -360,8 +330,8 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 15,
                     NumberOfColumns = 18,
-                    SquareXCoord = 14,
-                    SquareYCoord = 17
+                    Line = 14,
+                    Column = 17
                 },
                 new AdjacentSquaresData
                 {
@@ -378,8 +348,8 @@ namespace Minesweeper.Tests
                     },
                     NumberOfRows = 80,
                     NumberOfColumns = 100,
-                    SquareXCoord = 75,
-                    SquareYCoord = 46
+                    Line = 75,
+                    Column = 46
                 },
             };
 

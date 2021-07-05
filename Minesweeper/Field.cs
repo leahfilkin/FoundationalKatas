@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Net;
 using Minesweeper.Enums;
@@ -29,22 +30,14 @@ namespace Minesweeper
 
         public List<Piece> GetAdjacentSquares(int x, int y)
         {
-            var rows = new List<int>
-            {
-                x - 1,
-                x,
-                x + 1
-            };
-            var columns = new List<int>
-            {
-                y - 1,
-                y,
-                y + 1
-            };
-
-            return (from row in rows.Where(row => row >= 0 && row <= Squares.Count - 1) 
-                from column in columns.Where(column => column >= 0 && column <= Squares[0].Count - 1) 
-                where row != x || column != y select Squares[row][column]).ToList();
+            return Enumerable.Range(x-1, 3)
+                .SelectMany(row => Enumerable.Range(y-1, 3)
+                    .Select(column => new {Line = row, Column = column}))
+                .Where(coords => 
+                    coords.Line >= 0 && coords.Line <= Squares.Count - 1 && 
+                    coords.Column >= 0 && coords.Column <= Squares[0].Count - 1)
+                .Where(coords => !(coords.Line == x && coords.Column == y))
+                .Select(coords => Squares[coords.Line][coords.Column]).ToList();
         }
 
         public void PopulateWithAdjacentMineNumbers()
