@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Minesweeper.ConsoleClasses
 {
@@ -17,19 +18,12 @@ namespace Minesweeper.ConsoleClasses
 
         public static List<Point> GetMines(List<string> input)
         {
-            var mines = new List<Point>();
-            for (var i = 1; i < input.Count; i++)
-            {
-                for (var j = 0; j < input[1].Length; j++)
-                {
-                    if (input[i][j] == '*')
-                    {
-                        mines.Add(new Point(i-1,j));
-                    }
-                }
-            }
-
-            return mines;
+            return input
+                .Where(line => input[0] != line)
+                .SelectMany((row, i) => row
+                    .Select((square, j) => new Point(i,j))
+                    .Where(point => input[point.X+1][point.Y] == '*'))
+                .ToList();
         }
 
         public static Field ConvertToField(List<string> input)
