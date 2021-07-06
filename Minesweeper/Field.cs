@@ -30,24 +30,31 @@ namespace Minesweeper
 
         public List<Piece> GetAdjacentSquares(int x, int y)
         {
-            return Enumerable.Range(x-1, 3)
-                .SelectMany(row => Enumerable.Range(y-1, 3)
-                    .Select(column => new {Line = row, Column = column}))
+            var rowsToCheck = Enumerable.Range(x - 1, 3);
+            var columnsToCheck = Enumerable.Range(y - 1, 3);
+            var coordsToCheck = rowsToCheck
+                .SelectMany(line => columnsToCheck
+                    .Select(column => new {Line = line, Column = column}));
+            var coordsNotOnEdge = coordsToCheck
                 .Where(coords => 
-                    coords.Line >= 0 && coords.Line <= Squares.Count - 1 && 
-                    coords.Column >= 0 && coords.Column <= Squares[0].Count - 1)
-                .Where(coords => !(coords.Line == x && coords.Column == y))
-                .Select(coords => Squares[coords.Line][coords.Column]).ToList();
+                    coords.Line >= 0 && coords.Line <= Squares.Count - 1 
+                    && coords.Column >= 0 && coords.Column <= Squares[0].Count - 1);
+            var adjacentCoords = coordsNotOnEdge
+                .Where(coords => !(coords.Line == x && coords.Column == y));
+            
+            return
+                adjacentCoords.Select(coords => Squares[coords.Line][coords.Column]).ToList();
         }
 
         public void PopulateWithAdjacentMineNumbers()
         {
-            Squares = Squares
+            var squaresToCheck = Squares
                 .Select((row, i) => row
-                    .Select((square, j) => square == Piece.Mine ? Piece.Mine :
-                        AdjacentMineCalculator.PieceNameOf(AdjacentMineCalculator.GetNumberOfAdjacentMines(
-                            i, j, this))).ToList()).ToList();
-            
+                    .Select((square, j) => new {Line = i, Column = j, Piece = square}));
+            Squares = squaresToCheck.Select((square) => square
+                .Select(s => s.Piece == Piece.Mine ? Piece.Mine
+                    : AdjacentMineCalculator.PieceNameOf(AdjacentMineCalculator.GetNumberOfAdjacentMines(
+                        s.Line, s.Column, this))).ToList()).ToList();
         }
 
         public override bool Equals(object o)

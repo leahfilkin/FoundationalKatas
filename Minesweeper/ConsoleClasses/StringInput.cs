@@ -18,12 +18,12 @@ namespace Minesweeper.ConsoleClasses
 
         public static List<Point> GetMines(List<string> input)
         {
-            return input
-                .Where(line => input[0] != line)
-                .SelectMany((row, i) => row
-                    .Select((square, j) => new Point(i,j))
-                    .Where(point => input[point.X+1][point.Y] == '*'))
-                .ToList();
+            var inputWithoutDimensions = input
+                .Where(line => input[0] != line);
+            var indexesAsPoints = inputWithoutDimensions.SelectMany((row, i) => row
+                .Select((square, j) => new Point(i, j)));
+            return
+                indexesAsPoints.Where(point => input[point.X+1][point.Y] == '*').ToList();
         }
 
         public static Field ConvertToField(List<string> input)

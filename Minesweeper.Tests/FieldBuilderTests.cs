@@ -4,10 +4,10 @@ using Xunit;
 
 namespace Minesweeper.Tests
 {
-    public class MinesweeperTests
+    public class FieldBuilderTests
     {
         [Fact]
-        public void ReturnsFieldInputsAsFieldType()
+        public void ReturnsFieldInputsAsField()
         {
             var fieldInputs = new List<List<string>>
             {
